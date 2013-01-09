@@ -1,0 +1,32 @@
+# This program uses Alphabets.txt (a conversion table) to convert a Tanach to a common
+# code set so it can be compared to another Tanach in the same code set.
+procedure main()
+# Initializations
+  write("Begin File Conversion")
+  (file01 := open("Alphabets.txt","r")) | stop("Cannot open Alphabets.txt")
+  (file02 := open("Tanach_SteveGross.txt","u")) | stop("Cannot open Tanach_SteveGross.txt")
+  (file03 := open("TanachFast_SteveGross.txt","w")) | stop("Cannot open TanachFast_SteveGross.txt")
+
+  c1 := " "
+  c2 := " "
+  linein := " "
+
+# Create the empty Alphabet Table
+  alphabet := table(" ")
+
+# Load the Alphabet Table.
+  while line := read(file01) do
+    { line ? {c1 := move(1)
+                   move(1)
+                   c2 := move(1) }
+       alphabet[c1] := c2
+    }
+
+# Write the content of the alphabet table to the console.
+every a := key(alphabet) do
+  write(a, ":", alphabet[a])
+
+# Convert file02 in it's own code set to file03 in the common code set.
+  while c1 := reads(file02,1) do
+    writes(file03,alphabet[c1])
+end

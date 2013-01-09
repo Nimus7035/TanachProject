@@ -1,0 +1,106 @@
+
+              Notes on the ASCII version of the Tanach
+
+============================================================================
+
+  Quite a while ago, I purchased a copy of the Hebrew bible from
+the Center for Computer Analysis of Texts (CCAT) at the University of Penn-
+sylvania.  It is a scholarly edition of the text, called "Biblia Hebraica
+Stuttgartensia" or BHS for short.  This particular version is called the
+Michigan-Claremont BHS and is in machine-readable ASCII form.  What this
+means is that rather than use a Hebrew character set, ASCII letters 
+stand in for their Hebrew counterparts; for example, the Hebrew letter
+"bet" is B, the Hebrew letter "mem" is M, etc.
+  The Michigan-Claremont BHS contains much more than this; encoded in
+a similar fashion are the vowels (nekudot), cantillation marks (trop)
+Ktiv-Kri (written vs. spoken text), paragraph and verse markings, and
+much more.  It must be stressed at this point that the BHS is a scholarly
+and emphatically not a halakhic version of the Hebrew bible,  based on
+diverse manuscripts rather than traditional Masoretic texts.
+  For fun, I decided to try and standardize the texts.  I wrote some
+programs that took the BHS text and stripped out everything but the letters
+of the text itself.  I standardized the book, chapter and verse headers
+and put one sentence of text per line, terminated by a period.
+  Now I had a problem - how did I know how close the text was to the
+traditional tanach?  To solve this problem, I downloaded the on-line
+Hebrew version found on the internet, wrote some more programs to 
+convert the Hebrew to my ASCII character set, and compared each book,
+file by file.  When I found a discrepancy, I used a Mikraot Gedolot
+text as arbiter.  Using this process, I corrected "my" text.
+  Only one problem with this.  I attended a lecture by a Yeshiva University
+Bible professor, who informed me that the standard Mikraot Gedolot
+text is not a halakhicly "correct" text (or as he put it, "produced by
+a Christian publisher and an apostate Jewish assistant.")
+  Back to square one.  Using a different source, I obtained the tanach
+files from a commercial product (that will remain nameless), converted
+them again to my format for comparison purposes, and this time used the
+Koren tanach as the arbiter to resolve differences (on the say so of the
+aforementioned Professor.)
+  Thus, I have a final version of the tanach, in ASCII format, which
+I am uploading to the internet for anyone to use.  The files take up 
+approximately 1.8M in native format, 700K when zipped with PKZIP, and
+800K when compressed on UNIX.
+  I would enjoy hearing any comments, questions or discrepancies.
+  Regards,
+
+                 Steve Gross
+
+============================================================================
+
+                 A Note on the files and file formats
+
+  The file format is the same for all files: first comes the three letter
+abbreviation for the name of the book; e.g., GEN for the book of Genesis,
+LEV for Leviticus, etc.  Next is a space, followed by the three digit
+chapter number, a colon, the three digit verse number and a trailing
+space.  The rest of the line contains one verse, terminated by a period.
+For example, the first verse of the book of Genesis looks like this (a
+separate file, "letters.tor" contains the transliteration for the Hebrew
+characters):
+
+GEN 001:001 BRASYT BRA ALHYm AT HSMYm VAT HARc.
+
+  Each file starts with the same three letter abbreviation of the name
+of the book, followed by three letter suffix "tor".
+
+  Here is a list of the files in alphabetical order and uncompressed sizes:
+
+1ch.tor    67562    I Chronicles
+1ki.tor    74384    I Kings
+1sa.tor    75161    I Samuel
+2ch.tor    78918    II Chronicles
+2ki.tor    69464    II Kings
+2sa.tor    62255    II Samuel
+amo.tor    11973    Amos
+dan.tor    34851    Daniel
+deu.tor    81653    Deuteronomy
+est.tor    17327    Esther
+exo.tor    96011    Exodus
+eze.tor   109778    Ezekiel
+ezr.tor    23157    Ezra
+gen.tor   118606    Genesis
+hab.tor     3997    Habakkuk
+hag.tor     3430    Haggai
+hos.tor    14327    Hosea
+isa.tor   100602    Isaiah
+jer.tor   124481    Jeremiah
+job.tor    54113    Job
+joe.tor     5778    Joel
+jon.tor     4012    Jonah
+jos.tor    58412    Joshua
+jud.tor    56863    Judges
+lam.tor     9524    Lamentations
+lev.tor    67907    Leviticus
+mal.tor     5041    Malachi
+mic.tor     8331    Micah
+nah.tor     3421    Nahum
+neh.tor    33090    Nehemiah
+num.tor    96698    Numbers
+oba.tor     1683    Obadiah
+pro.tor    45317    Proverbs
+psa.tor   131271    Psalms
+qoh.tor    16842    Qohelet
+rut.tor     7346    Ruth
+sos.tor     7922    Song of Songs
+zec.tor    18303    Zechariah
+zep.tor     4452    Zephaniah

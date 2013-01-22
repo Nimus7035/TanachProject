@@ -16,10 +16,9 @@ Computer Analysis of Texts will presumably get back to you.
 There is another way to get the BHS text, but first lets do our little
 five line example.
 
->>>>>>>>>> Insert instructions here. (This program hasn't been written yet.)
-
-If all went well you should have the first five verses of Genesis in a
-file named 01_Gen.txt.
+Compile and run BHS_UnicodeTranslit01.icn, or just run 
+BHS_UnicodeTranslit01.exe. If all went well you should have the first 
+five verses of Genesis in a file named 01_Gen.txt.
 
 Now I'm sure you're chomping at the bit to download and convert the entire
 BHS, but hold your horses! First you need to "count the cost." If you 
@@ -59,12 +58,12 @@ https://www.libreoffice.org/download
 
 Now that you have Libre Office installed, use Windows Explorer to navigate
 to the folder where this ReadMe is stored. In that folder, right-click and
-create a new file named "Genesis" of type "Open Document Text". Now 
-double-click on Genesis.odt to open it with Open Office Writer.
+create a new file named "01_Gen" of type "Open Document Text". Now 
+double-click on 01_Gen.odt to open it with Open Office Writer.
 
 Paste your valuable text into this new file. If the clipboard got wiped out
 during the Libre Office install, just re-copy the first ten chapters of 
-Genesis, and then paste it into Genesis.odt. Wait a few seconds for the 
+Genesis, and then paste it into 01_Gen.odt. Wait a few seconds for the 
 paste to get done. The text may "jump" as many as three times before the
 process is complete. 
 
@@ -89,23 +88,32 @@ into the document as a table. This means that the Hebrew text will be in
 a separate column from the verse numbers, and no formatting will be lost or
 corrupted!
 
-Click the save button in Libre Office. This will save the book of Genesis
+Click the save button in Libre Office. This will save "01_Gen.odt"
 as an Open Document Text (.odt) file. Next click "File" and "Save As".
 When the "Save As" dialogue appears, change the "Save as type:" to 
-"Text Encoded". Then click the "Save" button. 
+"Text Encoded", and change the file name to "01_Gen_UTF8". Then click 
+the "Save" button. 
 
 After a few seconds the "Ascii Filter Options" dialogue will appear. In the
 drop down box for Character Set select "Unicode (UTF-8)". For Paragraph 
 Break select "CR & LF". Then click the "OK" button.
 
-Now you have two files: Genesis.odt, and Genesis.txt. Open the Genesis.txt
-file with NotePad. If all went well, you should have a consistently
-formatted text with readable Hebrew characters. This file will be easy to
-convert to a transliterated form.
+Now you have two files: 01_Gen.odt, and 01_Gen_UTF8.txt. Open the 
+01_Gen_UTF8.txt file with NotePad. If all went well, you should have a 
+consistently formatted text with readable Hebrew characters. This file will 
+be easy to convert to a transliterated form.
+
+Reminder: Never use WordPad with UTF-8 encoded files. Evil things will happen
+to you if you do!
 
 At this point you should try running the sample program on the entire book
 of Genesis that you just collected from the web. If the conversion of 
 Genesis worked, you can move forward with the rest of the Tanach at your 
 own pace.
+
+Note: When you're ready to convert the entire Tanach, you'll have to delete 
+FileNames.txt, and replace it with a copy of AllFileNames.txt. This is 
+because FileNames.txt contains a list of all the files that you want to
+process.
 
 

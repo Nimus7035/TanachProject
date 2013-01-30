@@ -31,7 +31,7 @@ result!
 Second:
 
 The NewSection.exe program doesn't know what you're going to do with the 
-new section. It just extracts the required verses from 00_Tanach.con.txt. So
+new section. It just extracts the required verses from 00_Tanach_Lines.txt. So
 it's up to you to do two things manually.
 
 1) If the section you just extracted contains a variant reading, and you

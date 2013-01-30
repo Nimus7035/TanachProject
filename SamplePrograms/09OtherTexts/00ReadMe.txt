@@ -63,6 +63,15 @@ You can also translate a whole web page by submitting its URL to:
 
 http://translate.google.com/
 
+Other Translators:
+
+http://www.milon.co.il/
+
+http://www.morfix.co.il/en/
+
+http://www.reverso.net/text_translation.aspx?lang=EN
+
+
 The Goal:
 
 I'm collecting all these Tanachs to do computer assisted research on the

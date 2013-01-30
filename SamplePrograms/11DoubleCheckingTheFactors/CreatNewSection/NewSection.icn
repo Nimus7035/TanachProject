@@ -15,7 +15,7 @@ procedure main(args)
   endLoc   := endingBook   || " " || ("00" ||   endingChapter)[-3:0] || ":" || ("00" ||   endingVerse)[-3:0]
   write("The Starting Location is ",startLoc,". The Ending Location is ",endLoc)
 
-  file01 := open("00_Tanach.con.txt","r") | stop("Can't open 00_Tanach.con.txt.")
+  file01 := open("00_Tanach_Lines.txt","r") | stop("Can't open 00_Tanach_Lines.txt.")
 
   while lineIn := read(file01) do {
     if lineIn[13:24] == startLoc then {write("Starting Location ",startLoc," found. File creation is starting.")

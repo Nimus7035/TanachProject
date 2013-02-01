@@ -23,15 +23,11 @@ work. Perhaps you will be that someone.
 
 To God be the glory! 1 Corinthians 10:31
 
+ano_nimus7035@yahoo.com
+
 January 2013
 
 ------------------------------------------------
-February 1, 2013
-
-Today I removed two Tanachs from folder 30 because they contained variant readings.
-See the 00Readme.txt files in their folders for details.
-
----------------------------------------------
 January 30, 2013
 
 This has been a rough week health wise. I'm now rushing to get as much as
@@ -45,7 +41,7 @@ to be done?
 3) After these I have four Koren texts to compare. I plan to find the 
    places where the four texts disagree, and then resolve the differences
    (i.e. remove watermarking) using the printed Koren Tanach. I can't 
-   include a folder for the Koren text since it's a commercial product.
+   include a folder for the Koren text since it is a commercial product.
 
 4) When all the texts are complete it's time to start producing the Numeric 
    Hebrew Tanach. Here are the steps as I envision them:
@@ -53,7 +49,7 @@ to be done?
 A) Choose a portion of the text that deals with a single topic. Such portions
    are called a Pericope.
 
-B) Run the program from folder 10 on this Periocpe using your chosen
+B) Run the program from folder 10 on this Periocpe using your favorite 
    text. If the numbers look promissing, add the same verses from all the
    other texts, and run the program again.
 

@@ -1,4 +1,4 @@
-Welcome to the Tanach Project!
+Welcome to the Tanach Project!                                 January 2013
 
 The Tanach is the Jewish Bible. Christians call it the Old Testament. The goal
 of the Tanach Project is to discover the Hebrew text of the original Tanach
@@ -12,6 +12,7 @@ you might even want to try your hand at resolving a few variant reading.
 This is your invitation. Come join us.
 
 ------------------------------------------------
+January 2013
 
 I wanted to wait until the project was much further along before releasing it
 into the public domain. Alas, my health is rapidly failing. If I wait too long, 
@@ -24,8 +25,6 @@ work. Perhaps you will be that someone.
 To God be the glory! 1 Corinthians 10:31
 
 ano_nimus7035@yahoo.com
-
-January 2013
 
 ------------------------------------------------
 January 30, 2013
@@ -47,7 +46,7 @@ to be done?
    Hebrew Tanach. Here are the steps as I envision them:
 
 A) Choose a portion of the text that deals with a single topic. Such portions
-   are called a Pericope.
+   are called Pericopes.
 
 B) Run the program from folder 10 on this Periocpe using your favorite 
    text. If the numbers look promissing, add the same verses from all the
@@ -77,5 +76,20 @@ D) Add the validated text to the Numeric Hebrew Tanach.
 It's a lot of work, but it's the Lord's project, and he will call someone or a
 group of people to finish it.
 
+------------------------------------------------
+February 1, 2013
+
+Today I removed two Tanachs from folder 30 because they contained variant 
+readings. Please see the individual 00ReadMe.txt files in each folder for 
+details.
+
+------------------------------------------------
+February 11, 2013
+
+Today I reworked the contents of folder 11 because I found that 
+SearchForPhrase.exe did not work for really large input sections i.e. the 
+entire Tanach. I also added to the documentation.
+
+------------------------------------------------
 
 

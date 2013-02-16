@@ -1,0 +1,20 @@
+# This program combines the books of the Tanach into a single file.
+
+procedure main()
+
+  file00 := open("FileNames2.txt","r")  | stop("Can't open FileNames2.txt.")
+  file02 := open("Tanach.txt","w") | stop("Can't open Tanach.txt.")
+
+  write("Begining.")
+  while fileIn := read(file00) do {
+    fileToRead := fileIn[1:10] || ".txt"
+    file01 := open(fileToRead,"r") | stop("Can't open ",fileToRead,".")
+    write("Reading ",fileToRead,".")
+    while lineIn := trim(read(file01)) do {
+      if *lineIn < 1 then next # Skip blank lines.
+      write(file02,lineIn)
+    }
+    close(file01)
+  }
+  write("Done.")
+end

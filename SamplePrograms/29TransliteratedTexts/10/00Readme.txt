@@ -1,0 +1,1 @@
+This Tanach contains variants.

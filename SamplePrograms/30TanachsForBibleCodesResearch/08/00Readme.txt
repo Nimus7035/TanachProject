@@ -1,3 +1,3 @@
-This Tanach has been retained because it does not contain any 
-variant readings. However, be aware that no numerical analysis of 
-this text with respect to variant readings has been done.
+This Tanach_NoSpaces.txt contains no variants. 
+The variants were removed by choosing the first 
+variant reading whenever a variant was encountered.

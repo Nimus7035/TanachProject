@@ -1,0 +1,52 @@
+# This program reads a "PaninSectionScoresOut" file and produces a summary report.
+
+procedure main(args)
+  if /args then stop("Usage: PaninScoresSummary.exe <file to summarize>")
+  inputFile := args[1]
+  outputFile := inputFile[1:-4] || "Summary.txt"
+  columnHeaders := "             Count  Place Numeric                    Count                    Place                  Numeric"
+  bufferedLines := list(0)
+  put(bufferedLines,repl("*",112))
+  bufferEverything := 0
+
+  file01 := open(inputFile, "r") | stop("Can't open ",inputFile, ".")
+  file02 := open(outputFile,"w") | stop("Can't open ",outputFile,".")
+
+  while lineIn := read(file01) do {
+    if lineIn[1:2] == "!" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "SecVowTotals" then {
+      put(bufferedLines,columnHeaders)
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "SecConTotals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "SecChrTotals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "SecWrdTotals" then {
+      put(bufferedLines,lineIn)
+      put(bufferedLines,repl("*",112))
+      next
+    }
+    if bufferEverything = 1 then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[11:24] == "The score for" then {
+      put(bufferedLines,lineIn)
+      bufferEverything := 1
+      next
+    }
+  }
+  put(bufferedLines,repl("*",112))
+
+  every write(file02,!bufferedLines)
+
+end 

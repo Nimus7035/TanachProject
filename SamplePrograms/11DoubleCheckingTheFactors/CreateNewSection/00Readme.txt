@@ -80,3 +80,12 @@ are searching for in a particular PaninSectionInput.
 I'm sorry if this is confusing. It won't be after you've run the programs a
 few times.
 
+Codicil:
+
+I know the above is confusing. It even confuses me, and I 
+wrote it. So, in these sample programs the above 
+instructions still hold true. But when you get to the 
+production versions of these programs you'll find that
+things have been simplified and streamlined a bit. Thanks
+for your patience!
+

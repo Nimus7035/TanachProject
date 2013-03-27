@@ -10,7 +10,7 @@ most of the time, but you may have to do some experimentation before you get
 it right.
 
 I've included a document named TanachQuest.html that gives a little 
-background on the above process. It's in the folder named "05OtherTexts".
+background on the above process. It's in the folder named "09OtherTexts".
 
 For now you might just want to look at the reports I've included, and look
 at the ReadMe files in the next folder, 11DoubleCheckingTheFactors. Later 
@@ -26,6 +26,6 @@ As usual, the number of verses in 00_Tanach.con.txt is severely limited. This
 was done to avoid problems with copyrights and EULAs. However, if you did the
 sample exercise in 02TransliteratingUnicodeText you should already have a 
 complete copy of the WLC Tanach. Just copy it to this folder, and rename it 
-to OO_Tanach.con.txt. Then you'll have enough verses to keep you busy a while!
+to OO_Tanach.con.txt. Then you'll have enough verses to keep you busy for a while!
 
 

@@ -24,7 +24,7 @@ being in English and transliterated Hebrew which will help you
 learn the names of the books of the Bible in Hebrew. But there 
 is one caveat if you use this web site. It has the Masoretic and 
 the Hebrew reversed. So if you want the Masoretic text click on 
-the Hebrew link, and vice versa.
+the Hebrew link, and vice versa. (See Codicil below.)
 
 So how do you download a copy of the Masoretic and Hebrew Tanachs
 from the Snunit site? One method is to navigate to each page and 
@@ -122,5 +122,18 @@ the download of unneeded files such as the Targum.
 Using this method you can set the "Max Mirroring Depth" to "0". 
 I.E. you don't want to follow any links.
 
+Concerning Hebrew versus Masoretic: It turns out that both texts
+are Masoretic texts. The file names that begin with "M" have
+"Full" spelling. The file names that begin with "H" have normal
+spelling. Full spelling is used to help beginners read and 
+pronounce Hebrew. Since the extra letters in "Full" spelling are
+not considered inspired. The full spelling text is not a good
+candidate for numerical analysis.
 
+The "M" which I thought stood for Masoretic actually stands for
+a Hebrew word which is spelled Mem Lamed Aleph which means 
+"full". The "H" which I thought stood for Hebrew is the last 
+letter in a Hebrew word which is spelled Mem Samek Vav Resh He 
+which means "devoted". So we have full spelling and devoted 
+spelling. ("Spelling" is Kaph Tav Yod Beth.)
 

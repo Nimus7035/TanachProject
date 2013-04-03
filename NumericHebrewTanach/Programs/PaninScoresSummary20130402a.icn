@@ -1,0 +1,126 @@
+# This program reads a "PaninSectionScoresOut" file and produces a summary report.
+
+global firstPlace, secondPlace
+
+procedure main(args)
+  if /args | (*args < 6) then 
+    stop("Usage: PaninScoresSummary.exe Book Chapter Verse Book Chapter Verse")
+
+#   startingBook    := args[1]
+#   startingChapter := args[2]
+#   startingVerse   := args[3]
+#   endingBook      := args[4]
+#   endingChapter   := args[5]
+#   endingVerse     := args[6]
+
+  filePrefix := ".\\" || args[1] || "\\" || args[1] || args[2] || "_" || args[3] ||
+                     "-" || args[6] || "\\Scores\\"
+  fileSuffix := || args[1] || args[2] || "_" || args[3] || 
+            "-" || args[4] || args[5] || "_" || args[6] || ".txt"
+  inputFile := filePrefix || "PaninSectionScoresOut" || fileSuffix
+  parmsFileIn := "PaninSectionsInput" || fileSuffix
+  outputFile := inputFile[1:-4] || "Summary.txt"
+  columnHeaders := "             Count  Place Numeric                    Count                    Place                  Numeric"
+  bufferedLines := list(0)
+  put(bufferedLines,repl("*",112))
+  bufferEverything := 0
+  firstPlace := ["",0,""]; secondPlace := ["",0,""]
+
+  file01 := open(inputFile, "r") | stop("Can't open ",inputFile, ".")
+  file02 := open(outputFile,"w") | stop("Can't open ",outputFile,".")
+  file03 := open("SearchParms.txt","w") | stop("Can't open SearchParms.txt.")
+
+  while lineIn := read(file01) do {
+    if lineIn[1:2] == "!" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "SecVowTotals" then {
+      put(bufferedLines,columnHeaders)
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "SecConTotals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "SecChrTotals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "SecWrdTotals" then {
+      put(bufferedLines,lineIn)
+      put(bufferedLines,repl("*",112))
+      next
+    }
+    if bufferEverything = 1 then {
+      put(bufferedLines,lineIn)
+      bufferScores(lineIn)
+      next
+    }
+    if lineIn[11:24] == "The score for" then {
+      put(bufferedLines,lineIn)
+      bufferScores(lineIn)
+      bufferEverything := 1
+      next
+    }
+  }
+  put(bufferedLines,repl("*",112))
+
+  every write(file02,!bufferedLines)
+
+
+# What happens if there's a tie, but not every section has the same dominant factor?
+# Begin writing the SearchParms.txt file.
+  if *firstPlace[1] > 0 then {
+    write(file03,"!FileIn: ",parmsFileIn)
+    write(file03,"!Tanach: ",firstPlace[1],"_Lines.txt")
+    while *firstPlace[3] > 0 do {
+      firstPlace[3] ? {
+        if factor := tab(upto(',')) then {
+          write(file03,"!Search Number: ",factor)
+          move(1)
+          firstPlace[3] := firstPlace[3][&pos:0]
+        }
+      }
+    }
+  }
+  if *secondPlace[1] > 0 then {
+    write(file03,"!Tanach: ",secondPlace[1],"_Lines.txt")
+    while *secondPlace[3] > 0 do {
+      secondPlace[3] ? {
+        tab(many(' '))
+        if factor := tab(upto(',')) then {
+          write(file03,"!Search Number: ",factor)
+          move(1)
+          secondPlace[3] := secondPlace[3][&pos:0]
+        }
+      }
+    }
+  }
+
+end 
+
+procedure bufferScores(lineIn)
+  if (*lineIn < 9) | (lineIn[3:10]) ~== "Tanach:" then return
+  tanachName := lineIn[1:9]
+  tanachScore := 0
+  tanachFactors := ""
+  lineIn := lineIn[41:0]
+  lineIn ? {
+    tanachScore := tab(upto('.'))
+    move(22)
+    tanachFactors := lineIn[&pos:0] || ","
+  }
+  if tanachScore = 1 then return
+  if (*firstPlace[1] < 1) | (firstPlace[2] < tanachScore) then {
+    secondPlace := firstPlace
+    firstPlace := [tanachName,tanachScore,tanachFactors]
+  }
+  else {
+    if firstPlace[2] = tanachScore then return
+    if (*secondPlace[1] < 1) | (secondPlace[2] < tanachScore) then {
+      secondPlace := [tanachName,tanachScore,tanachFactors]
+    }
+  }
+end

@@ -1,0 +1,192 @@
+# This program reads a series of ISO-8859-8 (Hebrew) encoded HTML Tanach files and 
+# transliterates them for later processing.
+
+global translit, fileName, csetSpace, space, textIn
+
+procedure main()
+
+  # Constants
+  space := "\x20"; comma := "\x2C"; period := "\x2E"
+  colon := "\x3A"; semicolon := "\x3B"
+  leftBrace := "\x7B"; rightBrace := "\x7D"
+  csetSpace := ' '
+
+# Translation Table
+  translit := table("")
+  translit["\xE0"] := "A" # Aleph
+  translit["\xE1"] := "B" # Beth
+  translit["\xE2"] := "G" # Gimel
+  translit["\xE3"] := "D" # Daleth
+  translit["\xE4"] := "H" # He
+  translit["\xE5"] := "V" # Vav or Waw
+  translit["\xE6"] := "Z" # Zayin
+  translit["\xE7"] := "X" # Heth or Cheth
+  translit["\xE8"] := "+" # Teth
+  translit["\xE9"] := "Y" # Yod
+  translit["\xEA"] := "K" # Kaph Sofit (Final Kapf)
+  translit["\xEB"] := "K" # Kaph
+  translit["\xEC"] := "L" # Lamed
+  translit["\xED"] := "M" # Mem Sofit (Final Mem)
+  translit["\xEE"] := "M" # Mem
+  translit["\xEF"] := "N" # Nun Sofit (Final Nun)
+  translit["\xF0"] := "N" # Nun
+  translit["\xF1"] := "$" # Samek
+  translit["\xF2"] := "@" # Ayin
+  translit["\xF3"] := "P" # Pe Sofit (Final Pe)
+  translit["\xF4"] := "P" # Pe
+  translit["\xF5"] := "C" # Tsade Sofit (Final Tsade)
+  translit["\xF6"] := "C" # Tsade
+  translit["\xF7"] := "Q" # Qoph
+  translit["\xF8"] := "R" # Resh
+  translit["\xF9"] := "S" # Sin / Shin
+  translit["\xFA"] := "T" # Tav or Taw
+  translit[","]    := ""  # Comma
+  translit["."]    := ""  # Period
+  translit[";"]    := ""  # Semicolon
+  translit[":"]    := ""  # Colon
+  translit[" "]    := " " # Space
+  translit["-"]    := " " # Dash
+  translit["~"]    := " " # Tilda
+
+  textIn := ""
+  bookNames := table("")
+  file00 := open("BookNames.txt","r") | stop("Can't open BookNames.txt.")
+  oldBook := ""; bookCount := 0
+  while lineIn := read(file00) do { # Load all the book names into a table.
+    bookNames[lineIn[1:3]] := lineIn[4:7]
+  }
+  close(file00)
+  
+  file00 := open("FileNames.txt","r") | stop("Cannot open FileNames.txt.")
+  file03 := open("SnuHeb_Statistics.txt","w") | 
+            stop("Cannot open SnuHeb_Statistics.txt.")
+  peCounter := 0 # Count of Pe paragraph markers.
+  samekCounter := 0 # Count of samek section markers.
+  shinCounter := 0 # Count of sin/shin section markers.
+  bookTotalVerseCount := 0 # Verse count within the book.
+  gTotalVerseCount   := 0 # Total over the entire Tanach.
+  gTotalChapterCount := 0 # Total over the entire Tanach.
+  write(file03,"Snunit Hebrew","\n")
+  while (fileNameIn := read(file00)) do { # Begin outer while. (Process chapters.)
+    book := bookNames[fileNameIn[1:3]]
+    if book ~== oldBook then {
+      if oldBook ~== "" then {
+        write(file03,"The chapter count for ",oldBook," is ",chapCount,".")
+      }
+      oldBook    := book # Save current book name.
+      bookTotalVerseCount := 0 # Verse count within the book.
+      bookCount +:= 1 # Within Tanach.
+      chapCount  := 0 # Within book.
+    }
+    chapCount +:= 1
+    chapNum := fileNameIn[9:12]
+    fileNameOut := ".\\Reserved\\" || fileNameIn[1:3] || "_" || book || chapNum || ".txt"
+    file01 := open(fileNameIn,"r")  | stop("Cannot open ",fileNameIn)
+    file02 := open(fileNameOut,"w") | stop("Cannot open ",fileNameOut)
+    verseCount := 0 # Within chapter.
+    oldVerseNumber := ""; verseNumber := ""; concatTextIn := ""
+    hebrewEncountered := 0
+    write("Book == ",book,"  Input == ",fileNameIn,"  Output == ",fileNameOut)
+    while (lineIn := trim(read(file01))) do { # Begin inner while. (Process lines.)
+      if lineIn[1:15] == "</pre></table>" then {hebrewEncountered := 1; next}
+      if lineIn == "</pre>" then {hebrewEncountered := 0; break}
+      if hebrewEncountered = 1 then {
+        textIn := ""; beginText := 0
+        lineIn ? {
+          if tab(find("name=")) then {
+            move(6)
+            verseNumber := tab(find("\"")) # Get the verse number.
+            tab(find("<pre>"))
+            move(5)
+            beginText := &pos # Scripture starts right after the "<pre>".
+            textIn := lineIn[beginText:beginText+60] # Scripture with link/reference
+                                                     # removed. Case 1/2.
+            textIn := reverse(trim(reverse(textIn))) # Remove spaces.
+            #write(file02,*textIn," ",beginText," ","textIn1 == ",textIn)
+          }
+        }
+        #if ((*textIn < 1) & (beginText > 0)) then { # Beginning of scripture.
+        #  textIn := lineIn[beginText:beginText+60] # Case 2 Non-Link reference removed.
+        #  write(file02,*textIn," ",beginText," ","textIn2 == ",textIn)
+        #}
+        if (*textIn < 1) then {
+          textIn := reverse(trim(reverse(lineIn))) # No link or reference. Case 3
+          #write(file02,*textIn," ",beginText," ","textIn3 == ",textIn)
+        }
+        textIn ? {
+          if tab(find("{\xF4}")) then { # Paragraph marker: Pe.
+            move(3)
+            tab(many(' '))
+            textIn := textIn[&pos:0] # Remove paragraph marker.
+            peCounter +:= 1 # Diagnostic
+          }
+        }
+        textIn ? {
+          if tab(find("{\xF1}")) then { # Section marker: Samek.
+            move(3)
+            tab(many(' '))
+            textIn := textIn[&pos:0] # Remove section marker.
+            samekCounter +:= 1 # Diagnostic
+          }
+        }
+        textIn ? {
+          if tab(find("{\xF9}")) then { # Section marker: Sin/Shin.
+            move(3)
+            tab(many(' '))
+            textIn := textIn[&pos:0] # Remove section marker.
+            shinCounter +:= 1 # Diagnostic
+          }
+        }
+        if verseNumber ~== oldVerseNumber then {
+          write(file02,("0000" || gTotalVerseCount)[-5:0]," ",
+                       ("0000" || bookTotalVerseCount)[-5:0]," ",book," ",
+                       ("00" || chapNum)[-3:0],":",
+                       ("00" || oldVerseNumber)[-3:0]," ",
+                trans(concatTextIn)) # Write a verse.
+          verseCount +:= 1 # Verse count within the chapter.
+          bookTotalVerseCount +:= 1 # Verse count within the book.
+          gTotalVerseCount +:= 1 # Grand total verse count.
+          concatTextIn := textIn
+          oldVerseNumber := verseNumber
+        }
+        else {
+          concatTextIn := textIn || " " || concatTextIn
+        }
+      }
+    } # End Inner While. (Process lines.)
+    write(file02,("0000" || gTotalVerseCount)[-5:0]," ",
+                 ("0000" || bookTotalVerseCount)[-5:0]," ",book," ",
+                 ("00" || chapNum)[-3:0],":",
+                 ("00" || oldVerseNumber)[-3:0],
+          " ",trans(concatTextIn)) # Write the last verse in the chapter.
+    close(file01); close(file02)
+    write(file03,"The verse count for ",book," chapter ",chapNum," is ",verseCount,".")
+    gTotalChapterCount +:= 1
+  } # End Outer While. (Process chapters.)
+  write(file03,"The chapter count for ",oldBook," is ",chapCount,".")
+  write(file03,"********************************************************************")
+  write(file03)
+  write(file03,"The grand total book    count is :",bookCount,".")
+  write(file03,"The grand total chapter count is :",gTotalChapterCount,".")
+  write(file03,"The grand total verse   count is :",gTotalVerseCount,".")
+  write(file03,"The Pe paragraph count is ",peCounter)
+  write(file03,"The Samek section count is ",samekCounter)
+  write(file03,"The Sin/Shin section count is ",shinCounter)
+end
+
+procedure trans(textIn)
+  textIn := trim(textIn)
+  textIn := trim(reverse(textIn))
+  textOut1 := ""; textOut := ""
+  every i := 1 to *textIn do {
+    textOut1 ||:= translit[textIn[i]]
+  }
+  textOut1 ||:= space
+  textOut1 ? {
+    while &pos < *textOut1 do {
+      textOut ||:= tab(upto(csetSpace)) || space
+      tab(many(csetSpace))
+    }
+  }
+return textOut
+end

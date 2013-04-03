@@ -53,31 +53,31 @@ procedure main()
   translit["\xD6\x6E"] := "\xD6\x6E"  # Accent Zinor (= Tsinor; Zarqa)
   translit["\xD6\x6F"] := "\xD6\x6F"  # Mark Masora Circle
 # Hebrew Points (Nikud) (Vowels and Punctuation)
-  translit["\xD6\x70"] := "\xD6\x70"  # Sheva
-  translit["\xD6\x71"] := "\xD6\x71"  # Hataf Segol
-  translit["\xD6\x72"] := "\xD6\x72"  # Hataf Patah
-  translit["\xD6\x73"] := "\xD6\x73"  # Hataf Qamats
-  translit["\xD6\x74"] := "\xD6\x74"  # Hiriq
-  translit["\xD6\x75"] := "\xD6\x75"  # Tsere
-  translit["\xD6\x76"] := "\xD6\x76"  # Segol
-  translit["\xD6\x77"] := "\xD6\x77"  # Patah 
+  translit["\xD6\xB0"] := "\xD6\xB0"  # Sheva
+  translit["\xD6\xB1"] := "\xD6\xB1"  # Hataf Segol
+  translit["\xD6\xB2"] := "\xD6\xB2"  # Hataf Patah
+  translit["\xD6\xB3"] := "\xD6\xB3"  # Hataf Qamats
+  translit["\xD6\xB4"] := "\xD6\xB4"  # Hiriq
+  translit["\xD6\xB5"] := "\xD6\xB5"  # Tsere
+  translit["\xD6\xB6"] := "\xD6\xB6"  # Segol
+  translit["\xD6\xB7"] := "\xD6\xB7"  # Patah 
                                       # Furtive Patah is not a distinct character.
-  translit["\xD6\x78"] := "\xD6\x78"  # Qamats
-  translit["\xD6\x79"] := "\xD6\x79"  # Holam
-  translit["\xD6\x7A"] := "\xD6\x7A"  # Holam Haser for Vav
-  translit["\xD6\x7B"] := "\xD6\x7B"  # Qubuts
-  translit["\xD6\x7C"] := "\xD6\x7C"  # Dagesh or Mapiq (= Shuruq)
-  translit["\xD6\x7D"] := "\xD6\x7D"  # Meteg (= Siluq) May be uses as a Sof Pasuq.
-  translit["\xD6\x7E"] := "\xD6\x7E"  # Maqaf (Dash)
-  translit["\xD6\x7F"] := "\xD6\x7F"  # Rafe (Used in place of Varika) (Very similar to Maqaf)
-  translit["\xD6\x70"] := "\xD6\x70"  # Paseq (= Legarmeh)
-  translit["\xD6\x81"] := "\xD6\x81"  # Shin Dot
-  translit["\xD6\x82"] := "\xD6\x82"  # Sin Dot
-  translit["\xD6\x83"] := "\xD6\x83"  # Sof Pasuq (Colon) (End of verse)
-  translit["\xD6\x84"] := "\xD6\x84"  # Upper Dot (See Psalms 27:13)
-  translit["\xD6\x85"] := "\xD6\x85"  # Lower Dot (See Psalms 27:13) (Similar to Hiriq)
-  translit["\xD6\x86"] := "\xD6\x86"  # Nun Hafukha (Backwards Nun) (Used like brackets.)
-  translit["\xD6\x87"] := "\xD6\x87"  # Qamats Qatan
+  translit["\xD6\xB8"] := "\xD6\xB8"  # Qamats
+  translit["\xD6\xB9"] := "\xD6\xB9"  # Holam
+  translit["\xD6\xBA"] := "\xD6\xBA"  # Holam Haser for Vav
+  translit["\xD6\xBB"] := "\xD6\xBB"  # Qubuts
+  translit["\xD6\xBC"] := "\xD6\xBC"  # Dagesh or Mapiq (= Shuruq)
+  translit["\xD6\xBD"] := "\xD6\xBD"  # Meteg (= Siluq) May be uses as a Sof Pasuq.
+  translit["\xD6\xBE"] := "\xD6\xBE"  # Maqaf (Dash)
+  translit["\xD6\xBF"] := "\xD6\xBF"  # Rafe (Used in place of Varika) (Very similar to Maqaf)
+  translit["\xD6\xC0"] := "\xD6\xC0"  # Paseq (= Legarmeh)
+  translit["\xD6\xC1"] := "\xD6\xC1"  # Shin Dot
+  translit["\xD6\xC2"] := "\xD6\xC2"  # Sin Dot
+  translit["\xD6\xC3"] := "\xD6\xC3"  # Sof Pasuq (Colon) (End of verse)
+  translit["\xD6\xC4"] := "\xD6\xC4"  # Upper Dot (See Psalms 27:13)
+  translit["\xD6\xC5"] := "\xD6\xC5"  # Lower Dot (See Psalms 27:13) (Similar to Hiriq)
+  translit["\xD6\xC6"] := "\xD6\xC6"  # Nun Hafukha (Backwards Nun) (Used like brackets.)
+  translit["\xD6\xC7"] := "\xD6\xC7"  # Qamats Qatan
 # Hebrew Letters
   translit["\xD7\x90"] := "A" # Aleph
   translit["\xD7\x91"] := "B" # Beth

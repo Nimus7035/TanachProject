@@ -13,6 +13,7 @@ procedure main(args)
   endVerse   := args[5] # A number
   file01Name := args[6] # Name of a file containing a Tanach
   file02Name := args[7] # Name of a file containing a Tanach
+
   startChap  := ("00" ||  startChap)[-3:0]
   endChap    := ("00" ||    endChap)[-3:0]
   startVerse := ("00" || startVerse)[-3:0]

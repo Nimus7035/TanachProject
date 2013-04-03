@@ -26,5 +26,7 @@ The "a" file is the input to PaninScoresBySection.exe. The "b" file is the
 output from that same program. The "c" file is the input to 
 SearchForPhrase.exe. The "d" file is the output from that same program.
 
+Codicil:
 
+The file naming scheme has been simplified in the production programs.
 

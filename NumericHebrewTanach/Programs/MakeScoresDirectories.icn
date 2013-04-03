@@ -1,0 +1,24 @@
+# This program creats a batch script that creates directories for the PaninScores
+# program to write its output to. Icon cannot do this directly.
+
+procedure main(args)
+
+write("We're in MakeScoresDirectories.icn")
+# The input arguments are: 
+# 1) Starting Book (three characters) eg. "Gen".
+# 2) Starting Chapter (up to three digits).
+# 3) Starting Verse (up to three digits).
+# 4) Ending Book (three characters) eg. "Gen".
+# 5) Ending Chapter (up to three digits).
+# 6) Ending Verse (up to three digits).
+
+  file02 := open("MakeScoresDirectories.bat","w") | 
+            stop("Can't open MakeScoresDirectories.bat")
+
+  write(file02,"md .\\",args[1])
+  write(file02,"md .\\",args[1],"\\",args[1],args[2],"_",args[3],"-",args[6])
+  write(file02,"md .\\",args[1],"\\",args[1],args[2],"_",args[3],"-",args[6],"\\Compares")
+  write(file02,"md .\\",args[1],"\\",args[1],args[2],"_",args[3],"-",args[6],"\\Phrases")
+  write(file02,"md .\\",args[1],"\\",args[1],args[2],"_",args[3],"-",args[6],"\\Scores")
+
+end

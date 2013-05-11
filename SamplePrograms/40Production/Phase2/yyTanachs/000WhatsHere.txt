@@ -1,0 +1,13 @@
+This folder contains the production Tanachs. There are 10 ketiv
+Tanachs and 6 qere Tanachs. The production Tanachs are the ones
+used to produce the numerically validated Tanach.
+
+The first character of each file name is a digit between 0 and 9.
+This digit is the number of the Tanach.
+
+The second character of each file name is a digit between 1 and 
+2. If the digit is 1, then the Tanach contains only ketiv 
+readings. If the digit is 2, then the Tanach contains only qere
+readings. Not all Tanachs have qere readings.
+
+

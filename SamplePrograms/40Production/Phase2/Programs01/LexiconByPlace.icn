@@ -1,0 +1,27 @@
+# Each Lemma in the Hebrew Lexicon has a place value.
+# This program sorts the the Strong's Hebrew Lexicon by Place Value.
+
+procedure main()
+  delimiter2 := '*'
+  lineInList := []
+  file01 := open("StrongsHebrewLexiconByNumberValues.txt","r") |
+            stop("Unable to open StrongsHebrewLexiconByNumberValues.txt.")
+  file02 := open("StrongsHebrewLexiconByPlaceValues.txt","w") |
+            stop("Unable to open StrongsHebrewLexiconByPlaceValues.txt.")
+
+  while lineIn := read(file01) do {
+    lineIn := lineIn[7:0]
+    lineIn ? {
+      tab(upto(' ')); tab(many(' '))
+      tab(upto(&digits))
+      placeValue := ("000" || tab(many(&digits)))[-4:0]
+      lineIn := placeValue || "  " || lineIn
+      lineInList |||:= [lineIn]
+    }
+  }
+  sortedLineIn := sort(lineInList)
+  every i := 1 to *sortedLineIn do {
+    write(file02,sortedLineIn[i])
+  }
+end
+

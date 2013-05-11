@@ -1,0 +1,24 @@
+# This program truncates books to make example files.
+
+procedure main()
+
+  file00 := open("FileNames.txt","r")  | stop("Can't open FileNames.txt.")
+
+  write("Begining.")
+  while fileIn := read(file00) do {
+    fileToRead := fileIn[1:7] || ".txt"
+    file01 := open(fileToRead,"r") | stop("Can't open ",fileToRead,".")
+    fileToWrite := fileIn[1:7] || "a.txt"
+    file02 := open(fileToWrite,"w") | stop("Can't open ",fileToWrite,".")
+    write("Reading ",fileToRead,".")
+    i := 0
+    while lineIn := trim(read(file01)) do {
+      if *lineIn < 1 then next # Skip blank lines.
+      write(file02,lineIn)
+      i +:= 1
+      if i > 1 then break
+    }
+    close(file01)
+  }
+  write("Done.")
+end

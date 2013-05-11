@@ -1,0 +1,50 @@
+procedure main()
+#Initializations
+
+  (file00 := open("FileNames.txt","r"))  | stop("Cannot open FileNames.txt for reading.")
+  (file02 := open("tanach.txt","r"))  | stop("Cannot open tanach.txt for reading.")
+  (file03 := open("Statistics.txt","a")) | stop("Cannot open Statistics.txt for writing.")
+  (file04 := open("JPS1917TanachRS_WithVerseLabels.txt","w")) | 
+             stop("Cannot open JPS1917TanachRS_WithVerseLabels.txt for writing.")
+  totalNumLines := 0; totalNumChars := 0
+
+##########################################################################
+# Main Loop
+  while (fileName := read(file00)) do {
+  write("#"); write("#"); write("#"); write("#"); write("#"); write("#"); write("#"); write("#")
+  write("######################################################################")
+  write("fileName>",fileName,"<")
+  (file01 := open(fileName,"r"))  | stop("Cannot open ",fileName," for reading.")
+  
+    ##########################################################################
+#   Inner Loops
+    oldLabelIn := " "
+    while (lineIn := read(file01)) do {
+      if ((*lineIn > 11) & (lineIn[1:2] ~== "#"))then { 
+        labelIn := lineIn[1:12]
+        if (labelIn == oldLabelIn) then {write(file04,"**** duplicate label ****"); stop}
+        if (tanachIn := read(file02)) then {
+          tanachInRev := ""
+          tanachIn ? {
+              tab(0)
+              while (ch := move(-1)) do {tanachInRev ||:= ch}
+            }
+          write(file04,labelIn," ",tanachInRev)
+          totalNumLines +:= 1
+          oldLabelIn := labelIn
+          }
+          else break
+      }
+    }
+    close(file01)
+#   End Inner Loops
+    ##########################################################################
+  }
+# End Main Loop
+##########################################################################
+
+write(file03," \n")
+write(file03,"The total number of lines in all the files is ",totalNumLines,".")
+#write(file03,"The total number of characters in the Tanach file is ",totalNumChars,".")
+end
+

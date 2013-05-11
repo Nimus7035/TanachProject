@@ -1,0 +1,122 @@
+# This program reads a "Raw" version of the Computronics Koren Tanach, and converts the
+# consonants to a common transliteration for ease of reading and computation.
+
+procedure main()
+
+# Initializations:
+
+  cons := table("")
+  cons[" "] := " " # Space
+  cons["-"] := " " # Dash
+  cons["0"] := "0" # Zero
+  cons["1"] := "1" # One
+  cons["2"] := "2" # Two
+  cons["3"] := "3" # Three
+  cons["4"] := "4" # Four
+  cons["5"] := "5" # Five
+  cons["6"] := "6" # Six
+  cons["7"] := "7" # Seven
+  cons["8"] := "8" # Eight
+  cons["9"] := "9" # Nine
+  cons["A"] := "A" # Aleph
+  cons["\\"] := "A" # Aleph Dagesh
+  cons["B"] := "B" # Beth
+  cons["]"] := "B" # Beth Dagesh
+  cons["C"] := "G" # Gimel
+  cons["^"] := "G" # Gimel Dagesh
+  cons["D"] := "D" # Daleth
+  cons["_"] := "D" # Daleth Dagesh
+  cons["E"] := "H" # He
+  cons["`"] := "H" # He Dagesh
+  cons["F"] := "V" # Vav
+  cons["}"] := "V" # Cholem Vav
+  cons["a"] := "V" # Shureq Vav
+  cons["G"] := "Z" # Zayin
+  cons["b"] := "Z" # Zayin Dagesh
+  cons["H"] := "X" # Cheth
+  cons["I"] := "+" # Teth
+  cons["d"] := "+" # Teth Dagesh
+  cons["J"] := "Y" # Yod
+  cons["e"] := "Y" # Yod Dagesh
+  cons["L"] := "K" # Kaph
+  cons["g"] := "K" # Kaph Dagesh
+  cons["K"] := "K" # Kaph Sofit
+  cons["|"] := "K" # Kaph Sofit Qamets
+  cons["M"] := "L" # Lamed
+  cons["h"] := "L" # Lamed Dagesh
+  cons["O"] := "M" # Mem
+  cons["j"] := "M" # Mem Dagesh
+  cons["N"] := "M" # Mem Sofit
+  cons["Q"] := "N" # Nun
+  cons["l"] := "N" # Nun Dagesh
+  cons["P"] := "N" # Nun Sofit
+  cons["R"] := "$" # Samek
+  cons["m"] := "$" # Samek Dagesh
+  cons["S"] := "@" # Ayin
+  cons["U"] := "P" # Pe
+  cons["p"] := "P" # Pe Dagesh
+  cons["T"] := "P" # Pe Sofit
+  cons["o"] := "P" # Pe Sofit Dagesh
+  cons["W"] := "C" # Tsade
+  cons["r"] := "C" # Tsade Dagesh
+  cons["V"] := "C" # Tsade Sofit
+  cons["X"] := "Q" # Quph
+  cons["s"] := "Q" # Quph Dagesh
+  cons["Y"] := "R" # Resh
+  cons["t"] := "R" # Resh Dagesh
+  cons["y"] := "S" # Sin
+  cons["z"] := "S" # Sin Dagesh
+  cons["Z"] := "S" # Sin/Shin
+  cons["w"] := "S" # Shin
+  cons["x"] := "S" # Shin Dagesh
+  cons["["] := "T" # Tav
+  cons["v"] := "T" # Tav Dagesh
+  cons["\x8B"] := "}" # Right Curly Brace - For Variant Readings
+  cons["\x8C"] := "{" # Left Curly Brace - For Variant Readings
+  cons["\x91"] := "|" # Vertical Bar - For Variant Readings
+
+  nikud := table("")
+  nikud[" "] := " " # Space
+  nikud["-"] := " " # Dash
+  nikud["0"] := "0" # Zero
+  nikud["1"] := "1" # One
+  nikud["2"] := "2" # Two
+  nikud["3"] := "3" # Three
+  nikud["4"] := "4" # Four
+  nikud["5"] := "5" # Five
+  nikud["6"] := "6" # Six
+  nikud["7"] := "7" # Seven
+  nikud["8"] := "8" # Eight
+  nikud["9"] := "9" # Nine
+  nikud["\xA0"] := "a" # Qamets - ah in father
+  nikud["\xA1"] := "@" # Pathach - a in bad
+  nikud["\xA2"] := "y" # Tsere - e in they
+  nikud["\xA3"] := "e" # Segol - e in set
+  nikud["\xA4"] := "i" # Chireq - i in hit
+  nikud["\xA5"] := "e" # Shewa - e in set or silent
+  nikud["\xA6"] := "u" # Qibbuts - u in pull
+  nikud["\xA7"] := "O" # Cholem - o in pole
+  nikud["\xA8"] := "a" # Chateph Qamets - shortened ah in father
+  nikud["\xA9"] := "@" # Chateph Patach - shortened a in bad
+  nikud["\xAA"] := "e" # Chateph Segol - shortened e in set
+  nikud["\xAB"] := "@" # Patach Chireq - a in bad followed by i in hit (a glide)
+  nikud["\xAC"] := "a" # Qamets Chireq - ah in father followed by i in hit (a glide)
+  nikud["\xAD"] := "@" # Patach Shewa - a in bad followed by e in set (a glide)
+  nikud["\xAE"] := "a" # Qamets Shewa - ah in father followed by e in set (a glide)
+
+  file01 := open("HEBBIBLECompRawVerses.TXT","r")
+  file02 := open("HEBBIBLECompTransliterated.txt","w")
+
+  while lineIn := read(file01) do {
+    every i := 1 to *lineIn do {
+      writes(file02,cons[lineIn[i:i+1]])
+    }
+    writes(file02,"\n")
+    if lineIn := read(file01) then {
+      every i := 1 to *lineIn do {
+        writes(file02,nikud[lineIn[i:i+1]])
+      }
+    }
+    writes(file02,"\n")
+  }
+end

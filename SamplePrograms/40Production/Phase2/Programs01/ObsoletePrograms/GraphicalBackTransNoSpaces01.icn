@@ -1,0 +1,56 @@
+# This progam takes a transliterated portion of scripture removes the spaces, and 
+# transliterates it back into Hebrew characters. The coding is Windows 8859-8 (Hebrew).
+
+procedure main()
+
+# Initializations:
+
+  cons := table("")
+  cons["A"] := char(32) # Aleph
+  cons["B"] := char(32) # Beth
+  cons["G"] := char(32) # Gimel
+  cons["D"] := char(32) # Daleth
+  cons["H"] := char(32) # He
+  cons["V"] := char(32) # Vav
+  cons["Z"] := char(32) # Zayin
+  cons["X"] := char(32) # Cheth
+  cons["+"] := char(32) # Teth
+  cons["Y"] := char(32) # Yod
+#  cons["K"] := char(32) # Kaph Sofit
+  cons["K"] := char(32) # Kaph
+  cons["L"] := "W" # Lamed
+#  cons["M"] := "W" # Mem Sofit
+  cons["M"] := "W" # Mem
+#  cons["N"] := "W" # Nun Sofit
+  cons["N"] := "W" # Nun
+  cons["$"] := "W" # Samek
+  cons["@"] := "W" # Ayin
+#  cons["P"] := "W" # Pe Sofit
+  cons["P"] := "W" # Pe
+#  cons["C"] := "W" # Tsade Sofit
+  cons["C"] := "W" # Tsade
+  cons["Q"] := "W" # Quph
+  cons["R"] := "W" # Resh
+  cons["S"] := "W" # Sin/Shin
+  cons["T"] := "W" # Tav
+  cons[" "] := ""        # Space
+  cons["-"] := ""        # Dash
+  cons[":"] := ""        # Colon
+ 
+  inFile := "Gen01.txt"
+  outFile := "Gen01_Graphical01.txt"
+  file01 := open(inFile,"r") | stop("Can't open ",inFile,".")
+  file02 := open(outFile,"wu") | stop("Can't open ",outFile,".")
+
+  while lineIn := read(file01) do {
+    lineIn := lineIn[25:0] || " "
+    lineIn ? {
+      while &pos < *lineIn do {
+        char := move(1)
+        outChar := cons[char]
+        writes(file02,outChar)
+     }
+    }
+  }
+
+end

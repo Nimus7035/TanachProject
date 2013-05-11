@@ -1,0 +1,9 @@
+procedure main()
+len3 := 'abc'
+write("length of len3 is ",*len3)
+one := 'abc'
+two := 'cba'
+write("one is ",one," two is ",two)
+if one == two then write("one == two") else write("one ~== two")
+read()
+end

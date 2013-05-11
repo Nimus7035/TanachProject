@@ -1,0 +1,52 @@
+procedure main()
+#Initializations
+
+  (file00 := open("FileNames.txt","r"))  | stop("Cannot open FileNames.txt for reading.")
+  (file03 := open("Statistics.txt","a")) | stop("Cannot open Statistics.txt for writing.")
+  (file04 := open("Tanach_SteveGross.txt","wu")) | stop("Cannot open Tanach_SteveGross.txt for writing.")
+  totalNumLines := 0; totalNumChars := 0
+
+##########################################################################
+# Main Loop
+  while (fileName := read(file00)) do {
+  write("#")
+  write("#")
+  write("#")
+  write("#")
+  write("#")
+  write("######################################################################")
+  write("fileName>",fileName,"<")
+  baseFileName  := fileName[1:-6]
+  linesFileName := baseFileName || "_Lines.txt"
+  txtFileName   := baseFileName || ".txt"
+  write("baseFileName>",baseFileName,"<")
+  write("linesFileName>",linesFileName,"<")
+  write("txtFileName>",txtFileName,"<")
+  #read()
+  (file01 := open(txtFileName,"r"))    | stop("Cannot open ",txtFileName,   " for reading.")
+  (file02 := open(linesFileName,"r"))  | stop("Cannot open ",linesFileName, " for reading.")
+  
+    ##########################################################################
+#   Inner Loops
+    while (charIn := reads(file01,1)) do {
+        totalNumChars +:= 1 # Count the number of chars written to file04.
+        writes(file04,charIn)
+        #read()
+    }
+    close(file01)
+
+#   Count the number of lines.
+    while lineIn := read(file02) do {totalNumLines +:= 1
+    }
+    close(file02)
+#   End Inner Loops
+    ##########################################################################
+  }
+# End Main Loop
+##########################################################################
+
+write(file03," \n")
+write(file03,"The total number of lines in all the files is ",totalNumLines,".")
+write(file03,"The total number of characters in the Tanach file is ",totalNumChars,".")
+end
+

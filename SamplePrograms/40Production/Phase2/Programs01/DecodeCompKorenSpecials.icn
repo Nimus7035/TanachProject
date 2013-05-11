@@ -1,0 +1,73 @@
+#This program scans the characters in the Computronics HebBible.txt file, and determines
+#what special characters it contains.
+
+global file01, charNum
+procedure main()
+
+  file01 := open("HEBBIBLECompWorking.TXT","ru")
+  file02 := open("HEBBIBLECompWorkingSpecialsReport.TXT","w")
+
+  asciiTable := table("")
+  every i := 0 to 255 do {
+    asciiTable[char(i)] := i
+  }
+
+  specials := table(""); charNum := 1; letterList := []; verseNum := 1
+
+  while letterList := bufferLine() do {
+    lineLetters := letterList[1]
+    lineSpecials   := letterList[2]
+    #write("2lineLetters =",lineLetters)
+    #write("2lineSpecials   =",lineSpecials)
+    #write("*lineSpecials = ",*lineSpecials)
+    i := 1
+    verseLength := *lineLetters
+    while i <= verseLength do {
+      charIn := lineLetters[i:i + 1]
+      if charIn << "\x80" then {i +:= 1; next}
+      #reads()
+      #write("2charIn = ",charIn," charNum = ",charNum)
+      if *specials[charIn] < 1 then {
+        specials[charIn] := charNum
+        write("charIn = ",charIn," specials[charIn] = ",specials[charIn],
+              " charNum = ",charNum," verseNum = ",verseNum)
+      }
+      # We should be skipping alternate readings too!
+      if (lineLetters[i:i + 1] ~== " ") & (lineLetters[i:i + 1] ~== "-") then charNum +:= 1
+      i +:= 1
+    }
+    verseNum +:= 1
+    #newCharNum := oldCharNum + verseLength
+    #if newCharNum = charNum then oldCharNum := newCharNum
+    #  else stop("charNum = ",charNum," newCharNum = ",newCharNum,"oldCharNum = ",oldCharNum)
+  }
+  every x := key(specials) do {
+    write(asciiTable[x]," ",x," : ",specials[x])
+    write(file02,asciiTable[x]," ",x," : ",specials[x])
+  }
+end
+
+procedure bufferLine()
+  lineLetters := ""
+  while charIn := reads(file01,1) do {
+    #write(charIn)
+    if charIn ~== "\xFE" then {
+      lineLetters ||:= charIn
+    } 
+    else break
+  }
+  if *lineLetters < 1 then fail
+  remainder := *lineLetters % 2
+  #write("remainder =",remainder)
+  if remainder ~= 0 then {
+    stop(*lineLetters," is odd! ",lineLetters)
+  }
+  else {
+    half := (*lineLetters / 2) + 1
+    lineSpecials := reverse(lineLetters[half:0])
+    lineLetters := reverse(lineLetters[1:half])
+  }
+  #write("1lineLetters =",lineLetters)
+  #write("1lineSpecials   =",lineSpecials)
+return [lineLetters, lineSpecials]
+end

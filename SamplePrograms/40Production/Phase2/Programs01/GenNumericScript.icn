@@ -1,0 +1,17 @@
+# This program generates a script to report on all numeric values represented
+# by the Strong's Hebrew Lexicon.
+
+procedure main()
+  file01 := open("StrongsHebrewLexiconByNumberValues.txt","r") | 
+            stop("Can't open StrongsHebrewLexiconByNumberValues.txt.")
+  file02 := open("LexiconReportsByNumberValues.bat","w") |
+            stop("Can't open LexiconReportsByNumberValues.bat")
+    prevNum := "0000"
+  while (lineIn := read(file01)) do {
+    nextNum := lineIn[1:5]
+    if (nextNum ~== prevNum) then {
+      write(file02,"LexiconEntriesByNumeric02.exe ",nextNum)
+      prevNum := nextNum
+    }
+  }
+end

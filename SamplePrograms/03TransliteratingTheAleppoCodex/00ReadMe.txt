@@ -26,8 +26,8 @@ Don't download it yet. Let's do our little five verse test case first.
 
 You already know the drill. Open a command window. Use the CD command to
 navigate to the folder where this ReadMe is stored. Compile the sample 
-program with the command "icont Html02.icn". Then run the program with the
-command "Html02.exe"
+program with the command "icont Html20130430a.icn". Then run the program 
+with the command "Html20130430a.exe"
 
 If all went well, you now have a file named "01_Gen001.txt" containing the
 first five verses of Genesis.
@@ -39,7 +39,7 @@ folder as this ReadMe.
 Extract all the files from t002.zip. In the process a new folder named 
 "t002" will be created, and inside that folder will be another named "t".
 Don't go there yet. First select and copy the following three files: 
-"AllHtmlNames.txt", "BookNames02.txt", "Html02.icn". Now navigate to the 
+"AllHtmlNames.txt", "BookNames02.txt", "Html20130430a.icn". Now navigate to the 
 "t" folder and "plunk" those files in there.
 
 <Rabbit Trail>
@@ -51,12 +51,13 @@ adventure.
 
 Now that you've "plunked" the files, rename "AllHtmlNames.txt" to
 "HtmlNames.txt". Then from your command window, CD on down to the "t" 
-directory, and compile the program with "icont Html02.icn". And
-finally, run the program with "Html02.exe".
+directory, and compile the program with "icont Html20130430a.icn". And
+finally, run the program with "Html20130430a.icn.exe".
 
 In just seconds you should have 929 separate files containing the 929 
 chapters of the Tanach. You already know how to combine these files into a
-single Tanach.txt file.
+single Tanach.txt file, but to make it easier on yourself just use the 
+program named "CombineBooksAleppo20130430a.icn".
 
 Next time we'll work on the BHS i.e. The Biblia Hebraica Stuttgartensia.
 

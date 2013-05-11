@@ -1,0 +1,20 @@
+# This program tests Icon's ability to create a folder.
+
+procedure main()
+
+#  fileName1 := "C:\\Users\\dad8\\Documents\\Unicon\\Win7TanachProject\\Phase2\\Genesis\\Test1\\test00.txt"
+  fileName1 := ".\\Genesis\\Test1\\test00.txt"
+  fileName2 := "C:\\Users\\dad8\\Documents\\Unicon\\Win7TanachProject\\Phase2\\Genesis\\Test1\\test01.txt"
+  fileName3 := "C:\\Users\\dad8\\Documents\\Unicon\\Win7TanachProject\\Phase2\\Genesis\\Test3\\test03.txt"
+  write(fileName)
+  file01 := open(fileName1,"r") | 
+    write("This is stupid. I can't even read the file.")
+  file02 := open(fileName2,"w") | 
+    write("This is stupid. I can't even create the file test01.txt!")
+#  file03 := open(fileName3,"w") | 
+#    write("This is stupid. I can't create a folder!")
+
+  write(file02,"Test record 02.")
+#  write(file03,"Test record 03.")
+
+end

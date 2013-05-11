@@ -1,0 +1,67 @@
+# This program combines all the books of the Tanach into a single file.
+
+procedure main()
+
+  files := [] # Input file names in book order.
+  files |||:= ["01_Genesis.con.out.txt"]
+  files |||:= ["02_Exodus.con.out.txt"]
+  files |||:= ["03_Leviticus.con.out.txt"]
+  files |||:= ["04_Numbers.con.out.txt"]
+  files |||:= ["05_Deuteronomy.con.out.txt"]
+  files |||:= ["06_Joshua.con.out.txt"]
+  files |||:= ["07_Judges.con.out.txt"]
+  files |||:= ["08_1Samuel.con.out.txt"]
+  files |||:= ["09_2Samuel.con.out.txt"]
+  files |||:= ["10_1Kings.con.out.txt"]
+  files |||:= ["11_2Kings.con.out.txt"]
+  files |||:= ["12_Isaiah.con.out.txt"]
+  files |||:= ["13_Jeremiah.con.out.txt"]
+  files |||:= ["14_Ezekiel.con.out.txt"]
+  files |||:= ["15_Hosea.con.out.txt"]
+  files |||:= ["16_Joel.con.out.txt"]
+  files |||:= ["17_Amos.con.out.txt"]
+  files |||:= ["18_Obadiah.con.out.txt"]
+  files |||:= ["19_Jonah.con.out.txt"]
+  files |||:= ["20_Micah.con.out.txt"]
+  files |||:= ["21_Nahum.con.out.txt"]
+  files |||:= ["22_Habakkuk.con.out.txt"]
+  files |||:= ["23_Zephaniah.con.out.txt"]
+  files |||:= ["24_Haggai.con.out.txt"]
+  files |||:= ["25_Zechariah.con.out.txt"]
+  files |||:= ["26_Malachi.con.out.txt"]
+  files |||:= ["27_Psalms.con.out.txt"]
+  files |||:= ["28_Proverbs.con.out.txt"]
+  files |||:= ["29_Job.con.out.txt"]
+  files |||:= ["30_SongOfSongs.con.out.txt"]
+  files |||:= ["31_Ruth.con.out.txt"]
+  files |||:= ["32_Lamentations.con.out.txt"]
+  files |||:= ["33_Ecclesiastes.con.out.txt"]
+  files |||:= ["34_Esther.con.out.txt"]
+  files |||:= ["35_Daniel.con.out.txt"]
+  files |||:= ["36_Ezra.con.out.txt"]
+  files |||:= ["37_Nehemiah.con.out.txt"]
+  files |||:= ["38_1Chronicles.con.out.txt"]
+  files |||:= ["39_2Chronicles.con.out.txt"]
+
+  file02 := open("00_Tanach.con.txt","w")
+
+  i := 1; totalLines := 0
+  while i < 40 do {
+    lineNumIn := 0
+    file01 := open(files[i],"r")
+    while lineIn := read(file01) do {
+      if *lineIn > 19 then {
+        lineNumIn  +:= 1
+        totalLines +:= 1
+        lineNumberOut := ("0000" || totalLines || " ")[-6:0]
+        write(file02,lineNumberOut," ",lineIn)
+      }
+      else {
+        stop("Line too short in ",files[i]," ",lineNumIn," ",lineIn)
+      }
+    }
+  i +:= 1
+  }
+
+
+end

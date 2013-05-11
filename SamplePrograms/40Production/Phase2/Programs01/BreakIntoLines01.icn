@@ -1,0 +1,23 @@
+# This program takes a file and breaks it up into 64 byte lines.
+
+procedure main(arguments)
+
+  inFileName := arguments[1]
+  outFileName := inFileName[1:-4] || ".out.txt"
+  file01 := open(inFileName,"ru") | stop("Can't open ",inFileName,".")
+  file02 := open(outFileName,"w") | stop("Can't open ",outFileName,".")
+
+  charCount := 0; outLine := ""
+  while charIn := reads(file01) do {
+    outLine ||:= charIn
+    charCount +:= 1
+    if charCount = 16 then {
+      write(file02,outLine)
+      charCount := 0; outLine := ""
+    }
+  }
+  if *outLine > 0 then {
+    write(file02,outLine)
+  }
+end
+

@@ -1,0 +1,159 @@
+# This program's purpose is to extract Hebrew text from a web page.
+# The web page will be in Windows code set 1255 which is displayable with the 
+# Elronet.ttf font.
+
+procedure main()
+
+# Translate Table
+  cons := table("") # Anything not in the table will translate to the empty string.
+  cons[char(224)] := "A" # Aleph "\xE0"
+  cons[char(225)] := "B" # Beth
+  cons[char(226)] := "G" # Gimel
+  cons[char(227)] := "D" # Daleth
+  cons[char(228)] := "H" # He
+  cons[char(229)] := "V" # Vav
+  cons[char(230)] := "Z" # Zayin
+  cons[char(231)] := "X" # Cheth
+  cons[char(232)] := "+" # Teth
+  cons[char(233)] := "Y" # Yod
+  cons[char(234)] := "K" # Kaph Sofit
+  cons[char(235)] := "K" # Kaph
+  cons[char(236)] := "L" # Lamed
+  cons[char(237)] := "M" # Mem Sofit
+  cons[char(238)] := "M" # Mem
+  cons[char(239)] := "N" # Nun Sofit
+  cons[char(240)] := "N" # Nun
+  cons[char(241)] := "$" # Samek
+  cons[char(242)] := "@" # Ayin
+  cons[char(243)] := "P" # Pe Sofit
+  cons[char(244)] := "P" # Pe
+  cons[char(245)] := "C" # Tsade Sofit
+  cons[char(246)] := "C" # Tsade
+  cons[char(247)] := "Q" # Quph
+  cons[char(248)] := "R" # Resh
+  cons[char(249)] := "S" # Sin/Shin
+  cons[char(250)] := "T" # Tav "\xFA"
+  cons["\x20"] := " " # Space
+  cons["\xA0"] := " " # Space
+  cons["\x2C"] := " " # Comma
+  cons["\x2D"] := " " # Dash
+  cons["\xAF"] := " " # Dash
+  cons["\x3A"] := " " # Colon
+  cons["\x3B"] := " " # Semicolon
+
+# This table was necessitated by the odd way the chapters of the book of Psalms
+# were named. Starting with Psalm 100 one of the digits is in hexadecimal.
+  dec := table("")
+  dec["a"] := 10
+  dec["b"] := 11
+  dec["c"] := 12
+  dec["d"] := 13
+  dec["e"] := 14
+  dec["f"] := 15
+
+  bookNames := table("") # Book Names translation table.
+  file01 := open("BookNames02.txt","r") | stop("Can't open BookNames02.txt")
+  while lineIn := read(file01) do { # Load the book names into a table.
+    bookNum := lineIn[1:3]
+    bookNam := lineIn[4:7]
+    bookNam := bookNum || "_" || bookNam
+    fileNam := lineIn[8:0]
+    bookNames[fileNam] := bookNam
+  }
+  sorted := sort(bookNames,2)
+  every i := 1 to *sorted do {
+    write("i =",i," ",sorted[i,1]," ",sorted[i,2]) # Write book names to the screen.
+  }
+  close(file01)
+
+# HtmlNames.txt contains the names of the files (Tanach chapters) to be processed.
+  file00 := open("HtmlNames.txt","r") | stop("Can't open HtmlNames.txt.")
+
+  suffixes := 'abcdef'; spaces := cset("\x20\xa0")
+  tanachVerseNum := 0; bookVerseNum := 0; oldBookName := ""
+  while fileNameIn00 := trim(read(file00)) do { # Get a file name to be processed.
+    fileNameIn := fileNameIn00[1:-4] # Truncate ".htm"
+    fileNam := fileNameIn00[1:4] # "tnn"
+    fileSuf := fileNameIn00[4:5] # "a" thru "f"
+    chapNum := fileNameIn[-2:0] # Chapter Number
+    if any(suffixes,fileSuf) then fileNam ||:= fileSuf
+    bookNam := bookNames[fileNam] # For instance: 01_Gen
+    bookName := bookNam[-3:0]     # For instance: Gen
+    if oldBookName ~== bookName then {oldBookName := bookName; bookVerseNum := 0}
+    if bookNam == "27_Psa" then { # Deal with odd names of Psalm 100 through 150.
+      chapNumFirstDigit  := chapNum[1:2]
+      chapNumSecondDigit := chapNum[2:3]
+      if any(suffixes,chapNumFirstDigit) then {
+        chapNumFirstDigit := dec[chapNumFirstDigit] # Convert hex digit to decimal.
+        chapNum := chapNumFirstDigit || chapNumSecondDigit
+      }
+    }
+    chapNum := ("0" || chapNum)[-3:0] # Chapter numbers should be three digits.
+    fileNameOut := bookNam || chapNum || ".txt"
+    write("fileNameIn00 = ",fileNameIn00," fileNameOut = ",fileNameOut) # Progress line
+    file01 := open(fileNameIn00,"r") | stop("Can't open ",fileNameIn00)
+    file02 := open(fileNameOut,"w") | stop("Can't open ",fileNameOut)
+
+    chapNum := ("0" || chapNum)[-3:0]
+    writing := "off"; verseNum := 0; diags := "off"
+    while lineIn := trim(read(file01)) do {
+      if *lineIn < 1 then next # Skip this line and go to the next one.
+      textOut := ""
+      if (bookName == "Psa") & (chapNum == "108") then diags := "on" # Diagnose an issue.
+      if (lineIn[1:5] == "<H1>") & (writing == "off") then {writing := "on"; next}
+      if (lineIn[1:5] == "<HR>") & (writing == "on") then {writing := "off"; next}
+      if writing == "off" then next
+      if (diags == "on") & (writing == "on") then write("lineIn == ",lineIn) # Diagnostic
+      if (diags == "on") & (writing == "on") then write("writing == ",writing) # Diagnostic
+      if (writing == "on") & (lineIn[1:3] == "<A") then next
+      if lineIn[1:2] ~== "<" then { # Process a continuation line.
+        every i := 1 to *lineIn do {
+          textOut ||:= cons[lineIn[i:i+1]]
+        }
+      }
+      else {
+        lineIn ? {
+          if loc := find("<P>") then {
+          tab(loc) 
+          move(3)
+          if (diags == "on") & (writing == "on") then write("<P> &pos == ",&pos)
+          }
+          if loc := find("</B>") then {
+            tab(loc)
+            move(4)
+            tab(many(spaces))
+            text := tab(upto('.'))
+            every i := 1 to *text do {
+              textOut ||:= cons[text[i:i+1]]
+            }
+            if (diags == "on") & (writing == "on") then write("</B> textOut == ",textOut)
+          }
+        }
+      }
+      text2Out := ""
+      textOut ? {
+        while &pos <= *textOut do {
+          if text2Out ||:= tab(upto(spaces)) then {
+            text2Out ||:= " "
+            tab(many(spaces))
+          }
+          else {
+            text2Out ||:= textOut[&pos:0]; break
+          }
+        }
+      }
+      if (diags == "on") then write(" textOut == ",textOut)
+      if (diags == "on") then write("text2Out == ",text2Out)
+      if writing == "on" then {
+        verseNum +:= 1
+        bookVerseNum +:= 1
+        tanachVerseNum +:= 1
+        bookVerseOut   := ("0000" || bookVerseNum)[-5:0] || " "
+        tanachVerseOut := ("0000" || tanachVerseNum)[-5:0] || " "
+        verseOut := ("00" || verseNum)[-3:0]
+        write(file02,tanachVerseOut, bookVerseOut, bookName," ",chapNum,":",verseOut," ",text2Out)
+      }
+    }
+    close(file01); close(file02)
+  }
+end

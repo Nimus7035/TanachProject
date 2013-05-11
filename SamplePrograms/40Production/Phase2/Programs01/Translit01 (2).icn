@@ -1,0 +1,101 @@
+# This program reads the Bible Search Pro version of the Tanach, and transliterates it
+# into a common code set for ease of processing.
+
+procedure main()
+
+# Initializations:
+
+  cons := table("")
+  cons["*"] := "*" # Variant Reading
+  cons["s"] := "s" # Minor Break
+  cons[" "] := " " # Space
+  cons["-"] := " " # Dash
+  cons["0"] := "0" # Zero
+  cons["1"] := "1" # One
+  cons["2"] := "2" # Two
+  cons["3"] := "3" # Three
+  cons["4"] := "4" # Four
+  cons["5"] := "5" # Five
+  cons["6"] := "6" # Six
+  cons["7"] := "7" # Seven
+  cons["8"] := "8" # Eight
+  cons["9"] := "9" # Nine
+  cons[")"] := "A" # Aleph
+  cons["B"] := "B" # Beth
+  cons["G"] := "G" # Gimel
+  cons["D"] := "D" # Daleth
+  cons["d"] := "D" # Daleth
+  cons["H"] := "H" # He
+  cons["h"] := "H" # He
+  cons["W"] := "V" # Vav
+  cons["w"] := "V" # Vav
+  cons["Z"] := "Z" # Zayin
+  cons["X"] := "X" # Cheth
+  cons["+"] := "+" # Teth
+  cons["Y"] := "Y" # Yod
+  cons["K"] := "K" # Kaph
+  cons["L"] := "L" # Lamed
+  cons["l"] := "L" # Lamed
+  cons["M"] := "M" # Mem
+  cons["N"] := "N" # Nun
+  cons["S"] := "$" # Samek
+  cons["s"] := "s" # Minor Break
+  cons["("] := "@" # Ayin
+  cons["P"] := "P" # Pe
+  cons["C"] := "C" # Tsade
+  cons["Q"] := "Q" # Quph
+  cons["R"] := "R" # Resh
+  cons["$"] := "S" # Sin/Shin
+  cons["T"] := "T" # Tav
+
+  file00 := open("FileNames.txt","r") | stop("Can't open FileNames.txt.")
+  file03 := open("BSP_VariantReadings.txt","w") | stop("Cant open BSP_VariantReadings.txt.")
+
+  masterVerse := 0
+  while fileIn := read(file00) do {
+    write("Working on ",fileIn,".")
+    bookVerse := 0
+    bookName := fileIn[4:7] || " "
+    outFile := fileIn[1:7] || ".txt"
+    file01 := open(fileIn,"r") | stop("Can't open ",fileIn,".")
+    file02 := open(outFile,"w") | stop("Can't open ",outFile,".")
+    while lineIn := read(file01) do {
+    text := ""
+    lineIn := trim(lineIn)
+    if *lineIn < 1 then next # Skip blank lines.
+    masterVerse +:= 1; bookVerse +:= 1
+    masterVerseOut := ("0000" || masterVerse)[-5:0] || " "
+    bookVerseOut   := ("0000" || bookVerse)[-5:0] || " "
+    transedText := ""; variantText := ""
+      lineIn ? {
+        chapter := reverse(tab(upto(' ')))
+        tab(many(' '))
+        verse := reverse(tab(upto(' ')))
+        tab(many(' '))
+        text := tab(upto(':'))
+        #write(text)
+        chapOut  := ("00" || chapter)[-3:0] || ":"
+        verseOut := ("00" || verse)[-3:0] || " "
+        variantReading := "off"
+        every i := 1 to *text do {
+          char := text[i:i+1]
+          transed := cons[char]
+          if *transed < 1 then stop(bookName,chapOut,verseOut,"Can't identify character >",text[i:i+1],"< .")
+          if transed == "*" then variantReading := "on" # Retain variant reading.
+          variantText ||:= transed
+          if (i > 1) & (variantText[-2:0] == "  ") then variantText := variantText[1:-1] # Drop extra space.
+          if transed == "s" then {variantReading := "on"; transed := " "} # Drop minor break.
+          transedText ||:= transed
+          if (i > 1) & (transedText[-2:0] == "  ") then transedText := transedText[1:-1] # Drop extra space.
+          #write("char >",char,"< transed >",transed,"< transedText >",transedText,"<"); read()
+        }
+      }
+      write(file02,masterVerseOut,bookVerseOut,bookName,chapOut,verseOut,transedText)
+      if variantReading == "on" then {
+      write(file03,masterVerseOut,bookVerseOut,bookName,chapOut,verseOut,variantText)
+      }
+    }
+    close(file01); close(file02)
+  }
+end
+

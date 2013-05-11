@@ -1,0 +1,65 @@
+procedure main()
+
+  translit := table("")
+  translit["\xC2\xB4"] := "A" # Aleph With Diaresis
+  translit["\xC2\xA0"] := ""  # Non Break Space
+  translit["\xC5\xA1"] := ""  # 
+  translit["\xD6\xB0"] := ""  # Sheva (e in met or silent)
+  translit["\xD6\xB1"] := ""  # Hataf Segol (e in set)
+  translit["\xD6\xB2"] := ""  # Hataf Patah (a in bad)
+  translit["\xD6\xB3"] := ""  # Hataf Kamats (o in top)
+  translit["\xD6\xB4"] := ""  # Hirik (i in hit)
+  translit["\xD6\xB5"] := ""  # Tsere (e in they)
+  translit["\xD6\xB6"] := ""  # Segol (e in set)
+  translit["\xD6\xB7"] := ""  # Patah (a in bad)
+  translit["\xD6\xB8"] := ""  # Kamats (a in father)
+  translit["\xD6\xB9"] := ""  # Holam (o in pole) (left sin dot)
+  translit["\xD6\xBA"] := ""  # ** Unknown Vowel **
+  translit["\xD6\xBB"] := ""  # Kubuts (u in pull)
+  translit["\xD6\xBC"] := ""  # Dagesh/Mapiq (dot inside letter)
+  translit["\xD6\xBD"] := ""  # ** Unknown Vowel **
+  translit["\xD6\xBE"] := " " # Makef (Hyphen/Minus)
+  translit["\xD6\xBF"] := " " # Rafeh (dash)
+  translit["\xD7\x81"] := ""  # Right Shin Dot
+  translit["\xD7\x83"] := ":" # Sof Pasuq (colon)
+  translit["\xD7\x86"] := ""  # Nun Hafukha (Backwards Nun)
+  translit["\xD7\x90"] := "A" # Aleph
+  translit["\xD7\x91"] := "B" # Beth
+  translit["\xD7\x92"] := "G" # Gimel
+  translit["\xD7\x93"] := "D" # Daleth
+  translit["\xD7\x94"] := "H" # He
+  translit["\xD7\x95"] := "V" # Vav / Waw
+  translit["\xD7\x96"] := "Z" # Zayin
+  translit["\xD7\x97"] := "X" # Heth / Cheth
+  translit["\xD7\x98"] := "+" # Teth
+  translit["\xD7\x99"] := "Y" # Yod
+  translit["\xD7\x9A"] := "K" # Kaph Sofit (Final Kapf)
+  translit["\xD7\x9B"] := "K" # Kaph
+  translit["\xD7\x9C"] := "L" # Lamed
+  translit["\xD7\x9D"] := "M" # Mem Sofit (Final Mem)
+  translit["\xD7\x9E"] := "M" # Mem
+  translit["\xD7\x9F"] := "N" # Nun Sofit (Final Nun)
+  translit["\xD7\xA0"] := "N" # Nun
+  translit["\xD7\xA1"] := "$" # Samek
+  translit["\xD7\xA2"] := "@" # Ayin
+  translit["\xD7\xA3"] := "P" # Pe Sofit (Final Pe)
+  translit["\xD7\xA4"] := "P" # Pe
+  translit["\xD7\xA5"] := "C" # Tsade Sofit (Final Tsade)
+  translit["\xD7\xA6"] := "C" # Tsade
+  translit["\xD7\xA7"] := "Q" # Qoph
+  translit["\xD7\xA8"] := "R" # Resh
+  translit["\xD7\xA9"] := "S" # Sin / Shin
+  translit["\xD7\xAA"] := "T" # Taw
+  translit["\xD7\xB0"] := ""  # Tsvey Vovn: Hebrew Ligature Yiddish Double Vav
+  translit["\xD7\xB1"] := ""  # Vov Yud: Hebrew Ligature Yiddish Vav Yod
+  translit["\xD7\xB2"] := ""  # Tsvey Yudn: Hebrew Ligature Yiddish Double Yod
+  translit["\xD7\xB3"] := ""  # Geresh (Apostrophe)
+  translit["\xD7\xB4"] := "D7B4"  # Gershayim (Quotation Mark)
+  translit["\xEF\xAC\x9E"] := ""  # Judeo-Spanish Varika
+
+  oldChar := "\xD7\xB4"
+  if (newChar := translit[oldChar]) then write("D7 B4 succeeded. >",newChar) else write("D7 B4 failed")
+  oldChar := "\xD7\xB5"
+  if (newChar := translit[oldChar]) then write("D7 B5 succeeded. >",newChar) else write("D7 B5 failed")
+
+end

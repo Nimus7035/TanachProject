@@ -1,0 +1,13 @@
+# This program removes a space from 00_Tanach.conTooManySpaces.txt.
+
+procedure main()
+
+  file01 := open("00_Tanach.conTooManySpaces.txt","r") | 
+    stop("Can't open 00_Tanach.conTooManySpaces.txt.")
+  file02 := open("00_Tanach.con.txt","w")
+
+  while lineIn := read(file01) do {
+    lineIn := lineIn[1:6] || lineIn[7:0]
+    write(file02,lineIn)
+  }
+end

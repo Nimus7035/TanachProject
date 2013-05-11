@@ -1,0 +1,72 @@
+procedure main()
+# This program reads a DiscrepancyReport.txt file, examines each verse in the file, and gives it a Panin Score.
+# The Panin score can be used later to determine which alternate reading is most appropriate.
+# This program does not work because more context is needed. A whole section must be analyzed!
+
+  file01 := open("DiscrepancyReport.txt","r") | stop("Stop: Can't open DiscrepancyReport.txt.")
+  file02 := open("PaninInput.txt","w") | stop("Stop: Can't open PaninInput.txt.")
+  while (lineIn := read(file01)) do {
+    write(file02,lineIn)
+    write(lineIn)
+    tempA := lineIn[25:0]; tempB := tempA; verseA := ""; verseB := ""
+    
+    while (*tempA > 0) do {
+      write(">tempA>>>",tempA)
+      tempA ? {if (tab(find("**"))) then { verseA ||:= tempA[1:&pos]
+                                      if (tab(upto(' '))) 
+                                        then tempA := tempA[&pos+1:0]
+                                        else tempA := ""
+                                        write("1) tempA ==",tempA)
+                                        write("1) verseA ==",verseA)
+                                     }
+                               else {verseA ||:= tempA; tempA := ""
+                                     write("2) tempA >",tempA,"<")
+                                     write("2) verseA ==",verseA)
+                                    }
+      }
+    }
+
+    tempA := ""; done := 0
+    while done == 0 do {
+      verseA ? {if (tab(find("*"))) then { tempA ||:= verseA[1:&pos]
+                                           move(1)
+                                           tempA ||:= verseA[&pos:0]
+                                           verseA := tempA
+                                           tempA := ""
+                                         }
+                                     else done := 1
+      }
+    }
+
+    write(file02,">>>",verseA)
+    write("verseA>>>",verseA)
+
+
+    
+    while (*tempB > 0) do {
+      write(">tempB>>>",tempB)
+      tempB ? {if (tab(find("**"))) then { tempB := tempB[1:&pos] || tempB[&pos+2:0]
+                                     }
+                               else {verseB ||:= tempB; tempB := ""
+                                     write("2) tempB >",tempB,"<")
+                                     write("2) verseB ==",verseB)
+                                    }
+      }
+    }
+    tempB := ""; done := 0
+    while done == 0 do {
+      verseB ? {if (tab(find("*"))) then { tempB ||:= verseB[1:&pos]
+                                           if (tab(upto(' '))) then
+                                           tempB ||:= verseB[&pos+1:0]
+                                           verseB := tempB
+                                           write("3) verseB>>>",verseB)
+                                         }
+                                     else {done := 1}
+      }
+    }
+    write(file02,">>>",verseB)
+    write("verseB>>>",verseB)
+  }
+  write("Press Enter to terminate.")
+  read()
+end

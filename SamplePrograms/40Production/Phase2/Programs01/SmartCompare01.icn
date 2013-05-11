@@ -1,0 +1,182 @@
+procedure main()
+# Initializations
+  write("Begin File Compare\n")
+  (file01 := open("HebfastPlus1998.Txt","u")) | stop("Cannot open HebfastPlus1998.Txt\n")
+  (file02 := open("Tanach2012.Txt","u")) | stop("Cannot open Tanach2012.Txt\n")
+  (file03 := open("SmartCompare01Report.txt","w")) | stop("Cannot open SmartCompare01Report.txt for writing.\n")
+  c1 := reads(file01,1)
+  c2 := reads(file02,1)
+  c1num := 1
+  c2num := 1
+  c1savnum := 1
+  c2savnum := 1
+  resolved := 0
+  done := 0
+  startingchar1 := 1
+  startingchar2 := 1
+  write(startingchar1)
+  write(startingchar2)
+ # read()
+
+# Set the starting point.
+  while c1num < startingchar1 do
+    {reads(file01,1) 
+     c1num := c1num + 1
+    }
+  while c2num < startingchar2 do
+    {reads(file02,1) 
+     c2num := c2num + 1
+    }
+  write(c1num)
+  write(c2num)
+ # read()
+
+  while done == 0 do
+  {
+#   Find next different letter.
+    while c1 == c2 do
+      {write(c1," ",c2," ",c1num," ",c2num)
+       c1num := c1num + 1
+       c2num := c2num + 1
+       c1 := reads(file01,1)
+       c2 := reads(file02,1)
+     # read()
+      }
+    write(c1," ",c2," ",c1num," ",c2num,"<-------")
+    c1chars := table(" ")
+    c2chars := table(" ")
+    c1chars[c1num] := c1
+    c2chars[c2num] := c2
+    c1savnum := c1num # Save current position in file.
+    c2savnum := c2num # Save current position in file.
+    c1num := c1num + 1
+    c2num := c2num + 1
+    resolved := 0     # The issue is not yet resolved.
+
+#   Write more letters for context.
+    write(c1 := reads(file01,1)," ",c2 := reads(file02,1)," ",c1num," ",c2num," Context")
+       c1chars[c1num] := c1
+       c2chars[c2num] := c2
+       c1num := c1num + 1
+       c2num := c2num + 1
+    write(c1 := reads(file01,1)," ",c2 := reads(file02,1)," ",c1num," ",c2num," Context")
+       c1chars[c1num] := c1
+       c2chars[c2num] := c2
+       c1num := c1num + 1
+       c2num := c2num + 1
+    write(c1 := reads(file01,1)," ",c2 := reads(file02,1)," ",c1num," ",c2num," Context")
+       c1chars[c1num] := c1
+       c2chars[c2num] := c2
+       c1num := c1num + 1
+       c2num := c2num + 1
+    write(c1 := reads(file01,1)," ",c2 := reads(file02,1)," ",c1num," ",c2num," Context")
+       c1chars[c1num] := c1
+       c2chars[c2num] := c2
+       c1num := c1num + 1
+       c2num := c2num + 1
+    write(c1 := reads(file01,1)," ",c2 := reads(file02,1)," ",c1num," ",c2num," Context")
+       c1chars[c1num] := c1
+       c2chars[c2num] := c2
+       c1num := c1num + 1
+       c2num := c2num + 1
+    write(c1 := reads(file01,1)," ",c2 := reads(file02,1)," ",c1num," ",c2num," Context")
+       c1chars[c1num] := c1
+       c2chars[c2num] := c2
+       c1num := c1num + 1
+       c2num := c2num + 1
+    write(c1 := reads(file01,1)," ",c2 := reads(file02,1)," ",c1num," ",c2num," Context")
+       c1chars[c1num] := c1
+       c2chars[c2num] := c2
+#   write("resolved == ",resolved,"")
+
+#   Write out the context table contents.
+#    c1num := c1savnum
+#    c2num := c2savnum
+#    i := 0
+#    while i < 8 do
+#    { c1num := c1savnum + i
+#      c2num := c2savnum + i
+#      write(c1chars[c1num]," ",c2chars[c2num]," ",c1num," ",c2num)
+#      i +:= 1
+#    }
+
+    #read()
+
+#   Begin discrepancy resolution.
+
+#   Case 1: File 2 is missing one or more characters.
+    write("Case 1: resolved == ",resolved,"")
+    #read()
+    if resolved == 0 then {
+      write("Fee 1!")
+      write("c1chars[c1savnum + 1] == ", c1chars[c1savnum + 1])
+      write("c2chars[c2savnum] == ", c2chars[c2savnum])
+      write("Fie 1!")
+      if c1chars[c1savnum + 1] == c2chars[c2savnum] & c1chars[c1savnum + 2] == c2chars[c2savnum + 1] & c1chars[c1savnum + 3] == c2chars[c2savnum + 2]  then {
+        write("Foe 1!")
+        write(file03, "-----------------------------------------------------------------------------------------")
+        write(file03, "File 2 is missing one or more characters.")
+        write(file03, c1chars[c1savnum]," ",c2chars[c2savnum]," ",c1savnum," ",c2savnum,"<-------")
+        write(file03, c1chars[c1savnum + 1]," ",c2chars[c2savnum + 1]," ",c1savnum + 1," ",c2savnum + 1," Context")
+        write(file03, c1chars[c1savnum + 2]," ",c2chars[c2savnum + 2]," ",c1savnum + 2," ",c2savnum + 2," Context")
+        write(file03, c1chars[c1savnum + 3]," ",c2chars[c2savnum + 3]," ",c1savnum + 3," ",c2savnum + 3," Context")
+        write(file03, c1chars[c1savnum + 4]," ",c2chars[c2savnum + 4]," ",c1savnum + 4," ",c2savnum + 4," Context")
+        write(file03, c1chars[c1savnum + 5]," ",c2chars[c2savnum + 5]," ",c1savnum + 5," ",c2savnum + 5," Context")
+        write(file03, c1chars[c1savnum + 6]," ",c2chars[c2savnum + 6]," ",c1savnum + 6," ",c2savnum + 6," Context")
+        write(file03, c1chars[c1savnum + 7]," ",c2chars[c2savnum + 7]," ",c1savnum + 7," ",c2savnum + 7," Context\n\n")
+        write("Fum 1!")
+        c1num := c1savnum + 1
+        c2num := c2savnum
+        seek(file01,c1num)
+        seek(file02,c2num)
+        if not c1 := reads(file01,1) then done := 1
+        if not c2 := reads(file02,1) then done := 1
+        resolved := 1
+        }
+    }
+      
+
+#   Case 2: File 2 contains one or more extra characters.
+    write("Case 2: resolved == ",resolved,"")
+    #read()
+    if resolved == 0 then {
+      write("Fee 2!")
+      write("c1chars[c1savnum] == ", c1chars[c1savnum])
+      write("c2chars[c2savnum + 1] == ", c2chars[c2savnum + 1])
+      write("Fie 2!")
+      if c1chars[c1savnum] == c2chars[c2savnum + 1] & c1chars[c1savnum + 1] == c2chars[c2savnum + 2] & c1chars[c1savnum + 2] == c2chars[c2savnum + 3]  then {
+        write("Foe 2!")
+        write(file03, "-----------------------------------------------------------------------------------------")
+        write(file03, "File 2 has one or more extra characters.")
+        write(file03, c1chars[c1savnum]," ",c2chars[c2savnum]," ",c1savnum," ",c2savnum,"<-------")
+        write(file03, c1chars[c1savnum + 1]," ",c2chars[c2savnum + 1]," ",c1savnum + 1," ",c2savnum + 1," Context")
+        write(file03, c1chars[c1savnum + 2]," ",c2chars[c2savnum + 2]," ",c1savnum + 2," ",c2savnum + 2," Context")
+        write(file03, c1chars[c1savnum + 3]," ",c2chars[c2savnum + 3]," ",c1savnum + 3," ",c2savnum + 3," Context")
+        write(file03, c1chars[c1savnum + 4]," ",c2chars[c2savnum + 4]," ",c1savnum + 4," ",c2savnum + 4," Context")
+        write(file03, c1chars[c1savnum + 5]," ",c2chars[c2savnum + 5]," ",c1savnum + 5," ",c2savnum + 5," Context")
+        write(file03, c1chars[c1savnum + 6]," ",c2chars[c2savnum + 6]," ",c1savnum + 6," ",c2savnum + 6," Context")
+        write(file03, c1chars[c1savnum + 7]," ",c2chars[c2savnum + 7]," ",c1savnum + 7," ",c2savnum + 7," Context\n\n")
+        write("Fum 2!")
+        c1num := c1savnum
+        c2num := c2savnum + 1
+        seek(file01,c1num)
+        seek(file02,c2num)
+        if not c1 := reads(file01,1) then done := 1
+        if not c2 := reads(file02,1) then done := 1
+        resolved := 1
+        #read()
+        }
+    }
+
+#   Case 3: File 2 contains two or more characters that are wrong or in the wrong order.
+    write("Case 3: resolved == ",resolved,"")
+    if resolved == 0 then {
+    }
+    
+#   write("Press Enter to close the console.")
+#   read()
+   }
+   close(file03)
+   write("Preparing to exit.\n")
+   exit()
+end

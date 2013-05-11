@@ -1,0 +1,119 @@
+# This program uses the alphabet table to convert a Strong's Hebrew Lexicon
+# to a common transliteration so it can be easily read. The Hebrew coding of the input file must be
+# "Hebrew (Windows-1255) Encoded Text." You can create such a file easily with the Libre Office 
+# "Save As" option.
+# Note: When creating a conversion table, "Don't forget the five Hebrew final forms!" Also, any
+#       unwanted characters (like vowells or punctuation) can be converted to the empty string.
+global alphaCset, alphabet, file02
+procedure main()
+# Initializations
+  file01 := open("WorkingOut01.txt","r") | stop("Unable to open WorkingOut01.txt.")
+  file02 := open("WorkingOut02.txt","w") | stop("Unable to open WorkingOut02.txt.")
+
+# Create the empty Alphabet Table
+  alphabet := table("")
+
+# Load the Alphabet Table.  <<<<<<<<<<<<<<<<This translation table is a dud!
+  alphabet["À"] := "" # Begin Vowels
+  alphabet["Á"] := ""
+  alphabet["Â"] := ""
+  alphabet["Ã"] := ""
+  alphabet["Ä"] := ""
+  alphabet["Å"] := ""
+  alphabet["Æ"] := ""
+  alphabet["Ç"] := ""
+  alphabet["È"] := ""
+  alphabet["É"] := ""
+  alphabet["Ê"] := ""
+  alphabet["Ë"] := ""
+  alphabet["Ì"] := ""
+  alphabet["Í"] := ""
+  alphabet["Î"] := ""
+  alphabet["Ï"] := ""
+  alphabet["Ð"] := ""
+  alphabet["Ñ"] := ""
+  alphabet["Ò"] := ""
+  alphabet["à"] := "A" # Begin Consonants
+  alphabet["á"] := "B"
+  alphabet["â"] := "G"
+  alphabet["ã"] := "D"
+  alphabet["ä"] := "H"
+  alphabet["å"] := "V"
+  alphabet["æ"] := "Z"
+  alphabet["ç"] := "X"
+  alphabet["è"] := "+"
+  alphabet["é"] := "Y"
+  alphabet["ê"] := "K"
+  alphabet["ë"] := "K"
+  alphabet["ì"] := "L"
+  alphabet["í"] := "M"
+  alphabet["î"] := "M"
+  alphabet["ï"] := "N"
+  alphabet["ð"] := "N"
+  alphabet["ñ"] := "$"
+  alphabet["ò"] := "@"
+  alphabet["ó"] := "P"
+  alphabet["ô"] := "P"
+  alphabet["õ"] := "C"
+  alphabet["ö"] := "C"
+  alphabet["÷"] := "Q"
+  alphabet["ø"] := "R"
+  alphabet["ù"] := "S"
+  alphabet["ú"] := "T"
+  alphabet["ª"] := "x" # Begin Special Characters
+
+
+
+# Write the content of the alphabet table to the console.
+  every a := key(alphabet) do
+    write(file02,a,":",alphabet[a])
+
+# Create a cset containing the letters in alphabet.
+  alphaString := ""
+  every a := key(alphabet) do
+    alphaString ||:= a
+  alphaCset := cset(alphaString)
+  write(file02,"alphabetCset ==",alphaString,"== Length = ",*alphaString)
+
+
+# Convert file01 in it's own code set (Windows-1255) to file02 in the common code set.
+  while lineIn := read(file01) do {
+    strongsNumber := lineIn[1:10]
+    lineIn := lineIn[10:0]
+    lineIn := translit(lineIn)
+    write(file02,strongsNumber,lineIn)
+  }
+end
+
+procedure translit(lineIn)
+  lineOut := ""
+  while *lineIn > 0 do { 
+    partA := partB := partC := partD := ""
+    lineIn ? {
+      partA := tab(upto(alphaCset))
+      if (partB := tab(many(alphaCset))) then {
+        partC := translitHebrew(partB)
+        partD := tab(0)
+        lineOut := partA || partC || " " || partB
+        lineIn := partD
+      }
+      else {
+        lineOut ||:= lineIn
+        return lineOut 
+      }
+    }
+  }
+end
+
+procedure translitHebrew(hebrewText)
+  transedHebrew := ""
+  #write(file02,"hebrewText ==>",hebrewText,"<") #Diagnostic
+  hebrewText ? {
+    while (nextChar := move(1)) do {
+      transedChar := alphabet[nextChar]
+      transedHebrew ||:= transedChar
+      #write(file02,"nextChar ==>",nextChar,"< transedChar ==>",transedChar,"< transedHebrew ==>",transedHebrew,"<")
+    }
+  }
+return transedHebrew
+end

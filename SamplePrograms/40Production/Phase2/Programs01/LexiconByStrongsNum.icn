@@ -1,0 +1,21 @@
+# Each Lemma in the Hebrew Lexicon has a Strong's number.
+# This program sorts the the Strong's Hebrew Lexicon by Strong's number.
+
+procedure main()
+  delimiter1 := '<>'; delimiter2 := '*'
+  lineInList := []
+  file01 := open("StrongsHebrewLexiconByPlaceValues.txt","r") |
+            stop("Unable to open StrongsHebrewLexiconByPlaceValues.txt.")
+  file02 := open("StrongsHebrewLexiconByStrongsValues.txt","w") |
+            stop("Unable to open StrongsHebrewLexiconByStrongsValues.txt.")
+
+  while lineIn := read(file01) do {
+    lineIn := lineIn[7:0]
+    lineInList |||:= [lineIn]
+  }
+  sortedLineIn := sort(lineInList)
+  every i := 1 to *sortedLineIn do {
+    write(file02,sortedLineIn[i])
+  }
+end
+

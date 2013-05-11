@@ -1,0 +1,41 @@
+# This program reads a file encoded with the Computronics transliteration scheme, and
+# converts it to standard encoding.
+
+procedure main()
+
+  translit := table("")
+  translit["A"] := "A" # Aleph
+  translit["B"] := "B" # Beth
+  translit["C"] := "G" # Gimel
+  translit["D"] := "D" # Daleth
+  translit["E"] := "H" # He
+  translit["F"] := "V" # Vav
+  translit["G"] := "Z" # Zayin
+  translit["H"] := "X" # Heth
+  translit["I"] := "+" # Teth
+  translit["J"] := "Y" # Yod
+  translit["L"] := "K" # Kaph
+  translit["M"] := "L" # Lamed
+  translit["O"] := "M" # Mem
+  translit["Q"] := "N" # Nun
+  translit["R"] := "$" # Samek
+  translit["S"] := "@" # Ayin
+  translit["U"] := "P" # Pe
+  translit["W"] := "C" # Tsade
+  translit["X"] := "Q" # Qopf
+  translit["Y"] := "R" # Resh
+  translit["Z"] := "S" # Sin/Shin
+  translit["["] := "T" # Tav
+  translit[" "] := ""  # Space
+
+  file01 := open("KorenHebFast1998_Size1196921.Txt","ru") | 
+                 stop ("Can't open KorenHebFast1998_Size1196921.Txt.")
+  file02 := open("Hebfast1998_Size1196921_StandardEncoding.txt","w") | 
+                 stop("Can't open Hebfast1998_Size1196921_StandardEncoding.txt.")
+
+  while charIn := reads(file01) do {
+    charOut := translit[charIn]
+    writes(file02,charOut)
+  }
+
+end

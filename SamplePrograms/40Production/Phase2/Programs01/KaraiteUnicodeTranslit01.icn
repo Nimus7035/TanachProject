@@ -1,0 +1,220 @@
+# This program reads a series of UTF-8 encoded Tanach files and transliterates them 
+# for later processing.
+
+global translit, fileName
+
+procedure main()
+
+  # Constants
+  r2l := "\xE2\x80\xAB"; l2r := "\xE2\x80\xAA" # Direction of text
+  endPara := "\xD7\x83\x20\xD7\xA3"; endVerse := "\xD7\x83"
+  endSec := "\xD7\x83\x20\xD7\xA1"
+  endParaNoSpace := "\xD7\xA4\xE2\x80\xAC"; endVerseNoSpace := "\xE2\x80\xAC"
+  endSecNoSpace := "\xD7\xA1\xE2\x80\xAC"
+  startNote := "\xE2\x80\xAA\x5B"; endNote := "\x5D\xE2\x80\xAC"
+  nunHafukha := "\xD7\x86" # Backwards Nun (used like brackets)
+  unicodeCookie := "\xEF\xBB\xBF" # Used by NotePad to detect Unicode.
+  period := "\x2E"; space := "\x20"; nonBreakSpace := "\xC2\xA0"
+  sefer := "\xD7\xA1\xD6\xB5\xD7\xA4\xD6\xB6\xD7\xA8" # Hebrew for "chapter".
+
+# Translation Table
+  translit := table("")
+  translit["\xC2\xA0"] := ""  # Non Break Space
+  translit["\xD6\xAF"] := ""  # Masora Circle
+  translit["\xD6\xB0"] := ""  # Sheva
+  translit["\xD6\xB1"] := ""  # Hataf Segol
+  translit["\xD6\xB2"] := ""  # Hataf Patah
+  translit["\xD6\xB3"] := ""  # Hataf Qamats
+  translit["\xD6\xB4"] := ""  # Hiriq
+  translit["\xD6\xB5"] := ""  # Tsere
+  translit["\xD6\xB6"] := ""  # Segol
+  translit["\xD6\xB7"] := ""  # Patah
+  translit["\xD6\xB8"] := ""  # Qamats Gadol
+  translit["\xD6\xB9"] := ""  # Holam
+  translit["\xD6\xBA"] := ""  # Holam Haser For Vav
+  translit["\xD6\xBB"] := ""  # Qibbuts
+  translit["\xD6\xBC"] := ""  # Dagesh or Mapiq
+  translit["\xD6\xBD"] := ""  # Meteg 
+  translit["\xD6\xBE"] := " " # Maqaf (Dash)
+  translit["\xD6\xBF"] := ""  # Rafe
+  translit["\xD6\xC0"] := ""  # Punctuation Paseq
+  translit["\xD6\xC1"] := ""  # Shin Dot
+  translit["\xD6\xC2"] := ""  # Sin Dot
+  translit["\xD6\xC3"] := ""  # Sof Pasuq (Colon)
+  translit["\xD6\xC4"] := ""  # Upper Dot
+  translit["\xD6\xC5"] := ""  # Lower Dot - Hiriq
+  translit["\xD6\xC6"] := ""  # Nun Hafukha (Backwards Nun)
+  translit["\xD6\xC7"] := ""  # Qamats Qatan
+  translit["\xD7\x83"] := ":" # Sof Pasuq (colon)
+  translit["\xD7\x86"] := ""  # Nun Hafukha (Backwards Nun)
+  translit["\xD7\x90"] := "A" # Aleph
+  translit["\xD7\x91"] := "B" # Beth
+  translit["\xD7\x92"] := "G" # Gimel
+  translit["\xD7\x93"] := "D" # Daleth
+  translit["\xD7\x94"] := "H" # He
+  translit["\xD7\x95"] := "V" # Vav or Waw
+  translit["\xD7\x96"] := "Z" # Zayin
+  translit["\xD7\x97"] := "X" # Heth or Cheth
+  translit["\xD7\x98"] := "+" # Teth
+  translit["\xD7\x99"] := "Y" # Yod
+  translit["\xD7\x9A"] := "K" # Kaph Sofit (Final Kapf)
+  translit["\xD7\x9B"] := "K" # Kaph
+  translit["\xD7\x9C"] := "L" # Lamed
+  translit["\xD7\x9D"] := "M" # Mem Sofit (Final Mem)
+  translit["\xD7\x9E"] := "M" # Mem
+  translit["\xD7\x9F"] := "N" # Nun Sofit (Final Nun)
+  translit["\xD7\xA0"] := "N" # Nun
+  translit["\xD7\xA1"] := "$" # Samek
+  translit["\xD7\xA2"] := "@" # Ayin
+  translit["\xD7\xA3"] := "P" # Pe Sofit (Final Pe)
+  translit["\xD7\xA4"] := "P" # Pe
+  translit["\xD7\xA5"] := "C" # Tsade Sofit (Final Tsade)
+  translit["\xD7\xA6"] := "C" # Tsade
+  translit["\xD7\xA7"] := "Q" # Qoph
+  translit["\xD7\xA8"] := "R" # Resh
+  translit["\xD7\xA9"] := "S" # Sin / Shin
+  translit["\xD7\xAA"] := "T" # Tav or Taw
+
+# Long To Short Book Name Conversion Table
+  books :=  table("")
+  books["Genesis"] := "Gen"
+  books["Exodus"] := "Exo"
+  books["Leviticus"] := "Lev"
+  books["Numbers"] := "Num"
+  books["Deuteronomy"] := "Deu"
+  books["Joshua"] := "Jos"
+  books["Judges"] := "Jud"
+  books["1 Samuel"] := "1Sa"
+  books["2 Samuel"] := "2Sa"
+  books["1 Kings"] := "1Ki"
+  books["2 Kings"] := "2Ki"
+  books["Isaiah"] := "Isa"
+  books["Jeremiah"] := "Jer"
+  books["Ezekiel"] := "Eze"
+  books["Hosea"] := "Hos"
+  books["Joel"] := "Joe"
+  books["Amos"] := "Amo"
+  books["Obadiah"] := "Oba"
+  books["Jonah"] := "Jon"
+  books["Micah"] := "Mic"
+  books["Nahum"] := "Nah"
+  books["Habakkuk"] := "Hab"
+  books["Zephaniah"] := "Zep"
+  books["Haggai"] := "Hag"
+  books["Zechariah"] := "Zec"
+  books["Malachi"] := "Mal"
+  books["Psalms"] := "Psa"
+  books["Proverbs"] := "Pro"
+  books["Job"] := "Job"
+  books["Song of Songs"] := "Son"
+  books["Ruth"] := "Rut"
+  books["Lamentations"] := "Lam"
+  books["Ecclesiastes"] := "Ecc"
+  books["Esther"] := "Est"
+  books["Daniel"] := "Dan"
+  books["Ezra"] := "Ezr"
+  books["Nehemiah"] := "Neh"
+  books["1 Chronicles"] := "1Ch"
+  books["2 Chronicles"] := "2Ch"
+  
+  gTotalVerseCount := 0; gTotalChapterCount := 0
+  file03 := open("KaraiteStatistics.txt","w") | 
+            stop("Cannot open KaraiteStatistics.txt.")
+  write(file03,"Karaite Text","\n")
+    file01 := open("Tanach2.0_UTF8.txt","r") | 
+              stop("Cannot open ","Tanach2.0_UTF8.txt")
+    file02 := open("KaraiteTanach.txt","w") | 
+              stop("Cannot open ","KaraiteTanach.txt")
+    book := ""; chapNum := 0; verse := 0
+    verseCount := 0
+    previousLineBlank := 0
+    write("File ","Tanach2.0_UTF8.txt"," is open."," book == ",book)
+    read(file01); read(file01) # Skip Unicode cookie and Hebrew chapter name.
+    while (lineIn := trim(read(file01))) do { # Begin inner while
+      if *lineIn < 1 then { # Process blank lines.
+        previousLineBlank := 1
+        next # Skip blank lines.
+      }
+      else {
+        previousLineBlank := 0
+      }
+      if (previousLineBlank = 1) & (lineIn[1:11] == sefer) then { # Hebrew chapter name
+        next # Skip Hebrew chapter name.
+      }
+      if lineIn[-9:0] == "Chapter 1" then { # New book.
+        if *book > 0 then {
+          verseCount := "000" || verseCount; verseCount := verseCount[-4:0]
+          chap  := "00" || chapNum; chap := chap[-3:0]
+          if book == "Oba" then chp := " chapter." else chp := " chapters."
+          write(file03,book," has ",verseCount," verses and ",chap,chp)
+        }
+        longBookName := lineIn[1:-10]
+        book := books[longBookName]
+        chapNum := 0
+        verseCount := 0 # Verse count within a book
+      }
+      if find("Chapter",lineIn) then { # New Chapter
+        chapNum   +:= 1 # Chapter number within book.
+        gTotalChapterCount +:= 1 # Chapter count within the Tanach.
+        verse := 0 # Verse number within chapter.
+        next # Get next lineIn.
+      } 
+      lineIn ? { 
+        while &pos < *lineIn do {
+          if find("(") then {
+            move(1)
+            verse := tab(many(&digits))
+            move(2)
+            text := tab(upto(':'))
+            move(2)
+            transedText := transliterate(text)
+            verseCount +:= 1 # Verse count within a book
+            gTotalVerseCount +:= 1 # Verse count within the Tanach
+            textOut:= reformatLine(gTotalVerseCount,verseCount,book,chapNum,
+                                   ":",verse,transedText)
+            write(file02,trim(textOut)) 
+          }
+          else break
+        }   
+      }
+    } 
+  verseCount := "000" || verseCount; verseCount := verseCount[-4:0]
+  chap  := "00" || chapNum; chap := chap[-3:0]
+  if book == "Oba" then chp := " chapter." else chp := " chapters."
+  write(file03,book," has ",verseCount," verses and ",chap,chp)
+  write(file03,"This Tanach has ",gTotalVerseCount," verses and ",
+                                 gTotalChapterCount," chapters.")
+end
+
+procedure reformatLine(gTotalVerseCount,verseCount,book,chap,colon,verse,lineIn)
+  chap  := "00" || chap;  chap  :=  chap[-3:0] || colon
+  verse := "00" || verse; verse := verse[-3:0] || " "
+  verseCount := "0000" || verseCount; verseCount := verseCount[-5:0] || " "
+  gTotalVerseCount := "0000" || gTotalVerseCount; gTotalVerseCount := gTotalVerseCount[-5:0] || " "
+  return gTotalVerseCount || verseCount || book || " " || chap || verse || lineIn
+end
+
+
+procedure transliterate(lineIn)
+  transedLine := ""; lineIn ||:= "\xC2\xA0" # Add a non-break-space to the end.
+  #write("Top of transliterate lineIn>",lineIn,"<") # Diagnostic
+  tempStr := ""
+  while (*lineIn > 0) do {
+    lineIn ? {
+      oldChar := newChar := "" # Initialize
+      if (tempStr := tab(upto('\xC2\xD6\xD7'))) then {
+        oldChar := move(2)
+      }
+      tempStr ? {
+        if tab(upto('|')) then tempStr := " "
+      }
+      if (newChar := translit[oldChar]) then {
+        transedLine ||:= tempStr || newChar
+        lineIn := lineIn[&pos:0]
+      } 
+      else write("Middle of transliterate: Something is wrong!")
+    }
+  } 
+if (*transedLine = 0) then transedLine ||:= lineIn
+return transedLine
+end

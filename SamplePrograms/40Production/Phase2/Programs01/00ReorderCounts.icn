@@ -1,0 +1,61 @@
+procedure main()
+  bookOrder := table(" ")
+  bookOrder["Gen"] := "01"
+  bookOrder["Exo"] := "02"
+  bookOrder["Lev"] := "03"
+  bookOrder["Num"] := "04"
+  bookOrder["Deu"] := "05"
+  bookOrder["Jos"] := "06"
+  bookOrder["Jud"] := "07"
+  bookOrder["1Sa"] := "08"
+  bookOrder["2Sa"] := "09"
+  bookOrder["1Ki"] := "10"
+  bookOrder["2Ki"] := "11"
+  bookOrder["Isa"] := "12"
+  bookOrder["Jer"] := "13"
+  bookOrder["Eze"] := "14"
+  bookOrder["Hos"] := "15"
+  bookOrder["Joe"] := "16"
+  bookOrder["Amo"] := "17"
+  bookOrder["Oba"] := "18"
+  bookOrder["Jon"] := "19"
+  bookOrder["Mic"] := "20"
+  bookOrder["Nah"] := "21"
+  bookOrder["Hab"] := "22"
+  bookOrder["Zep"] := "23"
+  bookOrder["Hag"] := "24"
+  bookOrder["Zec"] := "25"
+  bookOrder["Mal"] := "26"
+  bookOrder["Psa"] := "27"
+  bookOrder["Pro"] := "28"
+  bookOrder["Job"] := "29"
+  bookOrder["Son"] := "30"
+  bookOrder["Rut"] := "31"
+  bookOrder["Lam"] := "32"
+  bookOrder["Ecc"] := "33"
+  bookOrder["Est"] := "34"
+  bookOrder["Dan"] := "35"
+  bookOrder["Ezr"] := "36"
+  bookOrder["Neh"] := "37"
+  bookOrder["1Ch"] := "38"
+  bookOrder["2Ch"] := "39"
+
+  file01 := open("00VerseCounts.txt","r")
+  file02 := open("00SomewhatOrderedVerseCounts.txt","w")
+
+  while lineIn := read(file01) do {
+    veryShortBookName := lineIn[1:4]
+    write(file02,bookOrder[veryShortBookName],lineIn[5:8]," ",lineIn)
+    }
+  close(file01);close(file02)
+  file03 := open("00SomewhatOrderedVerseCounts.txt","r")
+  file04 := open("00OrderedVerseCounts.txt","w")
+  dataList := []
+  while dataIn := read(file03) do {
+    dataList |||:= [dataIn]
+    }
+  sortedDataList := sort(dataList)
+  every i:= 1 to *sortedDataList do write(sortedDataList[i])
+  every i:= 1 to *sortedDataList do write(file04,sortedDataList[i])
+  read()
+end

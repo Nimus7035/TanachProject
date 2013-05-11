@@ -1,0 +1,9 @@
+# This program produces a table of character ordinals versus their characters.
+
+procedure main()
+
+  file02 := open("OrdinalsAndCharacters.txt","w")
+  every i := 0 to 255 do {
+    write(file02,i," = ",char(i))
+  }
+end

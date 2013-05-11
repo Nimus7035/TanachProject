@@ -1,0 +1,44 @@
+procedure main()
+# Initializations
+  write("Begin File Compare\n")
+  (file01 := open("HebFast.Txt","u")) | stop("Cannot open HebFast.Txt\n")
+  (file02 := open("HebfastBibleKeys.Txt","u")) | stop("Cannot open HebfastBibleKeys.Txt\n")
+  c1 := " "
+  c2 := " "
+  c1ln := 1
+  c2ln := 1
+
+# Find first different letter.
+  while c1 == c2 do
+    {write(c1 := reads(file01,1)," ",c2 := reads(file02,1)," ",c1ln," ",c2ln) 
+     c1ln := c1ln + 1
+     c2ln := c2ln + 1
+    }
+    c1 := reads(file01,1); c1ln := c1ln + 1
+
+# Find second different letter.
+  while c1 == c2 do
+    {write(c1 := reads(file01,1)," ",c2 := reads(file02,1)," ",c1ln," ",c2ln) 
+     c1ln := c1ln + 1
+     c2ln := c2ln + 1
+    }
+
+    c2 := reads(file02,1); c2ln := c2ln + 1
+
+# Find third different letter
+  while c1 == c2 do
+    {write(c1 := reads(file01,1)," ",c2 := reads(file02,1)," ",c1ln," ",c2ln) 
+     c1ln := c1ln + 1
+     c2ln := c2ln + 1
+    }
+
+# Write three more letters for context.
+  write(c1 := reads(file01,1)," ",c2 := reads(file02,1)," ",c1ln," ",c2ln)
+     c1ln := c1ln + 1
+     c2ln := c2ln + 1
+  write(c1 := reads(file01,1)," ",c2 := reads(file02,1)," ",c1ln," ",c2ln)
+     c1ln := c1ln + 1
+     c2ln := c2ln + 1
+  write(c1 := reads(file01,1)," ",c2 := reads(file02,1)," ",c1ln," ",c2ln)
+
+end

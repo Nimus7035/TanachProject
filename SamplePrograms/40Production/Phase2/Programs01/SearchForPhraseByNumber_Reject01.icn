@@ -1,0 +1,93 @@
+# This program reads a section of scripture searching for a phrase that has a Numeric
+# value matching the first parameter on the command line.
+
+link factors
+global file01, file02, cVowels, cConsonants, nVal, pVal
+
+procedure main(args)
+
+# Begin initializations.
+  searchArg := args[1]
+  write("The searchArg is ",searchArg)
+
+  cVowels := 'AHVY'; cConsonants := 'BGDZX+KLMN$@PCQRST'
+  beginUTF8File := "\xEF\xBB\xBF"
+
+  nVal := table(0) # Numeric Values
+  nVal["A"] := 1   # Aleph
+  nVal["B"] := 2   # Beth
+  nVal["G"] := 3   # Gimel
+  nVal["D"] := 4   # Daleth
+  nVal["H"] := 5   # He
+  nVal["V"] := 6   # Vav
+  nVal["Z"] := 7   # Zayin
+  nVal["X"] := 8   # Heth
+  nVal["+"] := 9   # Teth
+  nVal["Y"] := 10  # Yod
+  nVal["K"] := 20  # Kaph
+  nVal["L"] := 30  # Lamed
+  nVal["M"] := 40  # Mem
+  nVal["N"] := 50  # Nun
+  nVal["$"] := 60  # Samek
+  nVal["@"] := 70  # Ayin
+  nVal["P"] := 80  # Pe
+  nVal["C"] := 90  # Tsade
+  nVal["Q"] := 100 # Qoph
+  nVal["R"] := 200 # Resh
+  nVal["S"] := 300 # Sin/Shin
+  nVal["T"] := 400 # Taw
+
+  pVal := table(0) # Place Values
+  pVal["A"] := 1   # Aleph
+  pVal["B"] := 2   # Beth
+  pVal["G"] := 3   # Gimel
+  pVal["D"] := 4   # Daleth
+  pVal["H"] := 5   # He
+  pVal["V"] := 6   # Vav
+  pVal["Z"] := 7   # Zayin
+  pVal["X"] := 8   # Heth
+  pVal["+"] := 9   # Teth
+  pVal["Y"] := 10  # Yod
+  pVal["K"] := 11  # Kaph
+  pVal["L"] := 12  # Lamed
+  pVal["M"] := 13  # Mem
+  pVal["N"] := 14  # Nun
+  pVal["$"] := 15  # Samek
+  pVal["@"] := 16  # Ayin
+  pVal["P"] := 17  # Pe
+  pVal["C"] := 18  # Tsade
+  pVal["Q"] := 19  # Qoph
+  pVal["R"] := 20  # Resh
+  pVal["S"] := 21  # Sin/Shin
+  pVal["T"] := 22  # Taw
+
+  file01 := open("PaninSectionInput.txt","r") | 
+            stop("Stop: Cannot open PaninSectionInput.txt.")
+  file02 := open("PaninSectionScores2Out.txt","w") | 
+            stop("Stop: Cannot open PhrasesOut.txt")
+
+ # Begin main program.
+  workingLine := ""
+  workingLine := bufferLine(workingLine)
+  newPhrase := findPhrase(workingLine,searchArg)
+
+
+
+
+
+end
+
+procedure findPhrase(workingLine,searchArg)
+  workingLine ? {
+    
+  }
+
+
+
+end
+
+procedure bufferLine(workingLine)
+  while (lineIn := trim(read(file01))) do {
+    if (lineIn[1:4] == ">>>") then return workingLine || lineIn[4:0] || " "
+  }
+end

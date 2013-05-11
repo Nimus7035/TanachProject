@@ -1,0 +1,18 @@
+#This program reads one or more books of the Tanach and produces a discrepancy report.
+#The discrepancy report is based on previously marked alternate readings.
+#The alternate readings are marked with one or two asterisks.
+
+procedure main()
+  file02 := open("DiscrepancyReport.txt","w") | stop("Stop: cannot open DiscrepancyReport.txt.")
+  discrCount := 0
+  fileName := "01_Genesis.con.out.txt"
+  file01 := open(fileName,"r") | stop("Stop: Cannot open ",fileName)
+  while (lineIn := read(file01)) do {
+    lineIn ? { if (find("*")) then {write(file02,"AltReading: ",lineIn[7:0])
+      discrCount +:=1
+      }
+    }
+  }
+  write(file02,"Discrepancy Count is: ",discrCount)
+end
+

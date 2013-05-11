@@ -1,0 +1,44 @@
+# This version has minor issues with the first and last lines of the output.
+# This program does some reformatting of the Strong's Lexicon.
+
+global file01
+procedure main()
+  file01 := open("StrongsHebrewLexicon1_8674_Encoded1Unicode.txt","ru")
+  file02 := open("StrongsHebrewLexicon1_8674_Encoded1UnicodeReformatted.txt","wu")
+  strongsNumber := oldStrongsNumber := subStrongsNumber := 0
+  while lineIn := readLine() do {
+    
+    lineIn ? {
+      if (strongsNumber := tab(many(&digits)) & (period := tab(match("."))) & (remainder := tab(0))) then {
+        oldStrongsNumber := strongsNumber
+        strongsNumber := "00000" || strongsNumber
+        strongsNumber := strongsNumber[-5:0]
+        subStrongsNumber := 0
+        remainder ? { tab(many(' ')); remainder := remainder[&pos:0] }
+        write(file02,strongsNumber,".",subStrongsNumber,"  ",remainder)
+      }
+      else {
+        if *lineIn < 1 then next
+        oldStrongsNumber := "00000" || oldStrongsNumber
+        oldStrongsNumber := oldStrongsNumber[-5:0]
+        subStrongsNumber +:= 1
+        write(file02,oldStrongsNumber,".",subStrongsNumber,"  ",lineIn)
+      }
+    }
+  }
+
+end
+
+procedure readLine()
+  newLine := 0; charIn := lineIn := ""
+  while 1 = 1 do {
+    if (charIn := reads(file01)) then {
+      if (charIn == "\x0D") then newLine := 1
+      if (charIn == "\x0A") & (newLine = 1) then newLine := 2
+      lineIn ||:= charIn
+      if newLine = 2 then return lineIn
+    }
+    else
+      if *lineIn > 0 then return lineIn else fail
+  }
+end

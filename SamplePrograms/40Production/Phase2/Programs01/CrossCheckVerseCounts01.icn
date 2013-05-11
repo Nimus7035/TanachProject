@@ -1,0 +1,28 @@
+# This program reads all the chapters in the Aleppo Codex and produces a report totaling the lines/verses.
+
+procedure main()
+
+  file01 := open("FileNames.txt","r") | stop("Can't open FileNames.txt.")
+  file02 := open("CrossCheckOut.txt","w") | stop("Can't open CrossCheckOut.txt.")
+
+  totalLineCount := 0; oldBookName := "Gen"; oldFileNum := 0
+  while fileNameIn := read(file01) do {
+    curBookName := fileNameIn[4:7]
+    if curBookName ~== oldBookName then {oldBookName := curBookName; oldFileNum := 0}
+    curFileNum := fileNameIn[7:10]
+    oldFileNum +:= 1
+    if curFileNum ~= oldFileNum then stop("Mismatch ",curFileNum," ",oldfileNum)
+    write("Processing: ",fileNameIn)
+    file03 := open(fileNameIn,"r") | stop("Can't open ",fileNameIn,".")
+    lineCount := 0
+    while lineIn := read(file03) do {
+      lineCount +:= 1; totalLineCount +:= 1
+      lastVerse := lineIn[9:12]
+    }
+    close(file03)
+    if lineCount ~= lastVerse then warning := " <<< Mismatch" else warning := ""
+    lineCount := ("00" || lineCount)[-3:0]
+    write(file02,fileNameIn," ",lineCount," ",lastVerse,warning)
+  }
+  write(file02,"Total Line Count = ",totalLineCount)
+end

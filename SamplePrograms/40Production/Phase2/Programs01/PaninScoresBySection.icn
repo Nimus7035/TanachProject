@@ -1,0 +1,357 @@
+# This program reads a section of scripture and computes Panin scores for the section.
+# This is version 04 of the program. 
+# The input arguments are: 
+# 1) File Prefix = first six characters of the input file name. eg. "00001a" (always ends with "a")
+# 2) Starting Book (three characters) eg. "Gen".
+# 3) Starting Chapter (up to three digits).
+# 4) Starting Verse (up to three digits).
+# 5) Ending Book (three characters) eg. "Gen".
+# 6) Ending Chapter (up to three digits).
+# 7) Ending Verse (up to three digits).
+
+
+
+
+link factors
+global file02, cVowels, cConsonants, nVal, pVal, numberOfSections, sectionScores
+
+procedure main(args)
+
+# Begin initializations.
+  if /args[1] | (*args < 7) then stop("Usage: PaninScoresBySection03.exe filePrefix StartBook StartChap StartVerse EndBook EndChap EndVerse")
+  filePrefix := args[1]
+  fileSuffix := args[2] || args[3] || "_" || args[4] || "-" || args[5] || args[6] || "_" || args[7]
+  cVowels := 'AHVY'; cConsonants := 'BGDZX+KLMN$@PCQRST'
+  beginUTF8File := "\xEF\xBB\xBF"
+
+  nVal := table(0) # Numeric Values
+  nVal["A"] := 1   # Aleph
+  nVal["B"] := 2   # Beth
+  nVal["G"] := 3   # Gimel
+  nVal["D"] := 4   # Daleth
+  nVal["H"] := 5   # He
+  nVal["V"] := 6   # Vav
+  nVal["Z"] := 7   # Zayin
+  nVal["X"] := 8   # Heth
+  nVal["+"] := 9   # Teth
+  nVal["Y"] := 10  # Yod
+  nVal["K"] := 20  # Kaph
+  nVal["L"] := 30  # Lamed
+  nVal["M"] := 40  # Mem
+  nVal["N"] := 50  # Nun
+  nVal["$"] := 60  # Samek
+  nVal["@"] := 70  # Ayin
+  nVal["P"] := 80  # Pe
+  nVal["C"] := 90  # Tsade
+  nVal["Q"] := 100 # Qoph
+  nVal["R"] := 200 # Resh
+  nVal["S"] := 300 # Sin/Shin
+  nVal["T"] := 400 # Taw
+
+  pVal := table(0) # Place Values
+  pVal["A"] := 1   # Aleph
+  pVal["B"] := 2   # Beth
+  pVal["G"] := 3   # Gimel
+  pVal["D"] := 4   # Daleth
+  pVal["H"] := 5   # He
+  pVal["V"] := 6   # Vav
+  pVal["Z"] := 7   # Zayin
+  pVal["X"] := 8   # Heth
+  pVal["+"] := 9   # Teth
+  pVal["Y"] := 10  # Yod
+  pVal["K"] := 11  # Kaph
+  pVal["L"] := 12  # Lamed
+  pVal["M"] := 13  # Mem
+  pVal["N"] := 14  # Nun
+  pVal["$"] := 15  # Samek
+  pVal["@"] := 16  # Ayin
+  pVal["P"] := 17  # Pe
+  pVal["C"] := 18  # Tsade
+  pVal["Q"] := 19  # Qoph
+  pVal["R"] := 20  # Resh
+  pVal["S"] := 21  # Sin/Shin
+  pVal["T"] := 22  # Taw
+
+  inputFileName  := filePrefix || "PaninSectionsInput"    || fileSuffix || ".txt" 
+  outputFileName := "PaninSectionScoresOut" || fileSuffix || ".txt"
+  file01 := open(inputFileName,"r") | 
+            stop("Stop: Cannot open ",inputFileName,".")
+  file02 := open(outputFileName,"w") | 
+            stop("Stop: Cannot open ",outputFileName,".")
+
+ numberOfSections := 0; sectionScores := []; topOfReport := 1; allTotals := []
+
+# Begin main program.
+  while (lineIn := trim(read(file01))) do {
+    lineIn ||:= " "
+    if (lineIn[1:2] == "!") then {allTotals := initNewSection(allTotals,topOfReport); topOfReport := 0} # New Section (contains comments)
+    if (lineIn[1:2] == "$") then write(file02,"\n",repl("_",60)) # New Verse with reference and any variants
+    if (lineIn[1:4] == ">>>") then {verseIn := lineIn[4:0]; allTotals := processVerse(verseIn,allTotals)} # Only the verse
+                              else write(file02,lineIn)
+  }
+  printAllTotals(allTotals)
+  selectWinner()
+end
+
+procedure processVerse(verseIn,allTotals)
+  write(file02,"\n",verseIn)
+  vowelTotals := processVowels(verseIn)
+  allTotals[1][1] +:= vowelTotals[1]
+  allTotals[1][2] +:= vowelTotals[2]
+  allTotals[1][3] +:= vowelTotals[3]
+  consonantTotals := processConsonants(verseIn,vowelTotals)
+  allTotals[2][1] +:= consonantTotals[1]
+  allTotals[2][2] +:= consonantTotals[2]
+  allTotals[2][3] +:= consonantTotals[3]
+  allTotals[3][1] +:= vowelTotals[1] + consonantTotals[1]
+  allTotals[3][2] +:= vowelTotals[2] + consonantTotals[2]
+  allTotals[3][3] +:= vowelTotals[3] + consonantTotals[3]
+  wordTotals := processWords(verseIn)
+  allTotals[4][1] +:= wordTotals[1]
+  allTotals[4][2] +:= wordTotals[2]
+  allTotals[4][3] +:= wordTotals[3]
+  return allTotals
+end
+
+procedure processVowels(verseIn)
+  totalCount := totalPlace := totalNum := vowelCount := 0 
+  every (verseIn ? {upto(cVowels) & move(1)}) do vowelCount +:= 1
+  write(file02,"\nvowelCount == ",vowelCount,"   ",formatFactors(vowelCount))
+  write(file02,"             ","Count","  Place"," Numeric","                    Count",
+    "                    Place","                  Numeric")
+  vOut := valuesOut("Aleph","A",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("He","H",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Vav","V",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Yod","Y",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  write(file02,left(" ",14),right("---",4),right("------",7),
+        right("-------",8),right("-----------------------",25),
+        right("-----------------------",25),right("-----------------------",25))
+  write(file02,left("Vowel Totals",14),right(totalCount,4),right(totalPlace,7),
+        right(totalNum,8),right(formatFactors(totalCount),25),
+        right(formatFactors(totalPlace),25),right(formatFactors(totalNum),25))
+  if vowelCount ~= totalCount then stop("vowelCount is not equal to totalCount.")
+  return [totalCount,totalPlace,totalNum]
+end
+
+procedure processConsonants(verseIn,vowelTotals)
+  totalCount := totalPlace := totalNum := consonantCount := 0 
+  every (verseIn ? {upto(cConsonants) & move(1)}) do consonantCount +:= 1
+  write(file02,"\nconsonantCount == ",consonantCount,"   ",formatFactors(consonantCount))
+  write(file02,"             ","Count","  Place"," Numeric","                    Count",
+    "                    Place","                  Numeric")
+  vOut := valuesOut("Beth","B",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Gimel","G",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Daleth","D",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Zayin","Z",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Heth","X",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Teth","+",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Kaph","K",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Lamed","L",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Mem","M",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Nun","N",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Samek","$",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Ayin","@",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Pe","P",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Tsade","C",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Qoph","Q",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Resh","R",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Sin/Shin","S",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  vOut := valuesOut("Taw","T",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  totalCharCount := totalCount + vowelTotals[1] # Combine Vowel totals and Consonant totals.
+  totalCharPlace := totalPlace + vowelTotals[2]
+  totalCharNum   := totalNum   + vowelTotals[3]
+  write(file02,left(" ",14),right("---",4),right("------",7),
+        right("-------",8),right("-----------------------",25),
+        right("-----------------------",25),right("-----------------------",25))
+  write(file02,left("Con Totals",14),right(totalCount,4),right(totalPlace,7),
+        right(totalNum,8),right(formatFactors(totalCount),25),
+        right(formatFactors(totalPlace),25),right(formatFactors(totalNum),25))
+  write(file02,left("Char Totals",14),right(totalCharCount,4),right(totalCharPlace,7),
+        right(totalCharNum,8),right(formatFactors(totalCharCount),25),
+        right(formatFactors(totalCharPlace),25),right(formatFactors(totalCharNum),25))
+  if (consonantCount ~= totalCount) then stop("consonantCount is not equal to totalCount.")
+  return [totalCount,totalPlace,totalNum]
+end
+
+procedure processWords(verseIn)
+  wordCount := 0; words := table(0); w := ""; i := 0
+  while (*verseIn > 1) do {
+    verseIn ? { (w := tab(upto(' ')))
+    i +:= 1
+    words[w] +:= 1
+    wordCount +:= 1 
+    verseIn := verseIn[&pos + 1:0]
+    } 
+  }
+  write(file02,"\nwordCount == ",wordCount,"   ",formatFactors(wordCount))
+  write(file02,"             ","Count","  Place"," Numeric","                    Count",
+    "                    Place","                  Numeric")
+  sWords := sort(words,1)
+  wordTotals := wordValuesOut(sWords)
+  return wordTotals
+end
+
+procedure wordValuesOut(sWords)
+  wordPlace := totalWordPlace := wordNum := totalWordNum := totalWordCount := 0  # Initializations
+  totalCharCount := totalCharPlace := totalCharNum := 0
+  every i := 1 to *sWords do { # Process each word
+    word := sWords[i][1]
+    wordCount := sWords[i][2]
+    totalWordCount +:= sWords[i][2]
+    wordPlace := wordNum := 0
+    word ? {while (letter := move(1)) do {
+      wordPlace +:= (pVal[letter] * wordCount)
+      totalWordPlace +:= (pVal[letter] * wordCount)
+      wordNum +:= (nVal[letter] * wordCount)
+      totalWordNum +:= (nVal[letter] * wordCount)
+      totalCharCount +:= wordCount; totalCharPlace +:= pVal[letter] * wordCount; totalCharNum +:= nVal[letter] * wordCount
+      }
+    }
+  countFacsOut := formatFactors(wordCount)
+  placeFacsOut := formatFactors(wordPlace)
+  numFacsOut   := formatFactors(wordNum)
+  totalCountFacsOut := formatFactors(totalWordCount)
+  totalPlaceFacsOut := formatFactors(totalWordPlace)
+  totalNumFacsOut := formatFactors(totalWordNum)
+    write(file02,left(word,14),right(wordCount,4),right(wordPlace,7),
+          right(wordNum,8),right(countFacsOut,25),
+          right(placeFacsOut,25),right(numFacsOut,25))
+  }
+    write(file02,left(" ",14),right("---",4),right("------",7),
+          right("-------",8),right("-----------------------",25),
+          right("-----------------------",25),right("-----------------------",25))
+    write(file02,left("Word Totals",14),right(totalWordCount,4),right(totalWordPlace,7),
+          right(totalWordNum,8),right(totalCountFacsOut,25),
+          right(totalPlaceFacsOut,25),right(totalNumFacsOut,25))
+    write(file02,left("Char Totals",14),right(totalCharCount,4),right(totalCharPlace,7),
+          right(totalCharNum,8),right(formatFactors(totalCharCount),25),
+          right(formatFactors(totalCharPlace),25),right(formatFactors(totalCharNum),25))
+  return [totalWordCount,totalWordPlace,totalWordNum]
+end
+
+procedure valuesOut(charName,char,verseIn)
+  charCount := 0
+  every (verseIn ? {upto(char) & move(1)}) do charCount +:= 1
+  charPlace := charCount * pVal[char]
+  charNum   := charCount * nVal[char]
+  charCountFacsOut := formatFactors(charCount)
+  charPlaceFacsOut := formatFactors(charPlace)
+  charNumFacsOut   := formatFactors(charNum)
+  write(file02,left(charName,14),right(charCount,4),right(charPlace,7),
+                                 right(charNum,8),right(charCountFacsOut,25),
+                                 right(charPlaceFacsOut,25),right(charNumFacsOut,25))
+  return [charCount,charPlace,charNum]
+end
+
+procedure formatFactors(count)
+  facs := factors(count)
+  facsOut := ""
+  every i := 1 to *facs do {if i > 1 then spx := "x" else spx := ""
+                                   facsOut ||:= spx || facs[i]}
+  if *facsOut < 1 then facsOut := count
+return facsOut
+end
+
+procedure initNewSection(allTotals,topOfReport)
+  if (topOfReport = 0) then {printAllTotals(allTotals); write(file02,"\n",repl("-",112),"\n",repl("-",112))}
+  vowelTotals := [0,0,0]
+  consonantTotals := [0,0,0]
+  charTotals := [0,0,0]
+  wordTotals := [0,0,0]
+  allTotals := [vowelTotals,consonantTotals,charTotals,wordTotals]
+  return allTotals
+end
+
+procedure printAllTotals(allTotals)
+  write(file02,repl("*",112))
+  write(file02,left("SecVowTotals",14),right(allTotals[1][1],4),right(allTotals[1][2],7),
+                                 right(allTotals[1][3],8),right(formatFactors(allTotals[1][1]),25),
+                                 right(formatFactors(allTotals[1][2]),25))
+#                                 right(formatFactors(allTotals[1][2]),25),right(formatFactors(allTotals[1][3]),25))
+  write(file02,left("SecConTotals",14),right(allTotals[2][1],4),right(allTotals[2][2],7),
+                                 right(allTotals[2][3],8),right(formatFactors(allTotals[2][1]),25),
+                                 right(formatFactors(allTotals[2][2]),25),right(formatFactors(allTotals[2][3]),25))
+  write(file02,left("SecChrTotals",14),right(allTotals[3][1],4),right(allTotals[3][2],7),
+                                 right(allTotals[3][3],8),right(formatFactors(allTotals[3][1]),25),
+                                 right(formatFactors(allTotals[3][2]),25),right(formatFactors(allTotals[3][3]),25))
+  write(file02,left("SecWrdTotals",14),right(allTotals[4][1],4),right(" ",7),
+                                 right(" ",8),right(formatFactors(allTotals[4][1]),25),
+                                 right(" ",25),right(" ",25))
+  numberOfSections +:= 1
+  score := commonFactorsScoring(allTotals)
+  sectionScores |||:= score
+  #writes("printAllTotals sectionScores = "); every i := 1 to *sectionScores do {
+    #writes(sectionScores[i][1]," ",sectionScores[i][2]," ")}; write(" ")
+end
+
+procedure commonFactorsScoring(allTotals)
+  sectionFactors := table(0)
+  i := 1
+  while (i <= 3) do {
+    j := 1
+    while (j <=3) do {
+      #write(file02,"commonFactorsScoring allTotals[",i,"][",j,"] = ",allTotals[i][j])
+      facs := factors(allTotals[i][j]) # For vow, con, and chr: factor count, place, and numeric values.
+      #writes(file02,"commonFactorsScoring facs = "); every k := 1 to *facs do {writes(file02,facs[k]," ")}; write(file02," ")
+      every k := 1 to *facs do { if (facs[k] > 6) then { sectionFactors[facs[k]] +:= 1 
+        #write(file02,"sectionFactors[",facs[k],"] = ",sectionFactors[facs[k]])
+      }}
+      if ((i = 1) & (j = 2)) then j +:= 1 # Force Vowel Numeric factors to be ignored. They are redundant.
+      j +:= 1
+    }
+    i +:= 1
+  }
+  #write(file02,"commonFactorsScoring allTotals[",4,"][",1,"] = ",allTotals[4][1])
+  facs := factors(allTotals[4][1]) # For word: factor count only -- no place or numeric factors.
+  every k := 1 to *facs do { if (facs[k] > 6) then { sectionFactors[facs[k]] +:= 1 
+    #write(file02,"sectionFactors[",facs[k],"] = ",sectionFactors[facs[k]])
+  }}
+  score := 0 ; dominantFactor := 0
+  #write(file02,"Calculating the score: ")
+  every k := key(sectionFactors) do { 
+    #write(file02,"sectionFactors[",k,"] = ",sectionFactors[k]," score = ",score)
+    if (sectionFactors[k] > score) then {score := sectionFactors[k] ; dominantFactor := k
+      #write(file02,"New score = ",score)
+    }
+  }
+  #write("commonFactorsScoring score = ",score," dominantFactor = ",dominantFactor)
+  return [[score, dominantFactor]]
+end
+
+procedure selectWinner()
+  score := 0
+  section := 0
+  write(file02," ")
+  every k := 1 to *sectionScores do { 
+    #write("sectionScores[",k,"][1] = ",sectionScores[k][1]," sectionScores[",k,"][2] = ",sectionScores[k][2])
+    write(file02,"The score for section ",k," is ",sectionScores[k][1],". The dominant factor is ",sectionScores[k][2])
+    if (sectionScores[k][1] > score) then {score := sectionScores[k][1]; section := k }}
+  numberOfWinners := 0
+  every k := 1 to *sectionScores do { if (sectionScores[k][1] = score) then numberOfWinners +:= 1 }
+  if (numberOfWinners < 2) then write(file02,"The selected section is section ",section,".") else {
+    write(file02,"There was a tie. ","The tied sections are: ")
+    every k := 1 to *sectionScores do { if (sectionScores[k][1] = score) then write(file02,k) }
+  }
+end

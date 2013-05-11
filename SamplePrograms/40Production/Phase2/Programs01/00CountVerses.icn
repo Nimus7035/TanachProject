@@ -1,0 +1,33 @@
+procedure main()
+  file00 := open("00FileNames.txt","r")
+  file02 := open("00VerseCounts.txt","w")
+  verseCounts := table(0)
+  while fileNameIn := read(file00)[40:0] do { bookName := fileNameIn[1:-4]
+    bookNum := ""
+    shortBookName := ""
+    veryShortBookName := ""
+    chapterNum := ""
+    bookName ? { if (bookNum := tab(upto('_'))) then move(1) 
+                 shortBookName := tab(upto(&digits))
+                 chapterNum := ("000" || tab(0))[-3:0]
+                 veryShortBookName := (bookNum || shortBookName)[1:4]
+               }
+    write(">",fileNameIn,"< >",bookName,"<   ",bookNum," ",shortBookName," ",chapterNum,"   ",veryShortBookName)
+    #read()
+    if (file01 := open(fileNameIn,"r")) then write(fileNameIn," is open.") else 
+       stop(fileNameIn," is not open.")
+    while lineIn := read(file01) do { #write(lineIn)
+      lineIn ? {if (tab(upto(&digits))) then { verseNumber := tab(many(&digits))
+                 write(fileNameIn," ",verseNumber)
+                 verseCounts[bookName] := verseNumber
+                 }
+               }
+    }
+    close(file01)
+    verseCount := ("000" || verseCounts[bookName])[-3:0]
+    write("Verse Count for ",bookName," ",veryShortBookName," ",chapterNum,":",verseCount)
+    write(file02,veryShortBookName," ",chapterNum,":",verseCount)
+    #read()
+  }
+  read()
+end

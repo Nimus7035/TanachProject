@@ -1,0 +1,76 @@
+#This program combines the individual chapters of the Aleppo text into a single file.
+
+procedure main()
+#Initializations
+
+  file00 := open("FileNames.txt","r")  | stop("Cannot open FileNames.txt for reading.")
+  file03 := open("AleppoStatistics.txt","w") | stop("Cannot open AleppoStatistics.txt for writing.")
+  file04 := open("Tanach_Aleppo.txt","w") | stop("Cannot open Tanach_Aleppo.txt for writing.")
+  file05 := open("Tanach_Aleppo_NoSpaces.txt","wu") | stop("Cannot open Tanach_Aleppo_NoSpaces.txt for writing.")
+  totalNumLines := 0; totalNumChars := 0; totalCharsNoSpaces := 0
+
+##########################################################################
+# Main Loop
+  oldBookName := "Gen"; bookLineCount := 0
+  while (fileName := read(file00)) do {
+  write("#")
+  write("#")
+  write("#")
+  write("#")
+  write("#")
+  write("######################################################################")
+  write("fileName>",fileName,"<")
+  baseFileName  := fileName[1:-4]
+  txtFileName   := baseFileName || ".txt"
+  curBookName := fileName[4:7]
+  if curBookName ~== oldBookName then {oldBookName := curBookName; bookLineCount := 0}
+
+  write("baseFileName>",baseFileName,"<")
+  write("txtFileName>",txtFileName,"<") # Filename for an individual chapter.
+  #read()
+  (file01 := open(txtFileName,"r")) | stop("Cannot open ",txtFileName," for reading.")
+  
+    ##########################################################################
+#   Inner Loops
+    while (lineIn := trim(read(file01))) do {
+        textIn := lineIn[13:0]; charsIn := *textIn; charsNoSpaces := ""
+        if (charsIn > 0) then {
+         totalNumChars +:= charsIn # Count the number of chars written to file04.
+         totalNumLines +:= 1 # Count the number of lines written to file04.
+         bookLineCount +:= 1 # Count the number of lines in a Tanach book.
+         lineNum1 := ("0000" || totalNumLines)[-5:0] || " "
+         lineNum2 := ("0000" || bookLineCount)[-5:0] || " "
+         lineIn := lineNum1 || lineNum2 || textIn
+         write(file04,lineIn) # Add line to the Tanach.
+         tempText := part1 := ""
+         textIn ? {
+           while part1 := tab(upto('(')) do {
+             tab(upto(')')+1) # Discard the qere text.
+             tempText ||:= part1
+           }
+           tempText ||:= textIn[&pos:0]
+         }
+         tempText ? {
+           while (tempChar := move(1)) do {
+             if (tempChar ~== " ") then charsNoSpaces ||:= tempChar
+           }
+         }
+         totalCharsNoSpaces +:= *charsNoSpaces
+         writes(file05,charsNoSpaces) # Tanach with no spaces
+         }
+         #read()
+    }
+    close(file01)
+
+#   End Inner Loops
+    ##########################################################################
+  }
+# End Main Loop
+##########################################################################
+
+write(file03,"Aleppo Codex\n")
+write(file03,"The total number of lines in all the files is ",totalNumLines,".")
+write(file03,"The total number of characters in the Tanach file including spaces is ",totalNumChars,".")
+write(file03,"The total number of characters in the Tanach file excluding spaces is ",totalCharsNoSpaces,".")
+end
+

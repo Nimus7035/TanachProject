@@ -1,0 +1,19 @@
+# This program creates a .bat script to rename some files.
+
+procedure main()
+
+  file01 := open("Rename.bat.txt","r") | stop("Can't open Rename.bat.txt.")
+  file02 := open("Rename1.bat","w") | stop("Can't open Rename1.bat.")
+  file03 := open("Rename2.bat","w") | stop("Can't open Rename2.bat.")
+
+  while lineIn := read(file01) do {
+    oldName := lineIn[4:0]
+    lineOut := "ren " || oldName || " " || lineIn
+    write(file02,lineOut)
+    oldName := "m" || oldName[2:0]
+    lineIn := lineIn[1:4] || "m" || lineIn[5:0]
+    lineOut := "ren " || oldName || " " || lineIn
+    write(file03,lineOut)
+  }
+
+end

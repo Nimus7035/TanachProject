@@ -1,0 +1,17 @@
+# This program reads an early, very rough version of MasoreticTanach.txt and lists 
+# the book names in the Karaite order.
+
+procedure main()
+
+  file01 := open("MasoreticTanach.txt","r") | stop("Can't open MasoreticTanach.txt.")
+  file02 := open("BookOrder.txt","w") | stop("Can't open BookOrder.txt.")
+  i := 0
+  write(file02,"Book Names In Karaite Order\n")
+  while lineIn := read(file01) do {
+    if lineIn[-9:0] == "Chapter 1" then {
+      i +:=1
+      iString := ("0" || i || " ")[-3:0]
+      write(file02,iString,lineIn[25:-9])
+    }
+  }
+end

@@ -1,0 +1,107 @@
+global translit, startNote, endNote
+
+procedure main()
+# This program reads a series of UTF-8 encoded Tanach files and transliterates them 
+# for later processing.
+
+  # Constants
+  r2l := "\xE2\x80\xAB"; l2r := "\xE2\x80\xAA"
+  endPara := "\x20\xD7\xA4\xE2\x80\xAC"; endVerse := "\x20\xE2\x80\xAC"
+  endSec := "\x20\xD7\xA1\xE2\x80\xAC"; nunHafukha := "\xD7\x86"
+  startNote := "\xE2\x80\xAA\x5B"; endNote := "\x5D\xE2\x80\xAC"
+  translit := table("")
+  translit["\xC2\xA0"] := ""  # Non Break Space
+  translit["\xD7\x83"] := ":" # Sof Pasuq (colon)
+  translit["\xD7\x86"] := ""  # Nun Hafukha (Backwards Nun)
+  translit["\xD7\x90"] := "A" # Aleph
+  translit["\xD7\x91"] := "B" # Beth
+  translit["\xD7\x92"] := "G" # Gimel
+  translit["\xD7\x93"] := "D" # Daleth
+  translit["\xD7\x94"] := "H" # He
+  translit["\xD7\x95"] := "V" # Vav / Waw
+  translit["\xD7\x96"] := "Z" # Zayin
+  translit["\xD7\x97"] := "X" # Heth / Cheth
+  translit["\xD7\x98"] := "+" # Teth
+  translit["\xD7\x99"] := "Y" # Yod
+  translit["\xD7\x9A"] := "K" # Kaph Sofit (Final Kapf)
+  translit["\xD7\x9B"] := "K" # Kaph
+  translit["\xD7\x9C"] := "L" # Lamed
+  translit["\xD7\x9D"] := "M" # Mem Sofit (Final Mem)
+  translit["\xD7\x9E"] := "M" # Mem
+  translit["\xD7\x9F"] := "N" # Nun Sofit (Final Nun)
+  translit["\xD7\xA0"] := "N" # Nun
+  translit["\xD7\xA1"] := "$" # Samek
+  translit["\xD7\xA2"] := "@" # Ayin
+  translit["\xD7\xA3"] := "P" # Pe Sofit (Final Pe)
+  translit["\xD7\xA4"] := "P" # Pe
+  translit["\xD7\xA5"] := "C" # Tsade Sofit (Final Tsade)
+  translit["\xD7\xA6"] := "C" # Tsade
+  translit["\xD7\xA7"] := "Q" # Qoph
+  translit["\xD7\xA8"] := "R" # Resh
+  translit["\xD7\xA9"] := "S" # Sin / Shin
+  translit["\xD7\xAA"] := "T" # Taw
+  
+  file00 := open("FileNames.txt",r) | stop("Cannot open FileNames.txt.")
+  gTotalVerseCount := 0
+  while (fileName := read(file00)) do {
+    fileNameOut := fileName[1:-4] || ".out.txt"
+    file01 := open(fileName,"r") | stop("Cannot open ",fileName)
+    file02 := open(fileNameOut,"w") | stop("Cannot open ",fileNameOut)
+    book := fileName[4:7]
+    verseCount := 0
+    hebrewEncountered := 0; 
+    write("File ",fileName," is open.")
+    write("book ==",book)
+    read()
+    while (lineIn := read(file01)) do {
+    
+      if (lineIn[1:4] == r2l) then {
+        lineIn := lineIn[4:0]
+        if (lineIn[-6:0] == endPara)  then lineIn := lineIn[1:-6]
+        if (lineIn[-6:0] == endSec)   then lineIn := lineIn[1:-6]
+        if (lineIn[-4:0] == endVerse) then lineIn := lineIn[1:-4]
+        while (lineIn := stripNote(lineIn)) do {}
+        lineIn := transliterate(lineIn)
+        verseCount +:= 1
+        gTotalVerseCount +:= 1
+        lineIn ? { if ( (verse := tab(find(':'))) & (colon := move(1)) & 
+                      (chap := tab(many(&digits))) ) then 
+                      lineIn:= reformatLine(verseCount,book,chap,colon, 
+                                            verse,lineIn[&pos:0])}
+        write(file02,lineIn) 
+        write(lineIn)
+      }
+
+    } # end inner while
+    write("EOF on ",fileName)
+  } # end outer while
+end
+
+procedure reformatLine(verseCount,book,chap,colon,verse,lineIn)
+  chap  := "00" || chap;  chap  :=  chap[-3:0] || colon
+  verse := "00" || verse; verse := verse[-3:0] || " "
+  verseCount := "0000" || verseCount; verseCount := verseCount[-5:0] || " "
+  return verseCount || book || " " || chap || verse || lineIn
+end
+
+procedure stripNote(lineIn)
+  lineIn ? {if (pos1 := find(startNote) & pos2 := find(endNote)) then 
+             {pos2 +:= 4; lineIn := lineIn[1:pos1] || lineIn[pos2:0]; return lineIn}
+             else {write(lineIn); fail}
+           }
+end
+
+procedure transliterate(lineIn)
+  transedLine := ""
+  while (*lineIn > 0) do {
+    lineIn ? {
+      tempStr := tab(upto('\xD7\xC2'))
+      oldChar := move(2)
+      newChar := translit[oldChar]
+      transedLine ||:= tempStr || newChar
+      lineIn := lineIn[&pos:0]
+    }
+  } 
+if (*transedLine = 0) then transedLine ||:= lineIn
+return transedLine
+end

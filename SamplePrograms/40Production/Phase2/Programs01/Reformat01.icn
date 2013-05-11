@@ -1,0 +1,16 @@
+# This program adds an extra CRLF to each line. It also eliminates section headers.
+# This program was written to work on the Enhanced Strong's Hebrew Lexicon.
+procedure main()
+  file01 := open("working.txt","r") | stop("Can't open working.txt")
+  file02 := open("workingOut.txt","w") | stop("Can't open workingOut.txt")
+  dash := "\x96"
+  while lineIn := read(file01) do {
+#   a1 := a2 := a3 := ""
+    lineIn ? { if (tab(many(&digits)) & (tab(match(dash))) & (tab(many(&digits)))) then next else {
+#     write(file02,"a1 == ",a1," dash == ",a2," a3 == ",a3)
+      write(file02,lineIn,"\n")
+      }
+    }
+  }
+
+end

@@ -1,0 +1,5 @@
+Step 1) Make any changes you care to make to the Pericope List.
+Step 2) Run GenRunScripts.exe. This needs to be done the first time
+        you run the programs. Thereafter, it need only be run if
+        there have been changes to the programs. 
+Step 3) Run RunEverything.bat. This will generate the results.

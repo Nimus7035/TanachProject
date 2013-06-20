@@ -1,7 +1,0 @@
-procedure main()
-  file01 := open("statistics.txt","a")
-  file02 := open("tanach.txt","r")
-  lineCount :=0
-  while (lineIn := read(file02)) do {lineCount +:= 1}
-  write(file01,"Tanach.txt contains ",lineCount," lines.")
-end

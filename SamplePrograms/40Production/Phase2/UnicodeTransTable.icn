@@ -1,0 +1,116 @@
+# This program contains a UTF-8 (Unicode) translate table for Hebrew letters, vowel
+# points (nikud), cantillation marks, and punctuation.
+
+# The program doesn't do anything, but it's a great reference, and it could be used
+# as a starter for a new program.
+
+procedure main()
+
+  # Constants
+  r2l := "\xE2\x80\xAB"; l2r := "\xE2\x80\xAA" # Direction of text
+  endPara := "\x20\xD7\xA4\xE2\x80\xAC"; endVerse := "\x20\xE2\x80\xAC"
+  endSec := "\x20\xD7\xA1\xE2\x80\xAC"
+  endParaNoSpace := "\xD7\xA4\xE2\x80\xAC"; endVerseNoSpace := "\xE2\x80\xAC"
+  endSecNoSpace := "\xD7\xA1\xE2\x80\xAC"
+  startNote := "\xE2\x80\xAA\x5B"; endNote := "\x5D\xE2\x80\xAC"
+  nunHafukha := "\xD7\x86" # Backwards Nun (used like brackets)
+
+# Translation Table
+# This table is a UTF-8 (Unicode) translation table for Hebrew letters, vowel
+# points (nikud), cantillation marks, and punctuation.
+  translit := table("")
+  translit["\xC2\xA0"] := "\xC2\xA0"  # Non Break Space
+# Cantillation Marks
+  translit["\xD6\x51"] := "\xD6\x51"  # Accent Etnahta (= Atnah)
+  translit["\xD6\x52"] := "\xD6\x52"  # Accent Segol (= Segolta)
+  translit["\xD6\x53"] := "\xD6\x53"  # Accent Shalshelet
+  translit["\xD6\x54"] := "\xD6\x54"  # Accent Zaqef Qatan
+  translit["\xD6\x55"] := "\xD6\x55"  # Accent Zaqef Gadol
+  translit["\xD6\x56"] := "\xD6\x56"  # Accent Tipeha (= Tarha, Me'ayla ~ mayla)
+  translit["\xD6\x57"] := "\xD6\x57"  # Accent Revia
+  translit["\xD6\x58"] := "\xD6\x58"  # Accent Zarqa (= Tsinorit, Zinorit; Tsinor, Zinor) 
+  translit["\xD6\x59"] := "\xD6\x59"  # Accent Pashta
+  translit["\xD6\x5A"] := "\xD6\x5A"  # Accent Yetiv
+  translit["\xD6\x5B"] := "\xD6\x5B"  # Accent Tevir
+  translit["\xD6\x5C"] := "\xD6\x5C"  # Accent Geresh
+  translit["\xD6\x5D"] := "\xD6\x5D"  # Accent Geresh Muqdam
+  translit["\xD6\x5E"] := "\xD6\x5E"  # Accent Gershayim
+  translit["\xD6\x5F"] := "\xD6\x5F"  # Accent Qarney Para (= Pazer Gadol)
+  translit["\xD6\x60"] := "\xD6\x60"  # Accent Telisha Gedola
+  translit["\xD6\x61"] := "\xD6\x61"  # Accent Pazer (= Pazer Qatan)
+  translit["\xD6\x62"] := "\xD6\x62"  # Accent Atnah Hafukh
+  translit["\xD6\x63"] := "\xD6\x63"  # Accent Munah
+  translit["\xD6\x64"] := "\xD6\x64"  # Accent Mahapakh
+  translit["\xD6\x65"] := "\xD6\x65"  # Accent Merkha (= Yored)
+  translit["\xD6\x66"] := "\xD6\x66"  # Accent Merkha Kefula
+  translit["\xD6\x67"] := "\xD6\x67"  # Accent Darga
+  translit["\xD6\x68"] := "\xD6\x68"  # Accent Qadma (= Azla)
+  translit["\xD6\x69"] := "\xD6\x69"  # Accent Telisha Qetana
+  translit["\xD6\x6A"] := "\xD6\x6A"  # Accent Yerah Ben Yomo (= Galgal)
+  translit["\xD6\x6B"] := "\xD6\x6B"  # Accent Ole
+  translit["\xD6\x6C"] := "\xD6\x6C"  # Accent Iluy
+  translit["\xD6\x6D"] := "\xD6\x6D"  # Accent Dehi
+  translit["\xD6\x6E"] := "\xD6\x6E"  # Accent Zinor (= Tsinor; Zarqa)
+  translit["\xD6\x6F"] := "\xD6\x6F"  # Mark Masora Circle
+# Hebrew Points (Nikud) (Vowels and Punctuation)
+  translit["\xD6\xB0"] := "\xD6\xB0"  # Sheva
+  translit["\xD6\xB1"] := "\xD6\xB1"  # Hataf Segol
+  translit["\xD6\xB2"] := "\xD6\xB2"  # Hataf Patah
+  translit["\xD6\xB3"] := "\xD6\xB3"  # Hataf Qamats
+  translit["\xD6\xB4"] := "\xD6\xB4"  # Hiriq
+  translit["\xD6\xB5"] := "\xD6\xB5"  # Tsere
+  translit["\xD6\xB6"] := "\xD6\xB6"  # Segol
+  translit["\xD6\xB7"] := "\xD6\xB7"  # Patah 
+                                      # Furtive Patah is not a distinct character.
+  translit["\xD6\xB8"] := "\xD6\xB8"  # Qamats
+  translit["\xD6\xB9"] := "\xD6\xB9"  # Holam
+  translit["\xD6\xBA"] := "\xD6\xBA"  # Holam Haser for Vav
+  translit["\xD6\xBB"] := "\xD6\xBB"  # Qubuts
+  translit["\xD6\xBC"] := "\xD6\xBC"  # Dagesh or Mapiq (= Shuruq)
+  translit["\xD6\xBD"] := "\xD6\xBD"  # Meteg (= Siluq) May be uses as a Sof Pasuq.
+  translit["\xD6\xBE"] := "\xD6\xBE"  # Maqaf (Dash)
+  translit["\xD6\xBF"] := "\xD6\xBF"  # Rafe (Used in place of Varika) (Very similar to Maqaf)
+  translit["\xD6\xC0"] := "\xD6\xC0"  # Paseq (= Legarmeh)
+  translit["\xD6\xC1"] := "\xD6\xC1"  # Shin Dot
+  translit["\xD6\xC2"] := "\xD6\xC2"  # Sin Dot
+  translit["\xD6\xC3"] := "\xD6\xC3"  # Sof Pasuq (Colon) (End of verse)
+  translit["\xD6\xC4"] := "\xD6\xC4"  # Upper Dot (See Psalms 27:13)
+  translit["\xD6\xC5"] := "\xD6\xC5"  # Lower Dot (See Psalms 27:13) (Similar to Hiriq)
+  translit["\xD6\xC6"] := "\xD6\xC6"  # Nun Hafukha (Backwards Nun) (Used like brackets.)
+  translit["\xD6\xC7"] := "\xD6\xC7"  # Qamats Qatan
+# Hebrew Letters
+  translit["\xD7\x90"] := "A" # Aleph
+  translit["\xD7\x91"] := "B" # Beth
+  translit["\xD7\x92"] := "G" # Gimel
+  translit["\xD7\x93"] := "D" # Daleth
+  translit["\xD7\x94"] := "H" # He
+  translit["\xD7\x95"] := "V" # Vav or Waw
+  translit["\xD7\x96"] := "Z" # Zayin
+  translit["\xD7\x97"] := "X" # Heth or Cheth
+  translit["\xD7\x98"] := "+" # Teth
+  translit["\xD7\x99"] := "Y" # Yod
+  translit["\xD7\x9A"] := "K" # Kaph Sofit (Final Kapf)
+  translit["\xD7\x9B"] := "K" # Kaph
+  translit["\xD7\x9C"] := "L" # Lamed
+  translit["\xD7\x9D"] := "M" # Mem Sofit (Final Mem)
+  translit["\xD7\x9E"] := "M" # Mem
+  translit["\xD7\x9F"] := "N" # Nun Sofit (Final Nun)
+  translit["\xD7\xA0"] := "N" # Nun
+  translit["\xD7\xA1"] := "$" # Samek
+  translit["\xD7\xA2"] := "@" # Ayin
+  translit["\xD7\xA3"] := "P" # Pe Sofit (Final Pe)
+  translit["\xD7\xA4"] := "P" # Pe
+  translit["\xD7\xA5"] := "C" # Tsade Sofit (Final Tsade)
+  translit["\xD7\xA6"] := "C" # Tsade
+  translit["\xD7\xA7"] := "Q" # Qoph
+  translit["\xD7\xA8"] := "R" # Resh
+  translit["\xD7\xA9"] := "S" # Sin / Shin
+  translit["\xD7\xAA"] := "T" # Taw
+# More Punctuation
+  translit["\xD7\xB0"] := "\xD7\xB0" # Ligature - Yiddish Double Vav
+  translit["\xD7\xB1"] := "\xD7\xB1" # Ligature - Yiddish Vav Yod
+  translit["\xD7\xB2"] := "\xD7\xB2" # Ligature - Yiddish Double Yod
+  translit["\xD7\xB3"] := "\xD7\xB3" # Punctuation - Geresh
+  translit["\xD7\xB4"] := "\xD7\xB4" # Punctuation - Gershayim (Used in acronyms)
+
+end

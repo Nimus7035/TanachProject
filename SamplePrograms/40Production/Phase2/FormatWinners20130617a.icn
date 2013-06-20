@@ -1,0 +1,18 @@
+# This program reads the Winners file, and adds blank lines for readability.
+
+procedure main()
+
+  file01 := open("Winners.001","r") | stop("Can't open Winners.001.")
+  file02 := open("Winners.txt","w") | stop("Can't open Winners.txt.")
+
+  oldChap := "Gen001"
+  while lineIn := read(file01) do {
+    if lineIn[1:5] == "For " then newChap := lineIn[5:11]
+    if lineIn[1:5] == "Ther" then newChap := lineIn[20:26]
+    if oldChap ~== newChap then {
+      oldChap := newChap
+      write(file02," ") # Add a blank line for readability.
+    }
+    write(file02,lineIn)
+  }
+end

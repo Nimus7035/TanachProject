@@ -1,0 +1,382 @@
+# This program compares a specified section of a Tanach to the same section in a list of 
+# Tanachs inorder to eliminate any redundancies. This is done because there is no need
+# to process an identical Tanach section two or more times. The primary motivation for
+# doing this has little to do with processing time. The processing time is short enough
+# already. But the real motivation is to eliminate redundancies that bog down the human 
+# who is analyzing the final results. Reducing human processing time is what's important.
+
+global startingBook, startingChapter, startingVerse
+global endingBook,   endingChapter,   endingVerse
+global bookNumbers, endingBookNumber, startLoc, endLoc
+global tanachNumber, tanachsByNumber, tanachStatus
+global tanachGrid, tanachList, tanachTable
+global file03, file04, file05, file06
+
+procedure main(args)
+  if /args | (*args < 6) then 
+    stop("Usage: CompareSections.exe Book Chapter Verse Book Chapter Verse")
+  startingBook    := args[1]
+  startingChapter := args[2]
+  startingVerse   := args[3]
+  endingBook      := args[4]
+  endingChapter   := args[5]
+  endingVerse     := args[6]
+
+  bookNumbers := table(0)
+  bookNumbers["Gen"] := 1
+  bookNumbers["Exo"] := 2
+  bookNumbers["Lev"] := 3
+  bookNumbers["Num"] := 4
+  bookNumbers["Deu"] := 5
+  bookNumbers["Jos"] := 6
+  bookNumbers["Jud"] := 7
+  bookNumbers["1Sa"] := 8
+  bookNumbers["2Sa"] := 9
+  bookNumbers["1Ki"] := 10
+  bookNumbers["2Ki"] := 11
+  bookNumbers["Isa"] := 12
+  bookNumbers["Jer"] := 13
+  bookNumbers["Eze"] := 14
+  bookNumbers["Hos"] := 15
+  bookNumbers["Joe"] := 16
+  bookNumbers["Amo"] := 17
+  bookNumbers["Oba"] := 18
+  bookNumbers["Jon"] := 19
+  bookNumbers["Mic"] := 20
+  bookNumbers["Nah"] := 21
+  bookNumbers["Hab"] := 22
+  bookNumbers["Zep"] := 23
+  bookNumbers["Hag"] := 24
+  bookNumbers["Zec"] := 25
+  bookNumbers["Mal"] := 26
+  bookNumbers["Psa"] := 27
+  bookNumbers["Pro"] := 28
+  bookNumbers["Job"] := 29
+  bookNumbers["Son"] := 30
+  bookNumbers["Rut"] := 31
+  bookNumbers["Lam"] := 32
+  bookNumbers["Ecc"] := 33
+  bookNumbers["Est"] := 34
+  bookNumbers["Dan"] := 35
+  bookNumbers["Ezr"] := 36
+  bookNumbers["Neh"] := 37
+  bookNumbers["1Ch"] := 38
+  bookNumbers["2Ch"] := 39
+
+  tanachsByNumber := table("")
+  tanachsByNumber["01"] := []
+  tanachsByNumber["02"] := []
+  tanachsByNumber["11"] := []
+  tanachsByNumber["12"] := []
+  tanachsByNumber["21"] := []
+  tanachsByNumber["22"] := []
+  tanachsByNumber["31"] := []
+  tanachsByNumber["41"] := []
+  tanachsByNumber["51"] := []
+  tanachsByNumber["52"] := []
+  tanachsByNumber["61"] := []
+  tanachsByNumber["62"] := []
+  tanachsByNumber["66"] := [] # The Corrupted Tanach
+  tanachsByNumber["71"] := []
+  tanachsByNumber["81"] := []
+  tanachsByNumber["82"] := []
+  tanachsByNumber["91"] := []
+
+  tanachList := ["01","02","11","12","21","22","31","41",
+                 "51","52","61","62","66","71","81","82","91"]
+
+  tanachTable := table(0)
+  tanachTable["01"] := 1
+  tanachTable["02"] := 2
+  tanachTable["11"] := 3
+  tanachTable["12"] := 4
+  tanachTable["21"] := 5
+  tanachTable["22"] := 6
+  tanachTable["31"] := 7
+  tanachTable["41"] := 8
+  tanachTable["51"] := 9
+  tanachTable["52"] := 10
+  tanachTable["61"] := 11
+  tanachTable["62"] := 12
+  tanachTable["66"] := 13 # The Corrupted Tanach
+  tanachTable["71"] := 14
+  tanachTable["81"] := 15
+  tanachTable["82"] := 16
+  tanachTable["91"] := 17
+
+  tanachStatus := table("")
+  tanachGrid   := table("")
+
+  bookNumber := ("0" || bookNumbers[args[1]])[-2:0]
+  endingBookNumber := bookNumbers[endingBook]
+  write("CompareSections: endingBookNumber = ",endingBookNumber)
+
+  startLoc := startingBook || " " || ("00" || startingChapter)[-3:0] || ":" || 
+                                     ("00" || startingVerse)[-3:0]
+  endLoc   := endingBook   || " " || ("00" || endingChapter)[-3:0] || ":" || 
+                                     ("00" || endingVerse)[-3:0]
+
+  filePrefix := ".\\Results\\" || bookNumber || args[1] || "\\" || args[1] || args[2] || "_" || args[3] ||
+                     "-" || args[4] || args[5] || "_"  || args[6] || "\\Compares\\"
+  tempProbLogName := filePrefix || "ProblemLog.txt"
+  tempRunLogName  := filePrefix || "RunLog.txt"
+  file03 := open("ProblemLog.txt","a") | stop("Can't open ProblemLog.txt.")
+  file04 := open("RunLog.txt","a")     | stop("Can't open RunLog.txt.")
+  file05 := open(tempProbLogName,"w")  | stop("Can't open ",tempProbLogName)
+  file06 := open(tempRunLogName,"w")   | stop("Can't open ",tempRunLogName)
+  file00 := open("TanachNamesMaster.txt","r") | 
+            stop("Can't open TanachNamesMaster.txt.")
+  write("CompareSections: The Starting Location is ",startLoc,
+        ". The Ending Location is ",endLoc)
+  write(file04,&date," ",&clock," CompareSections: The Starting Location is ",startLoc,
+        ". The Ending Location is ",endLoc)
+  write(file06,&date," ",&clock," CompareSections: The Starting Location is ",startLoc,
+        ". The Ending Location is ",endLoc)
+  while fileIn := read(file00) do {
+    tanachNumber := fileIn[-18:-16]
+    tanachStatus[tanachNumber] := "U" # Status of Unique
+#   Load tanachsByNumber and fill in the tanachGrid here:
+    file01 := open(fileIn,"r") | stop("Can't open ",fileIn,".")
+    tanachsByNumber[tanachNumber] := getLines(file01) # All the lines for the section.
+    tanachGrid[tanachNumber] := fillGrid() # Initialize the tanach grid.
+    write("CompareSections: ",tanachNumber," ",tanachsByNumber[tanachNumber][1])
+    write("  tanachGrid: ",tanachGrid[tanachNumber][1],tanachGrid[tanachNumber][2],
+                           tanachGrid[tanachNumber][3],tanachGrid[tanachNumber][4],
+                           tanachGrid[tanachNumber][5],tanachGrid[tanachNumber][6],
+                           tanachGrid[tanachNumber][7],tanachGrid[tanachNumber][8],
+                           tanachGrid[tanachNumber][9],tanachGrid[tanachNumber][10],
+                           tanachGrid[tanachNumber][11],tanachGrid[tanachNumber][12],
+                           tanachGrid[tanachNumber][13],tanachGrid[tanachNumber][14],
+                           tanachGrid[tanachNumber][15],tanachGrid[tanachNumber][16],
+                           tanachGrid[tanachNumber][17])
+    write(file04,&date," ",&clock," CompareSections: ",tanachNumber," ",
+                           tanachsByNumber[tanachNumber][1])
+    write(file04,&date," ",&clock," tanachGrid: ",tanachGrid[tanachNumber][1],
+                           tanachGrid[tanachNumber][2],
+                           tanachGrid[tanachNumber][3],tanachGrid[tanachNumber][4],
+                           tanachGrid[tanachNumber][5],tanachGrid[tanachNumber][6],
+                           tanachGrid[tanachNumber][7],tanachGrid[tanachNumber][8],
+                           tanachGrid[tanachNumber][9],tanachGrid[tanachNumber][10],
+                           tanachGrid[tanachNumber][11],tanachGrid[tanachNumber][12],
+                           tanachGrid[tanachNumber][13],tanachGrid[tanachNumber][14],
+                           tanachGrid[tanachNumber][15],tanachGrid[tanachNumber][16],
+                           tanachGrid[tanachNumber][17])
+    write(file06,&date," ",&clock," CompareSections: ",tanachNumber," ",
+                           tanachsByNumber[tanachNumber][1])
+    write(file06,&date," ",&clock," tanachGrid: ",tanachGrid[tanachNumber][1],
+                           tanachGrid[tanachNumber][2],
+                           tanachGrid[tanachNumber][3],tanachGrid[tanachNumber][4],
+                           tanachGrid[tanachNumber][5],tanachGrid[tanachNumber][6],
+                           tanachGrid[tanachNumber][7],tanachGrid[tanachNumber][8],
+                           tanachGrid[tanachNumber][9],tanachGrid[tanachNumber][10],
+                           tanachGrid[tanachNumber][11],tanachGrid[tanachNumber][12],
+                           tanachGrid[tanachNumber][13],tanachGrid[tanachNumber][14],
+                           tanachGrid[tanachNumber][15],tanachGrid[tanachNumber][16],
+                           tanachGrid[tanachNumber][17])
+    close(file01)
+  }
+  close(file00)
+  #write(file06,&date," ",&clock," CompareSections: The Tanach sections and tanachStatus are loaded.") 
+# Do the compares here:
+  every i := 1 to (*tanachList - 1) do {
+    #write(file06," The value of i is: ",i)
+    tanachNumber1 := tanachList[i] # a string
+    every j := 2 to *tanachList do {
+      #write(file06," The value of j is: ",j)
+      tanachNumber2 := tanachList[j] # a string
+      #write(file06," Tanachs 1 & 2 are: ",tanachNumber1," ",tanachNumber2)
+      #write(file06," tanachGrid[",tanachNumber1,"][",j,"] == ",
+      #             tanachGrid[tanachNumber1][j])
+      if tanachGrid[tanachNumber1][j] ~== "X" then {
+        writes(file06,&date," ",&clock," Comparing Tanach ",tanachNumber1,
+                     " to Tanach ",tanachNumber2,
+                     " Grid Entry: ",tanachGrid[tanachNumber1][j],
+                     " Grid: ")
+        every k := 1 to *tanachList do {
+          writes(file06,tanachGrid[tanachNumber1][k])
+        }
+        write(file06," ")
+        #write(file06,"Calling doCompare with: ",tanachNumber1," ",tanachNumber2)
+        doCompare(tanachNumber1,tanachNumber2) # Arguments are strings.
+        #write(file06,"doCompare has returned.")
+      }
+    }
+  }
+  writes("CompareSections: tanachStatus is: > ")
+  every i := 1 to *tanachList do {
+    writes(tanachStatus[tanachList[i]],"  ")
+  }
+  write("<")
+  write(repl(" ",36),"01 02 11 12 21 22 31 41 51 52 61 62 66 71 81 82 91")
+  writes(file04,&date," ",&clock," CompareSections: tanachStatus is: > ")
+  every i := 1 to *tanachList do {
+    writes(file04,tanachStatus[tanachList[i]],"  ")
+  }
+  write(file04,"<")
+  write(file04,repl(" ",56),"01 02 11 12 21 22 31 41 51 52 61 62 66 71 81 82 91")
+  writes(file06,&date," ",&clock," CompareSections: tanachStatus is: > ")
+  every i := 1 to *tanachList do {
+    writes(file06,tanachStatus[tanachList[i]],"  ")
+  }
+  write(file06,"<")
+  write(file06,repl(" ",56),"01 02 11 12 21 22 31 41 51 52 61 62 66 71 81 82 91")
+# Write the TanachNamesTemp.txt file here:
+  file00 := open("TanachNamesMaster.txt","r") | 
+            stop("Can't open TanachNamesMaster.txt.")
+  file02 := open("TanachNamesTemp.txt","w") | 
+            stop("Can't open TanachNamesTemp.txt.")
+  while fileIn := read(file00) do {
+    tanachNumber := fileIn[-18:-16]
+    if tanachStatus[tanachNumber] == "U" then {
+      write(file02,fileIn)
+    }
+  }
+end
+
+procedure doCompare(tanach1,tanach2)
+  index2 := tanachTable[tanach2] # Convert Tanach string to it's index.
+  if *tanachsByNumber[tanach1] ~= *tanachsByNumber[tanach2] then {
+    write("CompareSections: Tanach ",tanach1," has ",*tanachsByNumber[tanach1],
+          " lines.")
+    write("                 Tanach ",tanach2," has ",*tanachsByNumber[tanach2],
+          " lines.")
+    write(file03,&date," ",&clock," CompareSections: Tanach ",tanach1," has ",
+          *tanachsByNumber[tanach1]," lines.")
+    write(file03,&date," ",&clock,"                  Tanach ",tanach2," has ",
+          *tanachsByNumber[tanach2]," lines.")
+    write(file04,&date," ",&clock," CompareSections: Tanach ",tanach1," has ",
+          *tanachsByNumber[tanach1]," lines.")
+    write(file04,&date," ",&clock,"                  Tanach ",tanach2," has ",
+          *tanachsByNumber[tanach2]," lines.")
+    write(file05,&date," ",&clock," CompareSections: Tanach ",tanach1," has ",
+          *tanachsByNumber[tanach1]," lines.")
+    write(file05,&date," ",&clock,"                  Tanach ",tanach2," has ",
+          *tanachsByNumber[tanach2]," lines.")
+    write(file06,&date," ",&clock," CompareSections: Tanach ",tanach1," has ",
+          *tanachsByNumber[tanach1]," lines.")
+    write(file06,&date," ",&clock,"                  Tanach ",tanach2," has ",
+          *tanachsByNumber[tanach2]," lines.")
+    return
+  }
+  if tanachGrid[tanach1][index2] == "X" then {
+    write(file06,&date," ",&clock," Status is X. Not comparing ",tanach1," to ",
+                 tanach2,".")
+    return # Status is "Do not process".
+  }
+  every i := 1 to *tanachsByNumber[tanach1] do {
+    if tanachsByNumber[tanach1][i] ~== tanachsByNumber[tanach2][i] then {
+      write("CompareSections: Tanach ",tanach1," has ",tanachsByNumber[tanach1][i])
+      write("                 Tanach ",tanach2," has ",tanachsByNumber[tanach2][i])
+      write(file04,"\n",&date," ",&clock," CompareSections: Tanach ",tanach1," has ",
+            tanachsByNumber[tanach1][i])
+      write(file04,&date," ",&clock,"                  Tanach ",tanach2," has ",
+            tanachsByNumber[tanach2][i])
+      write(file06,"\n",&date," ",&clock," CompareSections: Tanach ",tanach1," has ",
+            tanachsByNumber[tanach1][i])
+      write(file06,&date," ",&clock,"                  Tanach ",tanach2," has ",
+            tanachsByNumber[tanach2][i])
+      return
+    }
+  }
+  tanachStatus[tanach2] := "D" # Status of Duplicate
+  every i := 1 to *tanachList do {
+    tanachGrid[tanach2][i] := "X" # Status of "Do not process"
+  }
+end
+
+procedure getLines(file01)
+  tempList := []
+  startingLine := "00000"
+  while lineIn := read(file01) do {
+    #write("CompareSections: lineIn == ",lineIn)
+    if lineIn[13:24] == startLoc then {
+      write("CompareSections: Starting Location ",startLoc,
+            " found. Section recording is starting.")
+      write(file04,&date," ",&clock," CompareSections: Starting Location ",startLoc,
+            " found. Section recording is starting.")
+      write(file06,&date," ",&clock," CompareSections: Starting Location ",startLoc,
+            " found. Section recording is starting.")
+      startingLine := lineIn[1:6]
+      break
+    }
+  }
+
+    put(tempList,lineIn[25:0]) # Add the first line from the section to the list.
+
+    while lineIn := read(file01) do {
+      currentBookName := lineIn[13:16]
+      currentBookNumber := bookNumbers[currentBookName]
+      if currentBookNumber > endingBookNumber then {
+        write("CompareSections: >>>>>> Ending Book ",endLoc,
+              " exceeded! This Tanach is finished.")
+        write(file03,&date," ",&clock," CompareSections: Ending Book ",
+                     endLoc," exceeded! This Tanach is finished.")
+        write(file04,&date," ",&clock," CompareSections: Ending Book ",
+                     endLoc," exceeded! This Tanach is finished.")
+        write(file05,&date," ",&clock," CompareSections: Ending Book ",
+                     endLoc," exceeded! This Tanach is finished.")
+        write(file06,&date," ",&clock," CompareSections: Ending Book ",
+                     endLoc," exceeded! This Tanach is finished.")
+        break
+      }
+#     if currentBookName == endingBook but current chap or verse too large then break
+      if currentBookName == endingBook then {
+        currentChapter := lineIn[17:20]
+        if numeric(currentChapter) > numeric(endingChapter) then {
+          write("CompareSections: Ending Chapter ",
+                       endLoc," exceeded! This Tanach is finished.")
+          write(file03,&date," ",&clock," CompareSections: Ending Chapter ",
+                       endLoc," exceeded! This Tanach is finished.")
+          write(file04,&date," ",&clock," CompareSections: Ending Chapter ",
+                       endLoc," exceeded! This Tanach is finished.")
+          write(file05,&date," ",&clock," CompareSections: Ending Chapter ",
+                       endLoc," exceeded! This Tanach is finished.")
+          write(file06,&date," ",&clock," CompareSections: Ending Chapter ",
+                       endLoc," exceeded! This Tanach is finished.")
+          break
+        }
+        if numeric(currentChapter) = numeric(endingChapter) then {
+          currentVerse := lineIn[21:24]
+          if numeric(currentVerse) > numeric(endingVerse) then {
+            write("CompareSections: Ending Verse ",
+                         endLoc," exceeded! This Tanach is finished.")
+            write(file03,&date," ",&clock," CompareSections: Ending Verse ",
+                         endLoc," exceeded! This Tanach is finished.")
+            write(file04,&date," ",&clock," CompareSections: Ending Verse ",
+                         endLoc," exceeded! This Tanach is finished.")
+            write(file05,&date," ",&clock," CompareSections: Ending Verse ",
+                         endLoc," exceeded! This Tanach is finished.")
+            write(file06,&date," ",&clock," CompareSections: Ending Verse ",
+                         endLoc," exceeded! This Tanach is finished.")
+            break
+          }
+        }
+      }
+#     Input line is in range. Save line.
+      put(tempList,lineIn[25:0]) # Add a line from the section to the list.
+      if lineIn[13:24] == endLoc then {
+        write("CompareSections: Ending Location ",endLoc,
+              " found. This Tanach is finished.")
+        write(file04,&date," ",&clock," CompareSections: Ending Location ",endLoc,
+              " found. This Tanach is finished.")
+        write(file06,&date," ",&clock," CompareSections: Ending Location ",endLoc,
+              " found. This Tanach is finished.")
+        break
+      }
+    }
+  return tempList
+end
+
+procedure fillGrid()
+  tempList := []
+  every i := 1 to *tanachList do {
+    if tanachNumber >= tanachList[i] then {
+        statusCode := "X"
+      } 
+      else {
+        statusCode := char(i+64)
+      }
+    put(tempList,statusCode)
+  }
+  return tempList
+end

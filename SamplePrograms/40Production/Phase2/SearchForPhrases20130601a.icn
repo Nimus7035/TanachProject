@@ -1,0 +1,271 @@
+# This program reads a section of scripture searching for phrases that have a Numeric
+# value or a Place value matching the searchNumbers.
+
+# What the program does is controlled by the contents of SearchParms.txt.
+
+link factors # Used to compute factors.
+global file01, file02, cVowels, cConsonants, nVal, pVal
+
+procedure main(args)
+
+# The input arguments are: 
+# 1) Starting Book (three characters) eg. "Gen".
+# 2) Starting Chapter (up to three digits).
+# 3) Starting Verse (up to three digits).
+# 4) Ending Book (three characters) eg. "Gen".
+# 5) Ending Chapter (up to three digits).
+# 6) Ending Verse (up to three digits).
+
+  bookNumbers := table(0)
+  bookNumbers["Gen"] := 1
+  bookNumbers["Exo"] := 2
+  bookNumbers["Lev"] := 3
+  bookNumbers["Num"] := 4
+  bookNumbers["Deu"] := 5
+  bookNumbers["Jos"] := 6
+  bookNumbers["Jud"] := 7
+  bookNumbers["1Sa"] := 8
+  bookNumbers["2Sa"] := 9
+  bookNumbers["1Ki"] := 10
+  bookNumbers["2Ki"] := 11
+  bookNumbers["Isa"] := 12
+  bookNumbers["Jer"] := 13
+  bookNumbers["Eze"] := 14
+  bookNumbers["Hos"] := 15
+  bookNumbers["Joe"] := 16
+  bookNumbers["Amo"] := 17
+  bookNumbers["Oba"] := 18
+  bookNumbers["Jon"] := 19
+  bookNumbers["Mic"] := 20
+  bookNumbers["Nah"] := 21
+  bookNumbers["Hab"] := 22
+  bookNumbers["Zep"] := 23
+  bookNumbers["Hag"] := 24
+  bookNumbers["Zec"] := 25
+  bookNumbers["Mal"] := 26
+  bookNumbers["Psa"] := 27
+  bookNumbers["Pro"] := 28
+  bookNumbers["Job"] := 29
+  bookNumbers["Son"] := 30
+  bookNumbers["Rut"] := 31
+  bookNumbers["Lam"] := 32
+  bookNumbers["Ecc"] := 33
+  bookNumbers["Est"] := 34
+  bookNumbers["Dan"] := 35
+  bookNumbers["Ezr"] := 36
+  bookNumbers["Neh"] := 37
+  bookNumbers["1Ch"] := 38
+  bookNumbers["2Ch"] := 39
+
+  bookNumber := bookNumbers[args[1]]
+  bookNumber := ("0" || bookNumber)[-2:0]
+
+# Begin initializations.
+  filePrefix := ".\\Results\\" || bookNumber || args[1] || "\\" || args[1] || args[2] || "_" || args[3] ||
+                     "-" || args[4] || args[5] || "_"  || args[6] || "\\Phrases\\"
+
+  cVowels := 'AHVY'; cConsonants := 'BGDZX+KLMN$@PCQRST'
+  beginUTF8File := "\xEF\xBB\xBF"
+
+  nVal := table(0) # Numeric Values
+  nVal[" "] := 0   # Space
+  nVal["A"] := 1   # Aleph
+  nVal["B"] := 2   # Beth
+  nVal["G"] := 3   # Gimel
+  nVal["D"] := 4   # Daleth
+  nVal["H"] := 5   # He
+  nVal["V"] := 6   # Vav
+  nVal["Z"] := 7   # Zayin
+  nVal["X"] := 8   # Heth
+  nVal["+"] := 9   # Teth
+  nVal["Y"] := 10  # Yod
+  nVal["K"] := 20  # Kaph
+  nVal["L"] := 30  # Lamed
+  nVal["M"] := 40  # Mem
+  nVal["N"] := 50  # Nun
+  nVal["$"] := 60  # Samek
+  nVal["@"] := 70  # Ayin
+  nVal["P"] := 80  # Pe
+  nVal["C"] := 90  # Tsade
+  nVal["Q"] := 100 # Qoph
+  nVal["R"] := 200 # Resh
+  nVal["S"] := 300 # Sin/Shin
+  nVal["T"] := 400 # Taw
+
+  pVal := table(0) # Place Values
+  nVal[" "] := 0   # Space
+  pVal["A"] := 1   # Aleph
+  pVal["B"] := 2   # Beth
+  pVal["G"] := 3   # Gimel
+  pVal["D"] := 4   # Daleth
+  pVal["H"] := 5   # He
+  pVal["V"] := 6   # Vav
+  pVal["Z"] := 7   # Zayin
+  pVal["X"] := 8   # Heth
+  pVal["+"] := 9   # Teth
+  pVal["Y"] := 10  # Yod
+  pVal["K"] := 11  # Kaph
+  pVal["L"] := 12  # Lamed
+  pVal["M"] := 13  # Mem
+  pVal["N"] := 14  # Nun
+  pVal["$"] := 15  # Samek
+  pVal["@"] := 16  # Ayin
+  pVal["P"] := 17  # Pe
+  pVal["C"] := 18  # Tsade
+  pVal["Q"] := 19  # Qoph
+  pVal["R"] := 20  # Resh
+  pVal["S"] := 21  # Sin/Shin
+  pVal["T"] := 22  # Taw
+
+  file00 := open("CopySearchParms.bat","w")
+  destFolderName := " .\\Results\\" || bookNumber || args[1] || "\\" || args[1] || args[2] || "_" || 
+                             args[3] || "-" || args[4] || args[5] || "_"   || args[6] || "\\Phrases"
+  copyCommand := "copy " || "SearchParms.txt" || destFolderName || " /Y"
+  write(file00,copyCommand)
+  close(file00)
+
+  inputFileName := ""
+  searchRange := ""
+  wordFileName := ""
+  tanachName := ""
+  tanachNumber := ""
+  searchNumber := ""
+
+  file00 := open("SearchParms.txt","r") | stop("Can't open SearchParms.txt.")
+  while parmsIn := trim(read(file00)) do {
+    if *parmsIn < 1 then break # The program has finished.
+    if parmsIn[1:10] == "!FileIn: " then {
+      inputFileName := parmsIn[10:0]
+      searchRange := inputFileName[19:-4]
+      wordFileName := "tempWords_" || searchRange || ".txt"   
+      next
+    }
+    if parmsIn[1:10] == "!Tanach: " then {
+      tanachName := parmsIn[10:0]
+      tanachNumber := tanachName[1:-10]
+      next
+    }
+    if parmsIn[1:17] == "!Search Number: " then {
+      searchNumber := parmsIn[17:0]
+    }
+
+#   Acquire all the words.
+    file01 := open(inputFileName,"r") | 
+              stop("Stop: Cannot open ",inputFileName,".")
+    file04 := open(wordFileName,"w") |
+              stop("Stop: Cannot open ",wordFileName,".")
+    wordCount := 0; acquireWords := 0; currentVerse := ""
+    while lineIn := trim(read(file01)) do {
+      if lineIn[1:8] == "!File: " then {
+        newTanachName := trim(lineIn[8:0])
+        if newTanachName == tanachName then acquireWords := 1 else acquireWords := 0
+        next
+      }
+      if acquireWords = 0 then next
+      if (lineIn[1:2] == "$") then {currentVerse := lineIn[2:13]; next}
+      if (lineIn[1:4] == ">>>") then {
+        lineIn := lineIn[4:0] || " "
+        lineIn ? {
+          while (&pos < *lineIn) do {
+            word := tab(upto(' '))
+            tab(many(' '))
+            wordCount +:= 1
+            wordCountOut := ("00000" || wordCount || " ")[-7:0]
+            write(file04,wordCountOut,currentVerse," ",word)
+          }        
+        }
+      }
+    }
+    msg01 := "The last word was: " || word || " verse = " || currentVerse
+    msg02 := "The size of the words list is: " || wordCount
+    close(file01); close(file04)
+
+# Begin main program.
+      fileSuffix := ("0000" || searchNumber)[-4:0]
+      outFileName := filePrefix || "PhrasesByNumberAndPlace_" || tanachNumber || "_" || 
+                     searchRange || "_" || "Factor_" || fileSuffix  || ".txt"   
+      logFileName := filePrefix || "LogPhrasesByNumberAndPlace_" || tanachNumber || 
+                     "_" || searchRange || "_" || "Factor_" || fileSuffix  || ".txt"       
+      write("SearchForPhrases says: The searchNumber is ",searchNumber,".")
+
+      file02 := open(outFileName,"w") | 
+                stop("Stop: Cannot open ",outFileName,".")
+      write(file02,msg01,"\n",msg02) # write word statistics.
+#     file03 := open(logFileName,"w") | # The logFile is used for debugging.
+#               stop("Stop: Cannot open ",logFileName,".")
+
+#     Evaluate all the words for numeric value.
+      file04 := open(wordFileName,"r") | stop("Stop: Cannot open ",wordFileName,".")
+      write(file02,"Searching file ",inputFileName,".\nSearching Tanach ",tanachName)
+      write(file02,"Searching for ",searchNumber,". Numeric matches:")
+      tempString := ""; verseRef := ""; count := 0
+      while wordsIn := read(file04) do {
+        word := wordsIn[20:0]
+        verseRef := wordsIn[8:19]
+        tempString ||:= word || " "
+        repeat {
+        numVal := numericValue(tempString)
+        if (numVal < searchNumber) then break # tempString is too short.
+          if (numVal = searchNumber) then {     # tempString meets criteria.
+            count +:= 1
+            write(file02,tempString," found ending in ",verseRef)
+          } 
+          tempString ? { # Strip off the first word.
+            tab(upto(' ')); tab(many(' '))
+            tempString := tempString[&pos:0]
+          }
+        }
+      }
+      write(file02,"The total number of numeric matches is ",count,".\n")
+      close(file04)
+
+#     Evaluate all the words for place value.
+      file04 := open(wordFileName,"r") |
+                stop("Stop: Cannot open ",wordFileName,".")
+      write(file02,"Searching file ",inputFileName,".\nSearching Tanach ",tanachName)
+      write(file02,"Searching for ",searchNumber,". Place matches:")
+      tempString := ""; verseRef := ""; count := 0
+      while wordsIn := read(file04) do {
+        word := wordsIn[20:0]
+        verseRef := wordsIn[8:19]
+        tempString ||:= word || " "
+        repeat {
+          placeVal := placeValue(tempString)
+          if (placeVal < searchNumber) then break # tempString is too short.
+          if (placeVal = searchNumber) then {     # tempString meets criteria.
+            count +:= 1
+            write(file02,tempString," found ending in ",verseRef)
+          }
+          tempString ? { # Strip off the first word.
+            tab(upto(' ')); tab(many(' '))
+            tempString := tempString[&pos:0]
+          }
+        }
+      }
+      write(file02,"The total number of place matches is ",count,".")
+      close(file02); close(file01); close(file04)
+#     close(file03)
+  }
+end
+
+procedure numericValue(tempString)
+  numVal := 0
+  tempString ? {
+    while (&pos < *tempString) do {
+      char := move(1)
+      numVal +:= nVal[char]
+    }
+  }
+  return numVal
+end
+
+procedure placeValue(tempString)
+  placeVal := 0
+  tempString ? {
+    while (&pos < *tempString) do {
+      char := move(1)
+      placeVal +:= pVal[char]
+    }
+  }
+  return placeVal
+end

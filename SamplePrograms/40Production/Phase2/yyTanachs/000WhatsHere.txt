@@ -1,6 +1,6 @@
-This folder contains the production Tanachs. There are 10 ketiv
-Tanachs and 6 qere Tanachs. The production Tanachs are the ones
-used to produce the numerically validated Tanach.
+This folder contains the production Tanachs. There are 10 or 17 
+of them depending on what you count. The production Tanachs are 
+the ones used to produce the numerically validated Tanach.
 
 The first character of each file name is a digit between 0 and 9.
 This digit is the number of the Tanach.
@@ -9,5 +9,15 @@ The second character of each file name is a digit between 1 and
 2. If the digit is 1, then the Tanach contains only ketiv 
 readings. If the digit is 2, then the Tanach contains only qere
 readings. Not all Tanachs have qere readings.
+
+66Tanach is special. It is a deliberately corrupted Tanach. 
+Every word in this Tanach contains a random letter in the 
+second position. This corrupted Tanach is used to test the
+scoring program. If the scoring program ever selects the 66Tanach
+as the winning Tanach, something is seriously wrong with the
+scoring algorithm.
+
+For that matter the scoring program should not be selecting any
+sections of Tanachs that contain qere readings either. 
 
 

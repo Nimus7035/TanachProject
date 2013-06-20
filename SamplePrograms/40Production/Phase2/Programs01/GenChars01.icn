@@ -1,9 +1,0 @@
-# This program generates the ASCII characters from 0 to 255.
-procedure main()
-  file02 := open("charsOut.txt","w")
-  i := 0
-  while i < 256 do {
-    write(file02,i," ",char(i))
-    i +:= 1
-  }
-end

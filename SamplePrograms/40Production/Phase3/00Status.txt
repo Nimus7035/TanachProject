@@ -1,0 +1,56 @@
+July 24, 2013
+
+The goal of this project is to establish the original
+text of the Tanach by mathmatical means. To date the method
+employed has been to search for the dominant factor in each
+pericope. This method was pioneered by Ivan Panin over a 
+hundred years ago.
+
+Ivan had a disadvantage in that he had no access to a computer
+or machine readable texts. But he also had an advantage in that 
+he could do a much more intelligent analysis of the text. In 
+particular, Ivan could count articles, nouns, verbs, words that
+were masculine or feminine and so on. My scoring program 
+cannot count these things because it can't identify them.
+
+All excuses aside, the scoring program is not working. In fact
+it often gives the highest score to the deliberately corrupted
+66Tanach. This is obviously wrong!
+
+I'm putting the programs on the internet in the hope that someone
+smarter than myself can rewrite ScoresBySection.icn and 
+ScoresSummary.icn using a better scoring technique.
+
+I would like to point out that an enormous amount of work has
+already been done, and can be reused. The reusable parts are 
+what I call it the infrastructure and the superstructure. The 
+infrastructure is the collection of Tanachs that have been 
+methodically transliterated and proofed. The superstructure is 
+the programming that allows the user to processes the entire 
+Tanach in one pass.
+
+I hope someone will take advantage of this reusable code!
+
+How to run an analysis of the Tanach:
+
+First of all you really should install Unicon. I have had
+instances of executable programs reporting a missing .dll on
+computers that did not have Icon/Unicon installed. Get it from
+this URL: http://unicon.sourceforge.net/
+
+You can also get a Unicon book from the same URL.
+
+Second, there is a text file called PericopeList.txt. This has
+been completed for the book of Genesis. It needs to be completed
+for any portion of the Tanach that you wish to analyze.
+
+Third, run GenRunScripts.exe. This will generate all the scripts
+necessary to do the analysis. (If you change the name of any 
+program, GenRunScripts.icn must be modified accordingly!)
+
+Finally, from a command window navigate to the appropriate 
+directory and then run the script named RunEverything.bat. In its
+current configuration, on my computer, it gets done in less than 
+an hour.
+
+ano_nimus7035@yahoo.com

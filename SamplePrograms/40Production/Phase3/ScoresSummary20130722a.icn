@@ -1,0 +1,349 @@
+# This program reads a "SectionScoresOut" file and produces a summary report.
+
+global scoresList, parmsFileIn, bookNumber
+
+procedure main(args)
+  if /args | (*args < 6) then 
+    stop("Usage: ScoresSummary.exe Book Chapter Verse Book Chapter Verse")
+
+#   startingBook    := args[1]
+#   startingChapter := args[2]
+#   startingVerse   := args[3]
+#   endingBook      := args[4]
+#   endingChapter   := args[5]
+#   endingVerse     := args[6]
+
+  bookNumbers := table(0)
+  bookNumbers["Gen"] := 1
+  bookNumbers["Exo"] := 2
+  bookNumbers["Lev"] := 3
+  bookNumbers["Num"] := 4
+  bookNumbers["Deu"] := 5
+  bookNumbers["Jos"] := 6
+  bookNumbers["Jud"] := 7
+  bookNumbers["1Sa"] := 8
+  bookNumbers["2Sa"] := 9
+  bookNumbers["1Ki"] := 10
+  bookNumbers["2Ki"] := 11
+  bookNumbers["Isa"] := 12
+  bookNumbers["Jer"] := 13
+  bookNumbers["Eze"] := 14
+  bookNumbers["Hos"] := 15
+  bookNumbers["Joe"] := 16
+  bookNumbers["Amo"] := 17
+  bookNumbers["Oba"] := 18
+  bookNumbers["Jon"] := 19
+  bookNumbers["Mic"] := 20
+  bookNumbers["Nah"] := 21
+  bookNumbers["Hab"] := 22
+  bookNumbers["Zep"] := 23
+  bookNumbers["Hag"] := 24
+  bookNumbers["Zec"] := 25
+  bookNumbers["Mal"] := 26
+  bookNumbers["Psa"] := 27
+  bookNumbers["Pro"] := 28
+  bookNumbers["Job"] := 29
+  bookNumbers["Son"] := 30
+  bookNumbers["Rut"] := 31
+  bookNumbers["Lam"] := 32
+  bookNumbers["Ecc"] := 33
+  bookNumbers["Est"] := 34
+  bookNumbers["Dan"] := 35
+  bookNumbers["Ezr"] := 36
+  bookNumbers["Neh"] := 37
+  bookNumbers["1Ch"] := 38
+  bookNumbers["2Ch"] := 39
+
+  bookNumber := bookNumbers[args[1]]
+  bookNumber := ("0" || bookNumber)[-2:0]
+
+  filePrefix := ".\\Results\\" || bookNumber || args[1] || "\\" || args[1] || args[2] || "_" || args[3] ||
+                     "-" || args[4] || args[5] || "_" || args[6] || "\\Scores\\"
+  conclusionFile := ".\\Results\\" || bookNumber || args[1] || "\\" || args[1] || args[2] || "_" || args[3] ||
+                     "-" || args[4] || args[5] || "_" || args[6] || "\\Conclusion.txt"
+  fileSuffix :=    args[1] || args[2] || "_" || args[3] || 
+            "-" || args[4] || args[5] || "_" || args[6] || ".txt"
+  inputFile := filePrefix || "SectionScoresOut" || fileSuffix
+  parmsFileIn := ".\\SectionsInput\\SectionsInput" || fileSuffix
+  outputFile := inputFile[1:-4] || "Summary.txt"
+
+# Initialize the column headers and asterisks.
+  columnHeaders := ""; asterisks := ""
+  file01 := open(inputFile, "r")        | stop("Can't open ",inputFile, ".")
+  while lineIn := read(file01) do {
+    if lineIn[14:19] == "Count" then columnHeaders := lineIn
+    if lineIn[14:19] == "*****" then asterisks := lineIn
+    if *asterisks > 0 then break
+  }
+  close(file01)
+# Done initializing the column headers and asterisks.
+  bufferedLines := list(0)
+  put(bufferedLines,asterisks)
+  bufferEverything := 0
+  scoresList := []
+
+  file01 := open(inputFile, "r")        | stop("Can't open ",inputFile, ".")
+  file02 := open(outputFile,"w")        | stop("Can't open ",outputFile,".")
+  file03 := open("SearchParms.txt","w") | stop("Can't open SearchParms.txt.")
+  file04 := open(conclusionFile,"w")    | stop("Can't open ",conclusionFile,".")
+  file05 := open("ProblemLog.txt","a")  | stop("Can't open ProblemLog.txt.")
+  file06 := open("RunLog.txt","a")      | stop("Can't open RunLog.txt.")
+  file09 := open("Winners.001","a")     | stop("Can't open Winners.001.")
+
+  while lineIn := read(file01) do {
+    if lineIn[1:2] == "!" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "SecVowTotals" then {
+      put(bufferedLines,columnHeaders)
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "SecConTotals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "SecChrTotals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "SecWrdTotals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "SecFrmTotals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "vWord Totals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "cWord Totals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "Wordv Totals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "Wordc Totals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "oWord Totals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "eWord Totals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "vForm Totals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "cForm Totals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "Formv Totals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "Formc Totals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "oForm Totals" then {
+      put(bufferedLines,lineIn)
+      next
+    }
+    if lineIn[1:13] == "eForm Totals" then {
+      put(bufferedLines,lineIn)
+      put(bufferedLines,asterisks)
+      next
+    }
+    if bufferEverything = 1 then {
+      put(bufferedLines,lineIn)
+      bufferScores(lineIn)
+      next
+    }
+    if lineIn[11:24] == "The score for" then {
+      put(bufferedLines,lineIn)
+      bufferScores(lineIn)
+      bufferEverything := 1
+      next
+    }
+  }
+  put(bufferedLines,asterisks)
+  every write(file02,!bufferedLines)
+
+# Begin writing the SearchParms.txt file which is used by SearchForPhrases.
+  write(file03,"!FileIn: ",parmsFileIn)
+  every i := 1 to *scoresList do {
+    write(file03,"!Tanach: ",scoresList[i][1],"_Lines.txt")
+    scoresList[i][3] ? {
+      while &pos < *scoresList[i][3] do {
+        if factor := tab(upto(',')) then {
+          write(file03,"!Search Number: ",factor)
+          move(2)
+          #write("scoresList[",i,"][3]=",scoresList[i][3][1:-2]," *scoresList=",
+          #      *scoresList," &pos=",&pos) # Diagnostic
+        }
+      }
+    }
+  }
+
+# Begin thinking about the Conclusion.
+  winners := [] # This list will determine the conclusion.
+  every i := 1 to *scoresList do { # Search for the high score(s).
+    candidate := scoresList[i] # Tanach, Score, Factor(s)
+    if *winners > 0 then {
+      every j := 1 to *winners do {
+        if candidate[2] < winners[j][2] then next # Not the high score.
+        if candidate[2] = winners[j][2] then {    # Tie score.
+          put(winners,candidate) # Add the candidate to the winners list.
+          write("3) Tie candidate: ",candidate[1],"  ",candidate[2],
+                "  ",(candidate[3][1:-2] | " ")) # Diagnostic
+          next
+        }
+        else {
+          winners[j] := candidate # Replace old winner with new winner.
+          write("2) Replacement candidate: ",candidate[1],"  ",candidate[2],
+                "  ",(candidate[3][1:-2] | " ")) # Diagnostic
+        }
+      }
+    } 
+    else {
+      put(winners,candidate) # First entry in the winners list.
+      write("1) Initial candidate: ",candidate[1],"  ",candidate[4],"  ",
+            candidate[2],"  ",(candidate[3][1:-2] | " ")) # Diagnostic
+    }
+  }
+
+# Eliminate duplicates if any. Duplicates are possible because the original scoresList
+# may have contained ties.
+  noDupes := [] # Initialization
+  if *winners > 1 then { # Need to check for duplicates.
+    every i := 1 to *winners do {
+      if *noDupes < 1 then {
+        put(noDupes,winners[i]) # Add initial entry to noDupes.
+      }
+      else {
+        every j := 1 to *noDupes do {
+          if winners[i][1] == noDupes[j][1] then {
+            break # Skip duplicate entry!
+          }
+          else {
+            if j = *noDupes then { # All entries in noDupes have been checked.
+              put(noDupes,winners[i]) # Add unique entry to noDupes.
+            }
+          }
+        }
+      }
+    }
+    winners := noDupes # The duplicates have been removed from winners.
+  }
+
+# Print the conclusion.
+  if *winners = 1 then { # There was a clear and unambiguous winner.
+    write(file04,"There was a clear and unambiguous winner!")
+    write(file06,&date," ",&clock," ScoresSummary: There was success with ",
+                 fileSuffix[1:-4]," the winner was ",
+                 winners[1][1],"  ",winners[1][2],"  ",winners[1][3][1:-2])
+    write(file04,"The successful Tanach, score, and factor(s) were: ")
+    write(file04,winners[1][1],"  ",winners[1][2],"  ",winners[1][3][1:-2])
+    write(file09,"For ",fileSuffix[1:-4]," the winner was ",
+                 winners[1][1]," ",
+                 ("  " || winners[1][4])[-3:0]," ",
+                 ("  " || winners[1][2])[-3:0]," ",
+                 winners[1][3][1:-2])
+  }
+  else { # There was a tie. More analysis must be done.
+    write(file04,"There was a tie. More analysis must be done.")
+    write(file05,&date," ",&clock," ScoresSummary: There was a tie in ",
+                 fileSuffix[1:-4],".")
+    write(file06,&date," ",&clock," ScoresSummary: There was a tie in ",
+                 fileSuffix[1:-4],".")
+    write(file09,"There was a tie in ",fileSuffix[1:-4],".")
+    write(file04,"The tied Tanachs, scores, and factors were: ")
+    write(file09,"The tied Tanachs, scores, and factors were: ")
+    every i := 1 to *winners do {
+      write(file04,winners[i][1]," ",
+                   ("  " || winners[1][4])[-3:0]," ",
+                   ("  " || winners[1][2])[-3:0]," ",
+                   winners[i][3][1:-2])
+      write(file09,winners[i][1]," ",
+                   ("  " || winners[1][4])[-3:0]," ",
+                   ("  " || winners[1][2])[-3:0]," ",
+                   winners[i][3][1:-2])
+    }
+  }
+# Write the winning Tanach.
+  writeTanach(winners,args)
+end 
+
+procedure writeTanach(winners,args)
+  sectionTextPath := ".\\Results\\" || bookNumber || args[1] || "\\" || args[1] || args[2] || "_" || 
+                     args[3] || "-" || args[4] || args[5] || "_"  || args[6] || "\\"
+  sectionName     := args[1] || args[2] || "_" || args[3] || 
+                     "-" || args[4] || args[5] || "_" || args[6] || ".txt"
+  numberOfWinners := *winners
+  every i := 1 to numberOfWinners do {
+    tanachNumber := winners[i][1][1:3]
+    correctSection := 0
+    if numberOfWinners < 2 then {
+      fileName := sectionTextPath || sectionName
+    }
+    else {
+      fileName := sectionTextPath || tanachNumber || "Candidate_" || sectionName
+    }
+    file07 := open(fileName,"w")    | stop("Can't open ",fileName,".")
+    file08 := open(parmsFileIn,"r") | stop("Can't open ",parmsFileIn, ".")
+    while lineIn := read(file08) do {
+      if lineIn[1:8] == "!File: " then {
+        if lineIn[8:10] == tanachNumber then {
+          correctSection := 1
+        } 
+        else {
+          if correctSection = 1 then break
+        }
+      }
+      if (correctSection = 1) & (lineIn[1:2] == "$") then {
+        write(file07,lineIn[2:0])
+      }
+    }
+    close(file07); close(file08)
+  }
+end
+
+procedure bufferScores(lineIn)
+# This procedure saves all the unique scores/factors.
+  if (*lineIn < 9) | (lineIn[3:10]) ~== "Tanach:" then return
+  tanachName  := lineIn[1:9]
+  factorCount  := 0
+  tanachScore := 0
+  tanachFactors := ""
+  lineIn ? {
+    move(40)
+    factorCount := tab(upto(';'))
+    tab(upto('='))
+    move(2)
+    tanachScore := tab(upto(';'))
+    tab(upto(':'))
+    move(2)
+    tanachFactors := lineIn[&pos:0] || ", "
+  }
+  if *scoresList < 1 then {
+    put(scoresList,[tanachName,tanachScore,tanachFactors,factorCount])
+    return
+  }
+  every i := 1 to *scoresList do {
+    if tanachName == scoresList[i][1] then return # Duplicate! This should never happen!
+    if tanachScore = scoresList[i][2] & tanachFactors == scoresList[i][3] then return
+  }
+  put(scoresList,[tanachName,tanachScore,tanachFactors,factorCount])
+  return
+end

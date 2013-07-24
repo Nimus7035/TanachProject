@@ -91,10 +91,9 @@ SearchForPhrase.exe did not work for really large input sections i.e. the
 entire Tanach. I also added to the documentation.
 
 ------------------------------------------------
-June 20, 2013
+July 24, 2013
 
-See the Phase2 folder for run instructions, and current status.
-
-------------------------------------------------
+See the file 00Status.txt in the folder Phase3 for the current
+status.
 
 

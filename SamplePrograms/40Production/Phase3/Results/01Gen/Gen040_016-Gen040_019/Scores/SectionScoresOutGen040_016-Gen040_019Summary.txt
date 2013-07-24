@@ -1,0 +1,47 @@
+******************************************************************************************************************************************************************************
+!File: 01Tanach_Lines.txt 
+!Section: Gen 040:016 thru Gen 040:019 
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+SecVowTotals    77    443     443     886     963                     7x11                      443                      443                    2x443                  3x3x107
+SecConTotals   135   2040   15306   17346   17481                  3x3x3x5             2x2x2x3x5x17                 2x3x2551               2x3x7x7x59                   3x5827
+SecChrTotals   212   2483   15749   18232   18444                   2x2x53                   13x191                    15749              2x2x2x43x53              2x2x3x29x53
+SecWrdTotals    59   2483   15749   18232   18291                       59                   13x191                    15749              2x2x2x43x53                3x7x13x67
+SecFrmTotals    49   1964   11639   13603   13652                      7x7                  2x2x491                  103x113                   61x223                 2x2x3413
+vWord Totals    29   1076    5252    6328    6357                       29                  2x2x269               2x2x13x101              2x2x2x7x113                 3x13x163
+cWord Totals    30   1407   10497   11904   11934                    2x3x5                   3x7x67                   3x3499       2x2x2x2x2x2x2x3x31            2x3x3x3x13x17
+Wordv Totals    18    764    5156    5920    5938                    2x3x3                  2x2x191                 2x2x1289           2x2x2x2x2x5x37                   2x2969
+Wordc Totals    41   1719   10593   12312   12353                       41                  3x3x191               3x3x11x107         2x2x2x3x3x3x3x19                  11x1123
+oWord Totals    20    854    4328    5182    5202                    2x2x5                   2x7x61                2x2x2x541                   2x2591              2x3x3x17x17
+eWord Totals    39   1629   11421   13050   13089                     3x13                  3x3x181             3x3x3x3x3x47             2x3x3x5x5x29                   3x4363
+vForm Totals    25    909    4338    5247    5272                      5x5                  3x3x101                2x3x3x241                3x3x11x53                2x2x2x659
+cForm Totals    24   1055    7301    8356    8380                  2x2x2x3                    5x211                  7x7x149                 2x2x2089                2x2x5x419
+Formv Totals    16    654    4290    4944    4960                  2x2x2x2                  2x3x109              2x3x5x11x13            2x2x2x2x3x103           2x2x2x2x2x5x31
+Formc Totals    33   1310    7349    8659    8692                     3x11                  2x5x131                     7349                   7x1237                2x2x41x53
+oForm Totals    18    742    3901    4643    4661                    2x3x3                   2x7x53                    47x83                     4643                    59x79
+eForm Totals    31   1222    7738    8960    8991                       31                  2x13x47                  2x53x73      2x2x2x2x2x2x2x2x5x7             3x3x3x3x3x37
+******************************************************************************************************************************************************************************
+!File: 66Tanach_Lines.txt 
+!Section: Gen 040:016 thru Gen 040:019 
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+SecVowTotals   103    596     596    1192    1295                      103                  2x2x149                  2x2x149                2x2x2x149                   5x7x37
+SecConTotals   284   3976   27619   31595   31879                   2x2x71               2x2x2x7x71                   71x389                  5x71x89                   71x449
+SecChrTotals   387   4572   28215   32787   33174                   3x3x43              2x2x3x3x127            3x3x3x5x11x19                 3x3x3643              2x3x3x19x97
+SecWrdTotals    89   4572   28215   32787   32876                       89              2x2x3x3x127            3x3x3x5x11x19                 3x3x3643                 2x2x8219
+SecFrmTotals   137   6497   39374   45871   46008                      137                    73x89                  2x19687                   7x6553         2x2x2x3x3x3x3x71
+vWord Totals    19    812    5159    5971    5990                       19                 2x2x7x29                  7x11x67                    7x853                  2x5x599
+cWord Totals    70   3760   23056   26816   26886                    2x5x7             2x2x2x2x5x47           2x2x2x2x11x131          2x2x2x2x2x2x419                 2x3x4481
+Wordv Totals    29   1436    7619    9055    9084                       29                  2x2x359                   19x401                   5x1811                2x2x3x757
+Wordc Totals    60   3136   20596   23732   23792                  2x2x3x5          2x2x2x2x2x2x7x7               2x2x19x271               2x2x17x349             2x2x2x2x1487
+oWord Totals    45   2672   17522   20194   20239                    3x3x5              2x2x2x2x167                   2x8761                 2x23x439                   37x547
+eWord Totals    44   1900   10693   12593   12637                   2x2x11               2x2x5x5x19                 17x17x37                  7x7x257                    12637
+vForm Totals    44   1721    9497   11218   11262                   2x2x11                     1721                     9497                  2x71x79                 2x3x1877
+cForm Totals    93   4776   29877   34653   34746                     3x31              2x2x2x3x199                 3x23x433                  3x11551                 2x3x5791
+Formv Totals    45   2090   11909   13999   14044                    3x3x5                2x5x11x19                    11909                    13999                 2x2x3511
+Formc Totals    92   4407   27465   31872   31964                   2x2x23                 3x13x113                 3x5x1831       2x2x2x2x2x2x2x3x83               2x2x61x131
+oForm Totals    63   3414   21423   24837   24900                    3x3x7                  2x3x569                 3x37x193                 3x17x487             2x2x3x5x5x83
+eForm Totals    74   3083   17951   21034   21108                     2x37                     3083                   29x619                 2x13x809               2x2x3x1759
+******************************************************************************************************************************************************************************
+01Tanach: The score for this section is 12; totalScore = 84; Dominant factor(s): 7
+66Tanach: The score for this section is 11; totalScore = 77; Dominant factor(s): 7
+The selected section is in 01Tanach.
+******************************************************************************************************************************************************************************

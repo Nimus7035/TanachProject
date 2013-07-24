@@ -1,0 +1,48 @@
+# This program creates a deliberately corrupt Tanach. It reads 01Tanach and deliberately
+# corrupts every word by adding a random letter to the second position of every word.
+# This corrupted Tanach will be used for testing purposes. If the scoring program ever
+# selects this corrupted Tanach as the "winner", there is a serious problem with the
+# scoring algorithm.
+
+procedure main()
+
+  spaceInterval := [2,3,4,5,6,7]
+
+  alephTav := "ABDGHVZX+YKLMN$@PCQRST" # Transliterated Hebrew Aleph-Tav String
+  aTav     := 'ABDGHVZX+YKLMN$@PCQRST' # Transliterated Hebrew Aleph-Tav Cset
+
+  filePrefix  := ".\\yyTanachs\\"
+  inFileName  := filePrefix || "01Tanach_Lines.txt"
+  outFileName := filePrefix || "66Tanach_Lines.txt"
+  file01 := open(inFileName, "r") | stop("Can't open ",inFileName,".")
+  file02 := open(outFileName,"w") | stop("Can't open ",outFileName,".")
+
+  while lineIn := read(file01) do {
+    firstPart := lineIn[1:25]
+    secondPart := trim(lineIn[25:0])
+    newSecondPart := ""
+    secondPart ? {
+      while tab(upto(aTav)) do { # Add random letters. Remove spaces.
+          word := tab(many(aTav))
+          word := ?alephTav || word[1:2] || ?alephTav || word[2:0] || ?alephTav 
+          newSecondPart ||:= word
+      }
+      withSpaces := ""
+      stringLen := *newSecondPart
+      stringLenMinusOne := stringLen - 1 # To eliminate one letter words at verse end.
+      i := 1
+      while i <= stringLenMinusOne do { 
+        j := i + ?spaceInterval
+        if j <= stringLen then {
+          withSpaces ||:= newSecondPart[i:j] || " "
+        } 
+        else {
+          withSpaces ||:= newSecondPart[i:0] || " "
+        }
+        i := j
+      }
+      lineOut := firstPart || trim(withSpaces)
+    }
+  write(file02,lineOut)
+  }
+end

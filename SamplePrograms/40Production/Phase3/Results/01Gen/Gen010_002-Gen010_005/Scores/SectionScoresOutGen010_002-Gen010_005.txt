@@ -1,0 +1,928 @@
+
+!File: 01Tanach_Lines.txt 
+!Section: Gen 010:002 thru Gen 010:005 
+
+______________________________________________________________________________________________________________________________________________________________________________
+
+002 BNY YPT GMR VMGVG VMDY VYVN VTBL VMSK VTYR$ 
+
+vowelCount == 13   13
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+Aleph            0      0       0       0       0                        0                        0                        0                        0                        0
+@Aleph           0      0       0       0       0                        0                        0                        0                        0                        0
+He               0      0       0       0       0                        0                        0                        0                        0                        0
+@He              0      0       0       0       0                        0                        0                        0                        0                        0
+Vav              8     48      48      96     104                    2x2x2                2x2x2x2x3                2x2x2x2x3              2x2x2x2x2x3                 2x2x2x13
+@Vav             8     48      48      96     104                    2x2x2                2x2x2x2x3                2x2x2x2x3              2x2x2x2x2x3                 2x2x2x13
+Yod              5     50      50     100     105                        5                    2x5x5                    2x5x5                  2x2x5x5                    3x5x7
+@Yod             5     50      50     100     105                        5                    2x5x5                    2x5x5                  2x2x5x5                    3x5x7
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Vowel Totals    13     98      98     196     209                       13                    2x7x7                    2x7x7                  2x2x7x7                    11x19
+@Vowel Totals   13     98      98     196     209                       13                    2x7x7                    2x7x7                  2x2x7x7                    11x19
+
+consonantCount == 22   2x11
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+Beth             2      4       4       8      10                        2                      2x2                      2x2                    2x2x2                      2x5
+@Beth            2      4       4       8      10                        2                      2x2                      2x2                    2x2x2                      2x5
+Gimel            3      9       9      18      21                        3                      3x3                      3x3                    2x3x3                      3x7
+@Gimel           3      9       9      18      21                        3                      3x3                      3x3                    2x3x3                      3x7
+Daleth           1      4       4       8       9                        1                      2x2                      2x2                    2x2x2                      3x3
+@Daleth          1      4       4       8       9                        1                      2x2                      2x2                    2x2x2                      3x3
+Zayin            0      0       0       0       0                        0                        0                        0                        0                        0
+@Zayin           0      0       0       0       0                        0                        0                        0                        0                        0
+Heth             0      0       0       0       0                        0                        0                        0                        0                        0
+@Heth            0      0       0       0       0                        0                        0                        0                        0                        0
+Teth             0      0       0       0       0                        0                        0                        0                        0                        0
+@Teth            0      0       0       0       0                        0                        0                        0                        0                        0
+Kaph             1     11      20      31      32                        1                       11                    2x2x5                       31                2x2x2x2x2
+@Kaph            1     11      20      31      32                        1                       11                    2x2x5                       31                2x2x2x2x2
+Lamed            1     12      30      42      43                        1                    2x2x3                    2x3x5                    2x3x7                       43
+@Lamed           1     12      30      42      43                        1                    2x2x3                    2x3x5                    2x3x7                       43
+Mem              4     52     160     212     216                      2x2                   2x2x13              2x2x2x2x2x5                   2x2x53              2x2x2x3x3x3
+@Mem             4     52     160     212     216                      2x2                   2x2x13              2x2x2x2x2x5                   2x2x53              2x2x2x3x3x3
+Nun              2     28     100     128     130                        2                    2x2x7                  2x2x5x5            2x2x2x2x2x2x2                   2x5x13
+@Nun             2     28     100     128     130                        2                    2x2x7                  2x2x5x5            2x2x2x2x2x2x2                   2x5x13
+Samek            1     15      60      75      76                        1                      3x5                  2x2x3x5                    3x5x5                   2x2x19
+@Samek           1     15      60      75      76                        1                      3x5                  2x2x3x5                    3x5x5                   2x2x19
+Ayin             0      0       0       0       0                        0                        0                        0                        0                        0
+@Ayin            0      0       0       0       0                        0                        0                        0                        0                        0
+Pe               1     17      80      97      98                        1                       17                2x2x2x2x5                       97                    2x7x7
+@Pe              1     17      80      97      98                        1                       17                2x2x2x2x5                       97                    2x7x7
+Tsade            0      0       0       0       0                        0                        0                        0                        0                        0
+@Tsade           0      0       0       0       0                        0                        0                        0                        0                        0
+Qoph             0      0       0       0       0                        0                        0                        0                        0                        0
+@Qoph            0      0       0       0       0                        0                        0                        0                        0                        0
+Resh             2     40     400     440     442                        2                  2x2x2x5              2x2x2x2x5x5               2x2x2x5x11                  2x13x17
+@Resh            2     40     400     440     442                        2                  2x2x2x5              2x2x2x2x5x5               2x2x2x5x11                  2x13x17
+Sin/Shin         1     21     300     321     322                        1                      3x7                2x2x3x5x5                    3x107                   2x7x23
+@Sin/Shin        1     21     300     321     322                        1                      3x7                2x2x3x5x5                    3x107                   2x7x23
+Taw              3     66    1200    1266    1269                        3                   2x3x11            2x2x2x2x3x5x5                  2x3x211                 3x3x3x47
+@Taw             3     66    1200    1266    1269                        3                   2x3x11            2x2x2x2x3x5x5                  2x3x211                 3x3x3x47
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Con Totals      22    279    2367    2646    2668                     2x11                   3x3x31                  3x3x263              2x3x3x3x7x7                2x2x23x29
+@Con Totals     22    279    2367    2646    2668                     2x11                   3x3x31                  3x3x263              2x3x3x3x7x7                2x2x23x29
+Char Totals     35    377    2465    2842    2877                      5x7                    13x29                  5x17x29                 2x7x7x29                  3x7x137
+@Char Totals    35    377    2465    2842    2877                      5x7                    13x29                  5x17x29                 2x7x7x29                  3x7x137
+
+wordCount == 9   3x3      formCount == 9   3x3
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+BNY              1     26      62      88      89                        1                     2x13                     2x31                 2x2x2x11                       89
+GMR              1     36     243     279     280                        1                  2x2x3x3                3x3x3x3x3                   3x3x31                2x2x2x5x7
+VMDY             1     33      60      93      94                        1                     3x11                  2x2x3x5                     3x31                     2x47
+VMGVG            1     31      58      89      90                        1                       31                     2x29                       89                  2x3x3x5
+VMSK             1     51     366     417     418                        1                     3x17                   2x3x61                    3x139                  2x11x19
+VTBL             1     42     438     480     481                        1                    2x3x7                   2x3x73            2x2x2x2x2x3x5                    13x37
+VTYR$            1     73     676     749     750                        1                       73                2x2x13x13                    7x107                2x3x5x5x5
+VYVN             1     36      72     108     109                        1                  2x2x3x3                2x2x2x3x3                2x2x3x3x3                      109
+YPT              1     49     490     539     540                        1                      7x7                  2x5x7x7                   7x7x11              2x2x3x3x3x5
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Word Totals      9    377    2465    2842    2851                      3x3                    13x29                  5x17x29                 2x7x7x29                     2851
+@Word Totals     9    377    2465    2842    2851                      3x3                    13x29                  5x17x29                 2x7x7x29                     2851
+Char Totals     35    377    2465    2842    2877                      5x7                    13x29                  5x17x29                 2x7x7x29                  3x7x137
+@Char Totals    35    377    2465    2842    2877                      5x7                    13x29                  5x17x29                 2x7x7x29                  3x7x137
+Form Totals      9    377    2465    2842    2851                      3x3                    13x29                  5x17x29                 2x7x7x29                     2851
+@Form Totals     9    377    2465    2842    2851                      3x3                    13x29                  5x17x29                 2x7x7x29                     2851
+vWord Totls      7    315    2160    2475    2482                        7                  3x3x5x7          2x2x2x2x3x3x3x5               3x3x5x5x11                  2x17x73
+@vWord Totls     7    315    2160    2475    2482                        7                  3x3x5x7          2x2x2x2x3x3x3x5               3x3x5x5x11                  2x17x73
+cWord Totls      2     62     305     367     369                        2                     2x31                     5x61                      367                   3x3x41
+@cWord Totls     2     62     305     367     369                        2                     2x31                     5x61                      367                   3x3x41
+Wordv Totls      2     59     122     181     183                        2                       59                     2x61                      181                     3x61
+@Wordv Totls     2     59     122     181     183                        2                       59                     2x61                      181                     3x61
+Wordc Totls      7    318    2343    2661    2668                        7                   2x3x53                  3x11x71                    3x887                2x2x23x29
+@Wordc Totls     7    318    2343    2661    2668                        7                   2x3x53                  3x11x71                    3x887                2x2x23x29
+oWord Totls      5    215    1529    1744    1749                        5                     5x43                   11x139              2x2x2x2x109                  3x11x53
+@oWord Totls     5    215    1529    1744    1749                        5                     5x43                   11x139              2x2x2x2x109                  3x11x53
+eWord Totls      4    162     936    1098    1102                      2x2                2x3x3x3x3             2x2x2x3x3x13                 2x3x3x61                  2x19x29
+@eWord Totls     4    162     936    1098    1102                      2x2                2x3x3x3x3             2x2x2x3x3x13                 2x3x3x61                  2x19x29
+vForm Totls      7    315    2160    2475    2482                        7                  3x3x5x7          2x2x2x2x3x3x3x5               3x3x5x5x11                  2x17x73
+@vForm Totls     7    315    2160    2475    2482                        7                  3x3x5x7          2x2x2x2x3x3x3x5               3x3x5x5x11                  2x17x73
+cForm Totls      2     62     305     367     369                        2                     2x31                     5x61                      367                   3x3x41
+@cForm Totls     2     62     305     367     369                        2                     2x31                     5x61                      367                   3x3x41
+Formv Totls      2     59     122     181     183                        2                       59                     2x61                      181                     3x61
+@Formv Totls     2     59     122     181     183                        2                       59                     2x61                      181                     3x61
+Formc Totls      7    318    2343    2661    2668                        7                   2x3x53                  3x11x71                    3x887                2x2x23x29
+@Formc Totls     7    318    2343    2661    2668                        7                   2x3x53                  3x11x71                    3x887                2x2x23x29
+oForm Totls      5    215    1529    1744    1749                        5                     5x43                   11x139              2x2x2x2x109                  3x11x53
+@oForm Totls     5    215    1529    1744    1749                        5                     5x43                   11x139              2x2x2x2x109                  3x11x53
+eForm Totls      4    162     936    1098    1102                      2x2                2x3x3x3x3             2x2x2x3x3x13                 2x3x3x61                  2x19x29
+@eForm Totls     4    162     936    1098    1102                      2x2                2x3x3x3x3             2x2x2x3x3x13                 2x3x3x61                  2x19x29
+
+______________________________________________________________________________________________________________________________________________________________________________
+
+003 VBNY GMR ASKNZ VRYPT VTGRMH 
+
+vowelCount == 7   7
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+Aleph            1      1       1       2       3                        1                        1                        1                        2                        3
+@Aleph           1      1       1       2       3                        1                        1                        1                        2                        3
+He               1      5       5      10      11                        1                        5                        5                      2x5                       11
+@He              1      5       5      10      11                        1                        5                        5                      2x5                       11
+Vav              3     18      18      36      39                        3                    2x3x3                    2x3x3                  2x2x3x3                     3x13
+@Vav             3     18      18      36      39                        3                    2x3x3                    2x3x3                  2x2x3x3                     3x13
+Yod              2     20      20      40      42                        2                    2x2x5                    2x2x5                  2x2x2x5                    2x3x7
+@Yod             2     20      20      40      42                        2                    2x2x5                    2x2x5                  2x2x2x5                    2x3x7
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Vowel Totals     7     44      44      88      95                        7                   2x2x11                   2x2x11                 2x2x2x11                     5x19
+@Vowel Totals    7     44      44      88      95                        7                   2x2x11                   2x2x11                 2x2x2x11                     5x19
+
+consonantCount == 16   2x2x2x2
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+Beth             1      2       2       4       5                        1                        2                        2                      2x2                        5
+@Beth            1      2       2       4       5                        1                        2                        2                      2x2                        5
+Gimel            2      6       6      12      14                        2                      2x3                      2x3                    2x2x3                      2x7
+@Gimel           2      6       6      12      14                        2                      2x3                      2x3                    2x2x3                      2x7
+Daleth           0      0       0       0       0                        0                        0                        0                        0                        0
+@Daleth          0      0       0       0       0                        0                        0                        0                        0                        0
+Zayin            1      7       7      14      15                        1                        7                        7                      2x7                      3x5
+@Zayin           1      7       7      14      15                        1                        7                        7                      2x7                      3x5
+Heth             0      0       0       0       0                        0                        0                        0                        0                        0
+@Heth            0      0       0       0       0                        0                        0                        0                        0                        0
+Teth             0      0       0       0       0                        0                        0                        0                        0                        0
+@Teth            0      0       0       0       0                        0                        0                        0                        0                        0
+Kaph             1     11      20      31      32                        1                       11                    2x2x5                       31                2x2x2x2x2
+@Kaph            1     11      20      31      32                        1                       11                    2x2x5                       31                2x2x2x2x2
+Lamed            0      0       0       0       0                        0                        0                        0                        0                        0
+@Lamed           0      0       0       0       0                        0                        0                        0                        0                        0
+Mem              2     26      80     106     108                        2                     2x13                2x2x2x2x5                     2x53                2x2x3x3x3
+@Mem             2     26      80     106     108                        2                     2x13                2x2x2x2x5                     2x53                2x2x3x3x3
+Nun              2     28     100     128     130                        2                    2x2x7                  2x2x5x5            2x2x2x2x2x2x2                   2x5x13
+@Nun             2     28     100     128     130                        2                    2x2x7                  2x2x5x5            2x2x2x2x2x2x2                   2x5x13
+Samek            0      0       0       0       0                        0                        0                        0                        0                        0
+@Samek           0      0       0       0       0                        0                        0                        0                        0                        0
+Ayin             0      0       0       0       0                        0                        0                        0                        0                        0
+@Ayin            0      0       0       0       0                        0                        0                        0                        0                        0
+Pe               1     17      80      97      98                        1                       17                2x2x2x2x5                       97                    2x7x7
+@Pe              1     17      80      97      98                        1                       17                2x2x2x2x5                       97                    2x7x7
+Tsade            0      0       0       0       0                        0                        0                        0                        0                        0
+@Tsade           0      0       0       0       0                        0                        0                        0                        0                        0
+Qoph             0      0       0       0       0                        0                        0                        0                        0                        0
+@Qoph            0      0       0       0       0                        0                        0                        0                        0                        0
+Resh             3     60     600     660     663                        3                  2x2x3x5              2x2x2x3x5x5               2x2x3x5x11                  3x13x17
+@Resh            3     60     600     660     663                        3                  2x2x3x5              2x2x2x3x5x5               2x2x3x5x11                  3x13x17
+Sin/Shin         1     21     300     321     322                        1                      3x7                2x2x3x5x5                    3x107                   2x7x23
+@Sin/Shin        1     21     300     321     322                        1                      3x7                2x2x3x5x5                    3x107                   2x7x23
+Taw              2     44     800     844     846                        2                   2x2x11            2x2x2x2x2x5x5                  2x2x211                 2x3x3x47
+@Taw             2     44     800     844     846                        2                   2x2x11            2x2x2x2x2x5x5                  2x2x211                 2x3x3x47
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Con Totals      16    222    1995    2217    2233                  2x2x2x2                   2x3x37                 3x5x7x19                    3x739                  7x11x29
+@Con Totals     16    222    1995    2217    2233                  2x2x2x2                   2x3x37                 3x5x7x19                    3x739                  7x11x29
+Char Totals     23    266    2039    2305    2328                       23                   2x7x19                     2039                    5x461               2x2x2x3x97
+@Char Totals    23    266    2039    2305    2328                       23                   2x7x19                     2039                    5x461               2x2x2x3x97
+
+wordCount == 5   5      formCount == 5   5
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+ASKNZ            1     54     378     432     433                        1                  2x3x3x3                2x3x3x3x7            2x2x2x2x3x3x3                      433
+GMR              1     36     243     279     280                        1                  2x2x3x3                3x3x3x3x3                   3x3x31                2x2x2x5x7
+VBNY             1     32      68     100     101                        1                2x2x2x2x2                   2x2x17                  2x2x5x5                      101
+VRYPT            1     75     696     771     772                        1                    3x5x5               2x2x2x3x29                    3x257                  2x2x193
+VTGRMH           1     69     654     723     724                        1                     3x23                  2x3x109                    3x241                  2x2x181
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Word Totals      5    266    2039    2305    2310                        5                   2x7x19                     2039                    5x461               2x3x5x7x11
+@Word Totals     5    266    2039    2305    2310                        5                   2x7x19                     2039                    5x461               2x3x5x7x11
+Char Totals     23    266    2039    2305    2328                       23                   2x7x19                     2039                    5x461               2x2x2x3x97
+@Char Totals    23    266    2039    2305    2328                       23                   2x7x19                     2039                    5x461               2x2x2x3x97
+Form Totals      5    266    2039    2305    2310                        5                   2x7x19                     2039                    5x461               2x3x5x7x11
+@Form Totals     5    266    2039    2305    2310                        5                   2x7x19                     2039                    5x461               2x3x5x7x11
+vWord Totls      4    230    1796    2026    2030                      2x2                   2x5x23                  2x2x449                   2x1013                 2x5x7x29
+@vWord Totls     4    230    1796    2026    2030                      2x2                   2x5x23                  2x2x449                   2x1013                 2x5x7x29
+cWord Totls      1     36     243     279     280                        1                  2x2x3x3                3x3x3x3x3                   3x3x31                2x2x2x5x7
+@cWord Totls     1     36     243     279     280                        1                  2x2x3x3                3x3x3x3x3                   3x3x31                2x2x2x5x7
+Wordv Totls      2    101     722     823     825                        2                      101                  2x19x19                      823                 3x5x5x11
+@Wordv Totls     2    101     722     823     825                        2                      101                  2x19x19                      823                 3x5x5x11
+Wordc Totls      3    165    1317    1482    1485                        3                   3x5x11                    3x439                2x3x13x19               3x3x3x5x11
+@Wordc Totls     3    165    1317    1482    1485                        3                   3x5x11                    3x439                2x3x13x19               3x3x3x5x11
+oWord Totls      3    165    1317    1482    1485                        3                   3x5x11                    3x439                2x3x13x19               3x3x3x5x11
+@oWord Totls     3    165    1317    1482    1485                        3                   3x5x11                    3x439                2x3x13x19               3x3x3x5x11
+eWord Totls      2    101     722     823     825                        2                      101                  2x19x19                      823                 3x5x5x11
+@eWord Totls     2    101     722     823     825                        2                      101                  2x19x19                      823                 3x5x5x11
+vForm Totls      4    230    1796    2026    2030                      2x2                   2x5x23                  2x2x449                   2x1013                 2x5x7x29
+@vForm Totls     4    230    1796    2026    2030                      2x2                   2x5x23                  2x2x449                   2x1013                 2x5x7x29
+cForm Totls      1     36     243     279     280                        1                  2x2x3x3                3x3x3x3x3                   3x3x31                2x2x2x5x7
+@cForm Totls     1     36     243     279     280                        1                  2x2x3x3                3x3x3x3x3                   3x3x31                2x2x2x5x7
+Formv Totls      2    101     722     823     825                        2                      101                  2x19x19                      823                 3x5x5x11
+@Formv Totls     2    101     722     823     825                        2                      101                  2x19x19                      823                 3x5x5x11
+Formc Totls      3    165    1317    1482    1485                        3                   3x5x11                    3x439                2x3x13x19               3x3x3x5x11
+@Formc Totls     3    165    1317    1482    1485                        3                   3x5x11                    3x439                2x3x13x19               3x3x3x5x11
+oForm Totls      3    165    1317    1482    1485                        3                   3x5x11                    3x439                2x3x13x19               3x3x3x5x11
+@oForm Totls     3    165    1317    1482    1485                        3                   3x5x11                    3x439                2x3x13x19               3x3x3x5x11
+eForm Totls      2    101     722     823     825                        2                      101                  2x19x19                      823                 3x5x5x11
+@eForm Totls     2    101     722     823     825                        2                      101                  2x19x19                      823                 3x5x5x11
+
+______________________________________________________________________________________________________________________________________________________________________________
+
+004 VBNY YVN ALYSH VTRSYS KTYM VDDNYM 
+
+vowelCount == 12   2x2x3
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+Aleph            1      1       1       2       3                        1                        1                        1                        2                        3
+@Aleph           1      1       1       2       3                        1                        1                        1                        2                        3
+He               1      5       5      10      11                        1                        5                        5                      2x5                       11
+@He              1      5       5      10      11                        1                        5                        5                      2x5                       11
+Vav              4     24      24      48      52                      2x2                  2x2x2x3                  2x2x2x3                2x2x2x2x3                   2x2x13
+@Vav             4     24      24      48      52                      2x2                  2x2x2x3                  2x2x2x3                2x2x2x2x3                   2x2x13
+Yod              6     60      60     120     126                      2x3                  2x2x3x5                  2x2x3x5                2x2x2x3x5                  2x3x3x7
+@Yod             6     60      60     120     126                      2x3                  2x2x3x5                  2x2x3x5                2x2x2x3x5                  2x3x3x7
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Vowel Totals    12     90      90     180     192                    2x2x3                  2x3x3x5                  2x3x3x5                2x2x3x3x5            2x2x2x2x2x2x3
+@Vowel Totals   12     90      90     180     192                    2x2x3                  2x3x3x5                  2x3x3x5                2x2x3x3x5            2x2x2x2x2x2x3
+
+consonantCount == 16   2x2x2x2
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+Beth             1      2       2       4       5                        1                        2                        2                      2x2                        5
+@Beth            1      2       2       4       5                        1                        2                        2                      2x2                        5
+Gimel            0      0       0       0       0                        0                        0                        0                        0                        0
+@Gimel           0      0       0       0       0                        0                        0                        0                        0                        0
+Daleth           2      8       8      16      18                        2                    2x2x2                    2x2x2                  2x2x2x2                    2x3x3
+@Daleth          2      8       8      16      18                        2                    2x2x2                    2x2x2                  2x2x2x2                    2x3x3
+Zayin            0      0       0       0       0                        0                        0                        0                        0                        0
+@Zayin           0      0       0       0       0                        0                        0                        0                        0                        0
+Heth             0      0       0       0       0                        0                        0                        0                        0                        0
+@Heth            0      0       0       0       0                        0                        0                        0                        0                        0
+Teth             0      0       0       0       0                        0                        0                        0                        0                        0
+@Teth            0      0       0       0       0                        0                        0                        0                        0                        0
+Kaph             1     11      20      31      32                        1                       11                    2x2x5                       31                2x2x2x2x2
+@Kaph            1     11      20      31      32                        1                       11                    2x2x5                       31                2x2x2x2x2
+Lamed            1     12      30      42      43                        1                    2x2x3                    2x3x5                    2x3x7                       43
+@Lamed           1     12      30      42      43                        1                    2x2x3                    2x3x5                    2x3x7                       43
+Mem              2     26      80     106     108                        2                     2x13                2x2x2x2x5                     2x53                2x2x3x3x3
+@Mem             2     26      80     106     108                        2                     2x13                2x2x2x2x5                     2x53                2x2x3x3x3
+Nun              3     42     150     192     195                        3                    2x3x7                  2x3x5x5            2x2x2x2x2x2x3                   3x5x13
+@Nun             3     42     150     192     195                        3                    2x3x7                  2x3x5x5            2x2x2x2x2x2x3                   3x5x13
+Samek            0      0       0       0       0                        0                        0                        0                        0                        0
+@Samek           0      0       0       0       0                        0                        0                        0                        0                        0
+Ayin             0      0       0       0       0                        0                        0                        0                        0                        0
+@Ayin            0      0       0       0       0                        0                        0                        0                        0                        0
+Pe               0      0       0       0       0                        0                        0                        0                        0                        0
+@Pe              0      0       0       0       0                        0                        0                        0                        0                        0
+Tsade            0      0       0       0       0                        0                        0                        0                        0                        0
+@Tsade           0      0       0       0       0                        0                        0                        0                        0                        0
+Qoph             0      0       0       0       0                        0                        0                        0                        0                        0
+@Qoph            0      0       0       0       0                        0                        0                        0                        0                        0
+Resh             1     20     200     220     221                        1                    2x2x5                2x2x2x5x5                 2x2x5x11                    13x17
+@Resh            1     20     200     220     221                        1                    2x2x5                2x2x2x5x5                 2x2x5x11                    13x17
+Sin/Shin         3     63     900     963     966                        3                    3x3x7              2x2x3x3x5x5                  3x3x107                 2x3x7x23
+@Sin/Shin        3     63     900     963     966                        3                    3x3x7              2x2x3x3x5x5                  3x3x107                 2x3x7x23
+Taw              2     44     800     844     846                        2                   2x2x11            2x2x2x2x2x5x5                  2x2x211                 2x3x3x47
+@Taw             2     44     800     844     846                        2                   2x2x11            2x2x2x2x2x5x5                  2x2x211                 2x3x3x47
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Con Totals      16    228    2190    2418    2434                  2x2x2x2                 2x2x3x19                 2x3x5x73                2x3x13x31                   2x1217
+@Con Totals     16    228    2190    2418    2434                  2x2x2x2                 2x2x3x19                 2x3x5x73                2x3x13x31                   2x1217
+Char Totals     28    318    2280    2598    2626                    2x2x7                   2x3x53             2x2x2x3x5x19                  2x3x433                 2x13x101
+@Char Totals    28    318    2280    2598    2626                    2x2x7                   2x3x53             2x2x2x3x5x19                  2x3x433                 2x13x101
+
+wordCount == 6   2x3      formCount == 6   2x3
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+ALYSH            1     49     346     395     396                        1                      7x7                    2x173                     5x79               2x2x3x3x11
+KTYM             1     56     470     526     527                        1                  2x2x2x7                   2x5x47                    2x263                    17x31
+VBNY             1     32      68     100     101                        1                2x2x2x2x2                   2x2x17                  2x2x5x5                      101
+VDDNYM           1     51     114     165     166                        1                     3x17                   2x3x19                   3x5x11                     2x83
+VTRSYS           1    100    1216    1316    1317                        1                  2x2x5x5           2x2x2x2x2x2x19                 2x2x7x47                    3x439
+YVN              1     30      66      96      97                        1                    2x3x5                   2x3x11              2x2x2x2x2x3                       97
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Word Totals      6    318    2280    2598    2604                      2x3                   2x3x53             2x2x2x3x5x19                  2x3x433               2x2x3x7x31
+@Word Totals     6    318    2280    2598    2604                      2x3                   2x3x53             2x2x2x3x5x19                  2x3x433               2x2x3x7x31
+Char Totals     28    318    2280    2598    2626                    2x2x7                   2x3x53             2x2x2x3x5x19                  2x3x433                 2x13x101
+@Char Totals    28    318    2280    2598    2626                    2x2x7                   2x3x53             2x2x2x3x5x19                  2x3x433                 2x13x101
+Form Totals      6    318    2280    2598    2604                      2x3                   2x3x53             2x2x2x3x5x19                  2x3x433               2x2x3x7x31
+@Form Totals     6    318    2280    2598    2604                      2x3                   2x3x53             2x2x2x3x5x19                  2x3x433               2x2x3x7x31
+vWord Totls      5    262    1810    2072    2077                        5                    2x131                  2x5x181               2x2x2x7x37                    31x67
+@vWord Totls     5    262    1810    2072    2077                        5                    2x131                  2x5x181               2x2x2x7x37                    31x67
+cWord Totls      1     56     470     526     527                        1                  2x2x2x7                   2x5x47                    2x263                    17x31
+@cWord Totls     1     56     470     526     527                        1                  2x2x2x7                   2x5x47                    2x263                    17x31
+Wordv Totls      2     81     414     495     497                        2                  3x3x3x3                 2x3x3x23                 3x3x5x11                     7x71
+@Wordv Totls     2     81     414     495     497                        2                  3x3x3x3                 2x3x3x23                 3x3x5x11                     7x71
+Wordc Totls      4    237    1866    2103    2107                      2x2                     3x79                  2x3x311                    3x701                   7x7x43
+@Wordc Totls     4    237    1866    2103    2107                      2x2                     3x79                  2x3x311                    3x701                   7x7x43
+oWord Totls      2     79     412     491     493                        2                       79                  2x2x103                      491                    17x29
+@oWord Totls     2     79     412     491     493                        2                       79                  2x2x103                      491                    17x29
+eWord Totls      4    239    1868    2107    2111                      2x2                      239                  2x2x467                   7x7x43                     2111
+@eWord Totls     4    239    1868    2107    2111                      2x2                      239                  2x2x467                   7x7x43                     2111
+vForm Totls      5    262    1810    2072    2077                        5                    2x131                  2x5x181               2x2x2x7x37                    31x67
+@vForm Totls     5    262    1810    2072    2077                        5                    2x131                  2x5x181               2x2x2x7x37                    31x67
+cForm Totls      1     56     470     526     527                        1                  2x2x2x7                   2x5x47                    2x263                    17x31
+@cForm Totls     1     56     470     526     527                        1                  2x2x2x7                   2x5x47                    2x263                    17x31
+Formv Totls      2     81     414     495     497                        2                  3x3x3x3                 2x3x3x23                 3x3x5x11                     7x71
+@Formv Totls     2     81     414     495     497                        2                  3x3x3x3                 2x3x3x23                 3x3x5x11                     7x71
+Formc Totls      4    237    1866    2103    2107                      2x2                     3x79                  2x3x311                    3x701                   7x7x43
+@Formc Totls     4    237    1866    2103    2107                      2x2                     3x79                  2x3x311                    3x701                   7x7x43
+oForm Totls      2     79     412     491     493                        2                       79                  2x2x103                      491                    17x29
+@oForm Totls     2     79     412     491     493                        2                       79                  2x2x103                      491                    17x29
+eForm Totls      4    239    1868    2107    2111                      2x2                      239                  2x2x467                   7x7x43                     2111
+@eForm Totls     4    239    1868    2107    2111                      2x2                      239                  2x2x467                   7x7x43                     2111
+
+______________________________________________________________________________________________________________________________________________________________________________
+
+005 MALH NPRDV AYY HGVYM BARCTM AYS LLSNV LMSPXTM BGVYHM 
+
+vowelCount == 16   2x2x2x2
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+Aleph            4      4       4       8      12                      2x2                      2x2                      2x2                    2x2x2                    2x2x3
+@Aleph           4      4       4       8      12                      2x2                      2x2                      2x2                    2x2x2                    2x2x3
+He               3     15      15      30      33                        3                      3x5                      3x5                    2x3x5                     3x11
+@He              3     15      15      30      33                        3                      3x5                      3x5                    2x3x5                     3x11
+Vav              4     24      24      48      52                      2x2                  2x2x2x3                  2x2x2x3                2x2x2x2x3                   2x2x13
+@Vav             4     24      24      48      52                      2x2                  2x2x2x3                  2x2x2x3                2x2x2x2x3                   2x2x13
+Yod              5     50      50     100     105                        5                    2x5x5                    2x5x5                  2x2x5x5                    3x5x7
+@Yod             5     50      50     100     105                        5                    2x5x5                    2x5x5                  2x2x5x5                    3x5x7
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Vowel Totals    16     93      93     186     202                  2x2x2x2                     3x31                     3x31                   2x3x31                    2x101
+@Vowel Totals   16     93      93     186     202                  2x2x2x2                     3x31                     3x31                   2x3x31                    2x101
+
+consonantCount == 28   2x2x7
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+Beth             2      4       4       8      10                        2                      2x2                      2x2                    2x2x2                      2x5
+@Beth            2      4       4       8      10                        2                      2x2                      2x2                    2x2x2                      2x5
+Gimel            2      6       6      12      14                        2                      2x3                      2x3                    2x2x3                      2x7
+@Gimel           2      6       6      12      14                        2                      2x3                      2x3                    2x2x3                      2x7
+Daleth           1      4       4       8       9                        1                      2x2                      2x2                    2x2x2                      3x3
+@Daleth          1      4       4       8       9                        1                      2x2                      2x2                    2x2x2                      3x3
+Zayin            0      0       0       0       0                        0                        0                        0                        0                        0
+@Zayin           0      0       0       0       0                        0                        0                        0                        0                        0
+Heth             1      8       8      16      17                        1                    2x2x2                    2x2x2                  2x2x2x2                       17
+@Heth            1      8       8      16      17                        1                    2x2x2                    2x2x2                  2x2x2x2                       17
+Teth             0      0       0       0       0                        0                        0                        0                        0                        0
+@Teth            0      0       0       0       0                        0                        0                        0                        0                        0
+Kaph             0      0       0       0       0                        0                        0                        0                        0                        0
+@Kaph            0      0       0       0       0                        0                        0                        0                        0                        0
+Lamed            4     48     120     168     172                      2x2                2x2x2x2x3                2x2x2x3x5                2x2x2x3x7                   2x2x43
+@Lamed           4     48     120     168     172                      2x2                2x2x2x2x3                2x2x2x3x5                2x2x2x3x7                   2x2x43
+Mem              6     78     240     318     324                      2x3                   2x3x13              2x2x2x2x3x5                   2x3x53              2x2x3x3x3x3
+@Mem             6     78     240     318     324                      2x3                   2x3x13              2x2x2x2x3x5                   2x3x53              2x2x3x3x3x3
+Nun              2     28     100     128     130                        2                    2x2x7                  2x2x5x5            2x2x2x2x2x2x2                   2x5x13
+@Nun             2     28     100     128     130                        2                    2x2x7                  2x2x5x5            2x2x2x2x2x2x2                   2x5x13
+Samek            0      0       0       0       0                        0                        0                        0                        0                        0
+@Samek           0      0       0       0       0                        0                        0                        0                        0                        0
+Ayin             0      0       0       0       0                        0                        0                        0                        0                        0
+@Ayin            0      0       0       0       0                        0                        0                        0                        0                        0
+Pe               2     34     160     194     196                        2                     2x17              2x2x2x2x2x5                     2x97                  2x2x7x7
+@Pe              2     34     160     194     196                        2                     2x17              2x2x2x2x2x5                     2x97                  2x2x7x7
+Tsade            1     18      90     108     109                        1                    2x3x3                  2x3x3x5                2x2x3x3x3                      109
+@Tsade           1     18      90     108     109                        1                    2x3x3                  2x3x3x5                2x2x3x3x3                      109
+Qoph             0      0       0       0       0                        0                        0                        0                        0                        0
+@Qoph            0      0       0       0       0                        0                        0                        0                        0                        0
+Resh             2     40     400     440     442                        2                  2x2x2x5              2x2x2x2x5x5               2x2x2x5x11                  2x13x17
+@Resh            2     40     400     440     442                        2                  2x2x2x5              2x2x2x2x5x5               2x2x2x5x11                  2x13x17
+Sin/Shin         3     63     900     963     966                        3                    3x3x7              2x2x3x3x5x5                  3x3x107                 2x3x7x23
+@Sin/Shin        3     63     900     963     966                        3                    3x3x7              2x2x3x3x5x5                  3x3x107                 2x3x7x23
+Taw              2     44     800     844     846                        2                   2x2x11            2x2x2x2x2x5x5                  2x2x211                 2x3x3x47
+@Taw             2     44     800     844     846                        2                   2x2x11            2x2x2x2x2x5x5                  2x2x211                 2x3x3x47
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Con Totals      28    375    2832    3207    3235                    2x2x7                  3x5x5x5             2x2x2x2x3x59                   3x1069                    5x647
+@Con Totals     28    375    2832    3207    3235                    2x2x7                  3x5x5x5             2x2x2x2x3x59                   3x1069                    5x647
+Char Totals     44    468    2925    3393    3437                   2x2x11               2x2x3x3x13               3x3x5x5x13                3x3x13x29                    7x491
+@Char Totals    44    468    2925    3393    3437                   2x2x11               2x2x3x3x13               3x3x5x5x13                3x3x13x29                    7x491
+
+wordCount == 9   3x3      formCount == 9   3x3
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+AYS              1     32     311     343     344                        1                2x2x2x2x2                      311                    7x7x7                 2x2x2x43
+AYY              1     21      21      42      43                        1                      3x7                      3x7                    2x3x7                       43
+BARCTM           1     76     733     809     810                        1                   2x2x19                      733                      809              2x3x3x3x3x5
+BGVYHM           1     39      66     105     106                        1                     3x13                   2x3x11                    3x5x7                     2x53
+HGVYM            1     37      64     101     102                        1                       37              2x2x2x2x2x2                      101                   2x3x17
+LLSNV            1     65     416     481     482                        1                     5x13             2x2x2x2x2x13                    13x37                    2x241
+LMSPXTM          1    106     898    1004    1005                        1                     2x53                    2x449                  2x2x251                   3x5x67
+MALH             1     31      76     107     108                        1                       31                   2x2x19                      107                2x2x3x3x3
+NPRDV            1     61     340     401     402                        1                       61                 2x2x5x17                      401                   2x3x67
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Word Totals      9    468    2925    3393    3402                      3x3               2x2x3x3x13               3x3x5x5x13                3x3x13x29            2x3x3x3x3x3x7
+@Word Totals     9    468    2925    3393    3402                      3x3               2x2x3x3x13               3x3x5x5x13                3x3x13x29            2x3x3x3x3x3x7
+Char Totals     44    468    2925    3393    3437                   2x2x11               2x2x3x3x13               3x3x5x5x13                3x3x13x29                    7x491
+@Char Totals    44    468    2925    3393    3437                   2x2x11               2x2x3x3x13               3x3x5x5x13                3x3x13x29                    7x491
+Form Totals      9    468    2925    3393    3402                      3x3               2x2x3x3x13               3x3x5x5x13                3x3x13x29            2x3x3x3x3x3x7
+@Form Totals     9    468    2925    3393    3402                      3x3               2x2x3x3x13               3x3x5x5x13                3x3x13x29            2x3x3x3x3x3x7
+vWord Totls      3     90     396     486     489                        3                  2x3x3x5               2x2x3x3x11              2x3x3x3x3x3                    3x163
+@vWord Totls     3     90     396     486     489                        3                  2x3x3x5               2x2x3x3x11              2x3x3x3x3x3                    3x163
+cWord Totls      6    378    2529    2907    2913                      2x3                2x3x3x3x7                  3x3x281                3x3x17x19                    3x971
+@cWord Totls     6    378    2529    2907    2913                      2x3                2x3x3x3x7                  3x3x281                3x3x17x19                    3x971
+Wordv Totls      4    178     853    1031    1035                      2x2                     2x89                      853                     1031                 3x3x5x23
+@Wordv Totls     4    178     853    1031    1035                      2x2                     2x89                      853                     1031                 3x3x5x23
+Wordc Totls      5    290    2072    2362    2367                        5                   2x5x29               2x2x2x7x37                   2x1181                  3x3x263
+@Wordc Totls     5    290    2072    2362    2367                        5                   2x5x29               2x2x2x7x37                   2x1181                  3x3x263
+oWord Totls      6    322    2050    2372    2378                      2x3                   2x7x23                 2x5x5x41                  2x2x593                  2x29x41
+@oWord Totls     6    322    2050    2372    2378                      2x3                   2x7x23                 2x5x5x41                  2x2x593                  2x29x41
+eWord Totls      3    146     875    1021    1024                        3                     2x73                  5x5x5x7                     1021      2x2x2x2x2x2x2x2x2x2
+@eWord Totls     3    146     875    1021    1024                        3                     2x73                  5x5x5x7                     1021      2x2x2x2x2x2x2x2x2x2
+vForm Totls      3     90     396     486     489                        3                  2x3x3x5               2x2x3x3x11              2x3x3x3x3x3                    3x163
+@vForm Totls     3     90     396     486     489                        3                  2x3x3x5               2x2x3x3x11              2x3x3x3x3x3                    3x163
+cForm Totls      6    378    2529    2907    2913                      2x3                2x3x3x3x7                  3x3x281                3x3x17x19                    3x971
+@cForm Totls     6    378    2529    2907    2913                      2x3                2x3x3x3x7                  3x3x281                3x3x17x19                    3x971
+Formv Totls      4    178     853    1031    1035                      2x2                     2x89                      853                     1031                 3x3x5x23
+@Formv Totls     4    178     853    1031    1035                      2x2                     2x89                      853                     1031                 3x3x5x23
+Formc Totls      5    290    2072    2362    2367                        5                   2x5x29               2x2x2x7x37                   2x1181                  3x3x263
+@Formc Totls     5    290    2072    2362    2367                        5                   2x5x29               2x2x2x7x37                   2x1181                  3x3x263
+oForm Totls      6    322    2050    2372    2378                      2x3                   2x7x23                 2x5x5x41                  2x2x593                  2x29x41
+@oForm Totls     6    322    2050    2372    2378                      2x3                   2x7x23                 2x5x5x41                  2x2x593                  2x29x41
+eForm Totls      3    146     875    1021    1024                        3                     2x73                  5x5x5x7                     1021      2x2x2x2x2x2x2x2x2x2
+@eForm Totls     3    146     875    1021    1024                        3                     2x73                  5x5x5x7                     1021      2x2x2x2x2x2x2x2x2x2
+******************************************************************************************************************************************************************************
+SecVowTotals    48    325     325     650     698                2x2x2x2x3                   5x5x13                   5x5x13                 2x5x5x13                    2x349
+@SecVowTotals   48    325     325     650     698                2x2x2x2x3                   5x5x13                   5x5x13                 2x5x5x13                    2x349
+SecConTotals    82   1104    9384   10488   10570                     2x41             2x2x2x2x3x23            2x2x2x3x17x23            2x2x2x3x19x23                2x5x7x151
+@SecConTotals   82   1104    9384   10488   10570                     2x41             2x2x2x2x3x23            2x2x2x3x17x23            2x2x2x3x19x23                2x5x7x151
+SecChrTotals   130   1429    9709   11138   11268                   2x5x13                     1429                  7x19x73                   2x5569              2x2x3x3x313
+@SecChrTotals  130   1429    9709   11138   11268                   2x5x13                     1429                  7x19x73                   2x5569              2x2x3x3x313
+SecWrdTotals    29   1429    9709   11138   11167                       29                     1429                  7x19x73                   2x5569                   13x859
+@SecWrdTotals   29   1429    9709   11138   11167                       29                     1429                  7x19x73                   2x5569                   13x859
+SecFrmTotals    27   1361    9398   10759   10786                    3x3x3                     1361                 2x37x127                  7x29x53                   2x5393
+@SecFrmTotals   27   1361    9398   10759   10786                    3x3x3                     1361                 2x37x127                  7x29x53                   2x5393
+vWord Totals    19    897    6162    7059    7078                       19                  3x13x23                2x3x13x79                 3x13x181                   2x3539
+@vWord Totals   19    897    6162    7059    7078                       19                  3x13x23                2x3x13x79                 3x13x181                   2x3539
+cWord Totals    10    532    3547    4079    4089                      2x5                 2x2x7x19                     3547                     4079                  3x29x47
+@cWord Totals   10    532    3547    4079    4089                      2x5                 2x2x7x19                     3547                     4079                  3x29x47
+Wordv Totals    10    419    2111    2530    2540                      2x5                      419                     2111                2x5x11x23                2x2x5x127
+@Wordv Totals   10    419    2111    2530    2540                      2x5                      419                     2111                2x5x11x23                2x2x5x127
+Wordc Totals    19   1010    7598    8608    8627                       19                  2x5x101                 2x29x131            2x2x2x2x2x269                     8627
+@Wordc Totals   19   1010    7598    8608    8627                       19                  2x5x101                 2x29x131            2x2x2x2x2x269                     8627
+oWord Totals    16    781    5308    6089    6105                  2x2x2x2                    11x71                 2x2x1327                     6089                3x5x11x37
+@oWord Totals   16    781    5308    6089    6105                  2x2x2x2                    11x71                 2x2x1327                     6089                3x5x11x37
+eWord Totals    13    648    4401    5049    5062                       13            2x2x2x3x3x3x3                3x3x3x163              3x3x3x11x17                   2x2531
+@eWord Totals   13    648    4401    5049    5062                       13            2x2x2x3x3x3x3                3x3x3x163              3x3x3x11x17                   2x2531
+vForm Totals    18    865    6094    6959    6977                    2x3x3                    5x173                 2x11x277                     6959                     6977
+@vForm Totals   18    865    6094    6959    6977                    2x3x3                    5x173                 2x11x277                     6959                     6977
+cForm Totals     9    496    3304    3800    3809                      3x3               2x2x2x2x31               2x2x2x7x59             2x2x2x5x5x19                   13x293
+@cForm Totals    9    496    3304    3800    3809                      3x3               2x2x2x2x31               2x2x2x7x59             2x2x2x5x5x19                   13x293
+Formv Totals     9    387    2043    2430    2439                      3x3                   3x3x43                  3x3x227            2x3x3x3x3x3x5                  3x3x271
+@Formv Totals    9    387    2043    2430    2439                      3x3                   3x3x43                  3x3x227            2x3x3x3x3x3x5                  3x3x271
+Formc Totals    18    974    7355    8329    8347                    2x3x3                    2x487                   5x1471                     8329                   17x491
+@Formc Totals   18    974    7355    8329    8347                    2x3x3                    2x487                   5x1471                     8329                   17x491
+oForm Totals    15    745    5065    5810    5825                      3x5                    5x149                   5x1013                 2x5x7x83                  5x5x233
+@oForm Totals   15    745    5065    5810    5825                      3x5                    5x149                   5x1013                 2x5x7x83                  5x5x233
+eForm Totals    12    616    4333    4949    4961                    2x2x3               2x2x2x7x11                    7x619                  7x7x101                 11x11x41
+@eForm Totals   12    616    4333    4949    4961                    2x2x3               2x2x2x7x11                    7x619                  7x7x101                 11x11x41
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+!File: 66Tanach_Lines.txt 
+!Section: Gen 010:002 thru Gen 010:005 
+
+______________________________________________________________________________________________________________________________________________________________________________
+
+002 ABCNY KZY@PTB HGDM RGAVGMG VGYSVH MDY NVVR YVNLA VLTBLTP VKMSKV TVNTYR$ 
+
+vowelCount == 21   3x7
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+Aleph            3      3       3       6       9                        3                        3                        3                      2x3                      3x3
+@Aleph           3      3       3       6       9                        3                        3                        3                      2x3                      3x3
+He               2     10      10      20      22                        2                      2x5                      2x5                    2x2x5                     2x11
+@He              2     10      10      20      22                        2                      2x5                      2x5                    2x2x5                     2x11
+Vav             10     60      60     120     130                      2x5                  2x2x3x5                  2x2x3x5                2x2x2x3x5                   2x5x13
+@Vav            10     60      60     120     130                      2x5                  2x2x3x5                  2x2x3x5                2x2x2x3x5                   2x5x13
+Yod              6     60      60     120     126                      2x3                  2x2x3x5                  2x2x3x5                2x2x2x3x5                  2x3x3x7
+@Yod             6     60      60     120     126                      2x3                  2x2x3x5                  2x2x3x5                2x2x2x3x5                  2x3x3x7
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Vowel Totals    21    133     133     266     287                      3x7                     7x19                     7x19                   2x7x19                     7x41
+@Vowel Totals   21    133     133     266     287                      3x7                     7x19                     7x19                   2x7x19                     7x41
+
+consonantCount == 40   2x2x2x5
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+Beth             3      6       6      12      15                        3                      2x3                      2x3                    2x2x3                      3x5
+@Beth            3      6       6      12      15                        3                      2x3                      2x3                    2x2x3                      3x5
+Gimel            5     15      15      30      35                        5                      3x5                      3x5                    2x3x5                      5x7
+@Gimel           5     15      15      30      35                        5                      3x5                      3x5                    2x3x5                      5x7
+Daleth           2      8       8      16      18                        2                    2x2x2                    2x2x2                  2x2x2x2                    2x3x3
+@Daleth          2      8       8      16      18                        2                    2x2x2                    2x2x2                  2x2x2x2                    2x3x3
+Zayin            1      7       7      14      15                        1                        7                        7                      2x7                      3x5
+@Zayin           1      7       7      14      15                        1                        7                        7                      2x7                      3x5
+Heth             0      0       0       0       0                        0                        0                        0                        0                        0
+@Heth            0      0       0       0       0                        0                        0                        0                        0                        0
+Teth             0      0       0       0       0                        0                        0                        0                        0                        0
+@Teth            0      0       0       0       0                        0                        0                        0                        0                        0
+Kaph             3     33      60      93      96                        3                     3x11                  2x2x3x5                     3x31              2x2x2x2x2x3
+@Kaph            3     33      60      93      96                        3                     3x11                  2x2x3x5                     3x31              2x2x2x2x2x3
+Lamed            3     36      90     126     129                        3                  2x2x3x3                  2x3x3x5                  2x3x3x7                     3x43
+@Lamed           3     36      90     126     129                        3                  2x2x3x3                  2x3x3x5                  2x3x3x7                     3x43
+Mem              4     52     160     212     216                      2x2                   2x2x13              2x2x2x2x2x5                   2x2x53              2x2x2x3x3x3
+@Mem             4     52     160     212     216                      2x2                   2x2x13              2x2x2x2x2x5                   2x2x53              2x2x2x3x3x3
+Nun              4     56     200     256     260                      2x2                  2x2x2x7                2x2x2x5x5          2x2x2x2x2x2x2x2                 2x2x5x13
+@Nun             4     56     200     256     260                      2x2                  2x2x2x7                2x2x2x5x5          2x2x2x2x2x2x2x2                 2x2x5x13
+Samek            1     15      60      75      76                        1                      3x5                  2x2x3x5                    3x5x5                   2x2x19
+@Samek           1     15      60      75      76                        1                      3x5                  2x2x3x5                    3x5x5                   2x2x19
+Ayin             1     16      70      86      87                        1                  2x2x2x2                    2x5x7                     2x43                     3x29
+@Ayin            1     16      70      86      87                        1                  2x2x2x2                    2x5x7                     2x43                     3x29
+Pe               2     34     160     194     196                        2                     2x17              2x2x2x2x2x5                     2x97                  2x2x7x7
+@Pe              2     34     160     194     196                        2                     2x17              2x2x2x2x2x5                     2x97                  2x2x7x7
+Tsade            1     18      90     108     109                        1                    2x3x3                  2x3x3x5                2x2x3x3x3                      109
+@Tsade           1     18      90     108     109                        1                    2x3x3                  2x3x3x5                2x2x3x3x3                      109
+Qoph             0      0       0       0       0                        0                        0                        0                        0                        0
+@Qoph            0      0       0       0       0                        0                        0                        0                        0                        0
+Resh             3     60     600     660     663                        3                  2x2x3x5              2x2x2x3x5x5               2x2x3x5x11                  3x13x17
+@Resh            3     60     600     660     663                        3                  2x2x3x5              2x2x2x3x5x5               2x2x3x5x11                  3x13x17
+Sin/Shin         2     42     600     642     644                        2                    2x3x7              2x2x2x3x5x5                  2x3x107                 2x2x7x23
+@Sin/Shin        2     42     600     642     644                        2                    2x3x7              2x2x2x3x5x5                  2x3x107                 2x2x7x23
+Taw              5    110    2000    2110    2115                        5                   2x5x11            2x2x2x2x5x5x5                  2x5x211                 3x3x5x47
+@Taw             5    110    2000    2110    2115                        5                   2x5x11            2x2x2x2x5x5x5                  2x5x211                 3x3x5x47
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Con Totals      40    508    4126    4634    4674                  2x2x2x5                  2x2x127                   2x2063                  2x7x331                2x3x19x41
+@Con Totals     40    508    4126    4634    4674                  2x2x2x5                  2x2x127                   2x2063                  2x7x331                2x3x19x41
+Char Totals     61    641    4259    4900    4961                       61                      641                     4259              2x2x5x5x7x7                 11x11x41
+@Char Totals    61    641    4259    4900    4961                       61                      641                     4259              2x2x5x5x7x7                 11x11x41
+
+wordCount == 11   11      formCount == 11   11
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+ABCNY            1     45     153     198     199                        1                    3x3x5                   3x3x17                 2x3x3x11                      199
+HGDM             1     25      52      77      78                        1                      5x5                   2x2x13                     7x11                   2x3x13
+KZY@PTB          1     85     589     674     675                        1                     5x17                    19x31                    2x337                3x3x3x5x5
+MDY              1     27      54      81      82                        1                    3x3x3                  2x3x3x3                  3x3x3x3                     2x41
+NVVR             1     46     262     308     309                        1                     2x23                    2x131                 2x2x7x11                    3x103
+RGAVGMG          1     49     256     305     306                        1                      7x7          2x2x2x2x2x2x2x2                     5x61                 2x3x3x17
+TVNTYR$          1    109    1126    1235    1236                        1                      109                    2x563                  5x13x19                2x2x3x103
+VGYSVH           1     51     330     381     382                        1                     3x17                 2x3x5x11                    3x127                    2x191
+VKMSKV           1     68     392     460     461                        1                   2x2x17                2x2x2x7x7                 2x2x5x23                      461
+VLTBLTP          1     93     948    1041    1042                        1                     3x31                 2x2x3x79                    3x347                    2x521
+YVNLA            1     43      97     140     141                        1                       43                       97                  2x2x5x7                     3x47
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Word Totals     11    641    4259    4900    4911                       11                      641                     4259              2x2x5x5x7x7                   3x1637
+@Word Totals    11    641    4259    4900    4911                       11                      641                     4259              2x2x5x5x7x7                   3x1637
+Char Totals     61    641    4259    4900    4961                       61                      641                     4259              2x2x5x5x7x7                 11x11x41
+@Char Totals    61    641    4259    4900    4961                       61                      641                     4259              2x2x5x5x7x7                 11x11x41
+Form Totals     11    641    4259    4900    4911                       11                      641                     4259              2x2x5x5x7x7                   3x1637
+@Form Totals    11    641    4259    4900    4911                       11                      641                     4259              2x2x5x5x7x7                   3x1637
+vWord Totls      6    325    1972    2297    2303                      2x3                   5x5x13                2x2x17x29                     2297                   7x7x47
+@vWord Totls     6    325    1972    2297    2303                      2x3                   5x5x13                2x2x17x29                     2297                   7x7x47
+cWord Totls      5    316    2287    2603    2608                        5                   2x2x79                     2287                   19x137              2x2x2x2x163
+@cWord Totls     5    316    2287    2603    2608                        5                   2x2x79                     2287                   19x137              2x2x2x2x163
+Wordv Totls      5    234    1026    1260    1265                        5                 2x3x3x13               2x3x3x3x19              2x2x3x3x5x7                  5x11x23
+@Wordv Totls     5    234    1026    1260    1265                        5                 2x3x3x13               2x3x3x3x19              2x2x3x3x5x7                  5x11x23
+Wordc Totls      6    407    3233    3640    3646                      2x3                    11x37                    53x61             2x2x2x5x7x13                   2x1823
+@Wordc Totls     6    407    3233    3640    3646                      2x3                    11x37                    53x61             2x2x2x5x7x13                   2x1823
+oWord Totls      7    451    3223    3674    3681                        7                    11x41                   11x293                 2x11x167                  3x3x409
+@oWord Totls     7    451    3223    3674    3681                        7                    11x41                   11x293                 2x11x167                  3x3x409
+eWord Totls      4    190    1036    1226    1230                      2x2                   2x5x19                 2x2x7x37                    2x613                 2x3x5x41
+@eWord Totls     4    190    1036    1226    1230                      2x2                   2x5x19                 2x2x7x37                    2x613                 2x3x5x41
+vForm Totls      6    325    1972    2297    2303                      2x3                   5x5x13                2x2x17x29                     2297                   7x7x47
+@vForm Totls     6    325    1972    2297    2303                      2x3                   5x5x13                2x2x17x29                     2297                   7x7x47
+cForm Totls      5    316    2287    2603    2608                        5                   2x2x79                     2287                   19x137              2x2x2x2x163
+@cForm Totls     5    316    2287    2603    2608                        5                   2x2x79                     2287                   19x137              2x2x2x2x163
+Formv Totls      5    234    1026    1260    1265                        5                 2x3x3x13               2x3x3x3x19              2x2x3x3x5x7                  5x11x23
+@Formv Totls     5    234    1026    1260    1265                        5                 2x3x3x13               2x3x3x3x19              2x2x3x3x5x7                  5x11x23
+Formc Totls      6    407    3233    3640    3646                      2x3                    11x37                    53x61             2x2x2x5x7x13                   2x1823
+@Formc Totls     6    407    3233    3640    3646                      2x3                    11x37                    53x61             2x2x2x5x7x13                   2x1823
+oForm Totls      7    451    3223    3674    3681                        7                    11x41                   11x293                 2x11x167                  3x3x409
+@oForm Totls     7    451    3223    3674    3681                        7                    11x41                   11x293                 2x11x167                  3x3x409
+eForm Totls      4    190    1036    1226    1230                      2x2                   2x5x19                 2x2x7x37                    2x613                 2x3x5x41
+@eForm Totls     4    190    1036    1226    1230                      2x2                   2x5x19                 2x2x7x37                    2x613                 2x3x5x41
+
+______________________________________________________________________________________________________________________________________________________________________________
+
+003 XVRBNY XVGYMR STASSKN ZQ SV DRYP TGKVV TG RMH 
+
+vowelCount == 10   2x5
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+Aleph            1      1       1       2       3                        1                        1                        1                        2                        3
+@Aleph           1      1       1       2       3                        1                        1                        1                        2                        3
+He               1      5       5      10      11                        1                        5                        5                      2x5                       11
+@He              1      5       5      10      11                        1                        5                        5                      2x5                       11
+Vav              5     30      30      60      65                        5                    2x3x5                    2x3x5                  2x2x3x5                     5x13
+@Vav             5     30      30      60      65                        5                    2x3x5                    2x3x5                  2x2x3x5                     5x13
+Yod              3     30      30      60      63                        3                    2x3x5                    2x3x5                  2x2x3x5                    3x3x7
+@Yod             3     30      30      60      63                        3                    2x3x5                    2x3x5                  2x2x3x5                    3x3x7
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Vowel Totals    10     66      66     132     142                      2x5                   2x3x11                   2x3x11                 2x2x3x11                     2x71
+@Vowel Totals   10     66      66     132     142                      2x5                   2x3x11                   2x3x11                 2x2x3x11                     2x71
+
+consonantCount == 27   3x3x3
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+Beth             1      2       2       4       5                        1                        2                        2                      2x2                        5
+@Beth            1      2       2       4       5                        1                        2                        2                      2x2                        5
+Gimel            3      9       9      18      21                        3                      3x3                      3x3                    2x3x3                      3x7
+@Gimel           3      9       9      18      21                        3                      3x3                      3x3                    2x3x3                      3x7
+Daleth           1      4       4       8       9                        1                      2x2                      2x2                    2x2x2                      3x3
+@Daleth          1      4       4       8       9                        1                      2x2                      2x2                    2x2x2                      3x3
+Zayin            1      7       7      14      15                        1                        7                        7                      2x7                      3x5
+@Zayin           1      7       7      14      15                        1                        7                        7                      2x7                      3x5
+Heth             2     16      16      32      34                        2                  2x2x2x2                  2x2x2x2                2x2x2x2x2                     2x17
+@Heth            2     16      16      32      34                        2                  2x2x2x2                  2x2x2x2                2x2x2x2x2                     2x17
+Teth             0      0       0       0       0                        0                        0                        0                        0                        0
+@Teth            0      0       0       0       0                        0                        0                        0                        0                        0
+Kaph             2     22      40      62      64                        2                     2x11                  2x2x2x5                     2x31              2x2x2x2x2x2
+@Kaph            2     22      40      62      64                        2                     2x11                  2x2x2x5                     2x31              2x2x2x2x2x2
+Lamed            0      0       0       0       0                        0                        0                        0                        0                        0
+@Lamed           0      0       0       0       0                        0                        0                        0                        0                        0
+Mem              2     26      80     106     108                        2                     2x13                2x2x2x2x5                     2x53                2x2x3x3x3
+@Mem             2     26      80     106     108                        2                     2x13                2x2x2x2x5                     2x53                2x2x3x3x3
+Nun              2     28     100     128     130                        2                    2x2x7                  2x2x5x5            2x2x2x2x2x2x2                   2x5x13
+@Nun             2     28     100     128     130                        2                    2x2x7                  2x2x5x5            2x2x2x2x2x2x2                   2x5x13
+Samek            0      0       0       0       0                        0                        0                        0                        0                        0
+@Samek           0      0       0       0       0                        0                        0                        0                        0                        0
+Ayin             0      0       0       0       0                        0                        0                        0                        0                        0
+@Ayin            0      0       0       0       0                        0                        0                        0                        0                        0
+Pe               1     17      80      97      98                        1                       17                2x2x2x2x5                       97                    2x7x7
+@Pe              1     17      80      97      98                        1                       17                2x2x2x2x5                       97                    2x7x7
+Tsade            0      0       0       0       0                        0                        0                        0                        0                        0
+@Tsade           0      0       0       0       0                        0                        0                        0                        0                        0
+Qoph             1     19     100     119     120                        1                       19                  2x2x5x5                     7x17                2x2x2x3x5
+@Qoph            1     19     100     119     120                        1                       19                  2x2x5x5                     7x17                2x2x2x3x5
+Resh             4     80     800     880     884                      2x2                2x2x2x2x5            2x2x2x2x2x5x5             2x2x2x2x5x11                2x2x13x17
+@Resh            4     80     800     880     884                      2x2                2x2x2x2x5            2x2x2x2x2x5x5             2x2x2x2x5x11                2x2x13x17
+Sin/Shin         4     84    1200    1284    1288                      2x2                  2x2x3x7            2x2x2x2x3x5x5                2x2x3x107               2x2x2x7x23
+@Sin/Shin        4     84    1200    1284    1288                      2x2                  2x2x3x7            2x2x2x2x3x5x5                2x2x3x107               2x2x2x7x23
+Taw              3     66    1200    1266    1269                        3                   2x3x11            2x2x2x2x3x5x5                  2x3x211                 3x3x3x47
+@Taw             3     66    1200    1266    1269                        3                   2x3x11            2x2x2x2x3x5x5                  2x3x211                 3x3x3x47
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Con Totals      27    380    3638    4018    4045                    3x3x3                 2x2x5x19                 2x17x107                 2x7x7x41                    5x809
+@Con Totals     27    380    3638    4018    4045                    3x3x3                 2x2x5x19                 2x17x107                 2x7x7x41                    5x809
+Char Totals     37    446    3704    4150    4187                       37                    2x223                2x2x2x463                 2x5x5x83                    53x79
+@Char Totals    37    446    3704    4150    4187                       37                    2x223                2x2x2x463                 2x5x5x83                    53x79
+
+wordCount == 9   3x3      formCount == 9   3x3
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+DRYP             1     51     294     345     346                        1                     3x17                  2x3x7x7                   3x5x23                    2x173
+RMH              1     38     245     283     284                        1                     2x19                    5x7x7                      283                   2x2x71
+STASSKN          1    111    1371    1482    1483                        1                     3x37                    3x457                2x3x13x19                     1483
+SV               1     27     306     333     334                        1                    3x3x3                 2x3x3x17                   3x3x37                    2x167
+TG               1     25     403     428     429                        1                      5x5                    13x31                  2x2x107                  3x11x13
+TGKVV            1     48     435     483     484                        1                2x2x2x2x3                   3x5x29                   3x7x23                2x2x11x11
+XVGYMR           1     60     267     327     328                        1                  2x2x3x5                     3x89                    3x109                 2x2x2x41
+XVRBNY           1     60     276     336     337                        1                  2x2x3x5                 2x2x3x23              2x2x2x2x3x7                      337
+ZQ               1     26     107     133     134                        1                     2x13                      107                     7x19                     2x67
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Word Totals      9    446    3704    4150    4159                      3x3                    2x223                2x2x2x463                 2x5x5x83                     4159
+@Word Totals     9    446    3704    4150    4159                      3x3                    2x223                2x2x2x463                 2x5x5x83                     4159
+Char Totals     37    446    3704    4150    4187                       37                    2x223                2x2x2x463                 2x5x5x83                    53x79
+@Char Totals    37    446    3704    4150    4187                       37                    2x223                2x2x2x463                 2x5x5x83                    53x79
+Form Totals      9    446    3704    4150    4159                      3x3                    2x223                2x2x2x463                 2x5x5x83                     4159
+@Form Totals     9    446    3704    4150    4159                      3x3                    2x223                2x2x2x463                 2x5x5x83                     4159
+vWord Totls      0      0       0       0       0                        0                        0                        0                        0                        0
+@vWord Totls     0      0       0       0       0                        0                        0                        0                        0                        0
+cWord Totls      9    446    3704    4150    4159                      3x3                    2x223                2x2x2x463                 2x5x5x83                     4159
+@cWord Totls     9    446    3704    4150    4159                      3x3                    2x223                2x2x2x463                 2x5x5x83                     4159
+Wordv Totls      4    173    1262    1435    1439                      2x2                      173                    2x631                   5x7x41                     1439
+@Wordv Totls     4    173    1262    1435    1439                      2x2                      173                    2x631                   5x7x41                     1439
+Wordc Totls      5    273    2442    2715    2720                        5                   3x7x13                2x3x11x37                  3x5x181           2x2x2x2x2x5x17
+@Wordc Totls     5    273    2442    2715    2720                        5                   3x7x13                2x3x11x37                  3x5x181           2x2x2x2x2x5x17
+oWord Totls      3    197    2051    2248    2251                        3                      197                    7x293                2x2x2x281                     2251
+@oWord Totls     3    197    2051    2248    2251                        3                      197                    7x293                2x2x2x281                     2251
+eWord Totls      6    249    1653    1902    1908                      2x3                     3x83                  3x19x29                  2x3x317               2x2x3x3x53
+@eWord Totls     6    249    1653    1902    1908                      2x3                     3x83                  3x19x29                  2x3x317               2x2x3x3x53
+vForm Totls      0      0       0       0       0                        0                        0                        0                        0                        0
+@vForm Totls     0      0       0       0       0                        0                        0                        0                        0                        0
+cForm Totls      9    446    3704    4150    4159                      3x3                    2x223                2x2x2x463                 2x5x5x83                     4159
+@cForm Totls     9    446    3704    4150    4159                      3x3                    2x223                2x2x2x463                 2x5x5x83                     4159
+Formv Totls      4    173    1262    1435    1439                      2x2                      173                    2x631                   5x7x41                     1439
+@Formv Totls     4    173    1262    1435    1439                      2x2                      173                    2x631                   5x7x41                     1439
+Formc Totls      5    273    2442    2715    2720                        5                   3x7x13                2x3x11x37                  3x5x181           2x2x2x2x2x5x17
+@Formc Totls     5    273    2442    2715    2720                        5                   3x7x13                2x3x11x37                  3x5x181           2x2x2x2x2x5x17
+oForm Totls      3    197    2051    2248    2251                        3                      197                    7x293                2x2x2x281                     2251
+@oForm Totls     3    197    2051    2248    2251                        3                      197                    7x293                2x2x2x281                     2251
+eForm Totls      6    249    1653    1902    1908                      2x3                     3x83                  3x19x29                  2x3x317               2x2x3x3x53
+@eForm Totls     6    249    1653    1902    1908                      2x3                     3x83                  3x19x29                  2x3x317               2x2x3x3x53
+
+______________________________________________________________________________________________________________________________________________________________________________
+
+004 ZVDB NY++Y KVN@ TA QLYSHL LV +T RS YSQSK TTYMANV GDDN YM+ 
+
+vowelCount == 13   13
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+Aleph            2      2       2       4       6                        2                        2                        2                      2x2                      2x3
+@Aleph           2      2       2       4       6                        2                        2                        2                      2x2                      2x3
+He               1      5       5      10      11                        1                        5                        5                      2x5                       11
+@He              1      5       5      10      11                        1                        5                        5                      2x5                       11
+Vav              4     24      24      48      52                      2x2                  2x2x2x3                  2x2x2x3                2x2x2x2x3                   2x2x13
+@Vav             4     24      24      48      52                      2x2                  2x2x2x3                  2x2x2x3                2x2x2x2x3                   2x2x13
+Yod              6     60      60     120     126                      2x3                  2x2x3x5                  2x2x3x5                2x2x2x3x5                  2x3x3x7
+@Yod             6     60      60     120     126                      2x3                  2x2x3x5                  2x2x3x5                2x2x2x3x5                  2x3x3x7
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Vowel Totals    13     91      91     182     195                       13                     7x13                     7x13                   2x7x13                   3x5x13
+@Vowel Totals   13     91      91     182     195                       13                     7x13                     7x13                   2x7x13                   3x5x13
+
+consonantCount == 33   3x11
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+Beth             1      2       2       4       5                        1                        2                        2                      2x2                        5
+@Beth            1      2       2       4       5                        1                        2                        2                      2x2                        5
+Gimel            1      3       3       6       7                        1                        3                        3                      2x3                        7
+@Gimel           1      3       3       6       7                        1                        3                        3                      2x3                        7
+Daleth           3     12      12      24      27                        3                    2x2x3                    2x2x3                  2x2x2x3                    3x3x3
+@Daleth          3     12      12      24      27                        3                    2x2x3                    2x2x3                  2x2x2x3                    3x3x3
+Zayin            1      7       7      14      15                        1                        7                        7                      2x7                      3x5
+@Zayin           1      7       7      14      15                        1                        7                        7                      2x7                      3x5
+Heth             0      0       0       0       0                        0                        0                        0                        0                        0
+@Heth            0      0       0       0       0                        0                        0                        0                        0                        0
+Teth             4     36      36      72      76                      2x2                  2x2x3x3                  2x2x3x3                2x2x2x3x3                   2x2x19
+@Teth            4     36      36      72      76                      2x2                  2x2x3x3                  2x2x3x3                2x2x2x3x3                   2x2x19
+Kaph             2     22      40      62      64                        2                     2x11                  2x2x2x5                     2x31              2x2x2x2x2x2
+@Kaph            2     22      40      62      64                        2                     2x11                  2x2x2x5                     2x31              2x2x2x2x2x2
+Lamed            3     36      90     126     129                        3                  2x2x3x3                  2x3x3x5                  2x3x3x7                     3x43
+@Lamed           3     36      90     126     129                        3                  2x2x3x3                  2x3x3x5                  2x3x3x7                     3x43
+Mem              2     26      80     106     108                        2                     2x13                2x2x2x2x5                     2x53                2x2x3x3x3
+@Mem             2     26      80     106     108                        2                     2x13                2x2x2x2x5                     2x53                2x2x3x3x3
+Nun              4     56     200     256     260                      2x2                  2x2x2x7                2x2x2x5x5          2x2x2x2x2x2x2x2                 2x2x5x13
+@Nun             4     56     200     256     260                      2x2                  2x2x2x7                2x2x2x5x5          2x2x2x2x2x2x2x2                 2x2x5x13
+Samek            0      0       0       0       0                        0                        0                        0                        0                        0
+@Samek           0      0       0       0       0                        0                        0                        0                        0                        0
+Ayin             1     16      70      86      87                        1                  2x2x2x2                    2x5x7                     2x43                     3x29
+@Ayin            1     16      70      86      87                        1                  2x2x2x2                    2x5x7                     2x43                     3x29
+Pe               0      0       0       0       0                        0                        0                        0                        0                        0
+@Pe              0      0       0       0       0                        0                        0                        0                        0                        0
+Tsade            0      0       0       0       0                        0                        0                        0                        0                        0
+@Tsade           0      0       0       0       0                        0                        0                        0                        0                        0
+Qoph             2     38     200     238     240                        2                     2x19                2x2x2x5x5                   2x7x17              2x2x2x2x3x5
+@Qoph            2     38     200     238     240                        2                     2x19                2x2x2x5x5                   2x7x17              2x2x2x2x3x5
+Resh             1     20     200     220     221                        1                    2x2x5                2x2x2x5x5                 2x2x5x11                    13x17
+@Resh            1     20     200     220     221                        1                    2x2x5                2x2x2x5x5                 2x2x5x11                    13x17
+Sin/Shin         4     84    1200    1284    1288                      2x2                  2x2x3x7            2x2x2x2x3x5x5                2x2x3x107               2x2x2x7x23
+@Sin/Shin        4     84    1200    1284    1288                      2x2                  2x2x3x7            2x2x2x2x3x5x5                2x2x3x107               2x2x2x7x23
+Taw              4     88    1600    1688    1692                      2x2                 2x2x2x11          2x2x2x2x2x2x5x5                2x2x2x211               2x2x3x3x47
+@Taw             4     88    1600    1688    1692                      2x2                 2x2x2x11          2x2x2x2x2x2x5x5                2x2x2x211               2x2x3x3x47
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Con Totals      33    446    3740    4186    4219                     3x11                    2x223              2x2x5x11x17                2x7x13x23                     4219
+@Con Totals     33    446    3740    4186    4219                     3x11                    2x223              2x2x5x11x17                2x7x13x23                     4219
+Char Totals     46    537    3831    4368    4414                     2x23                    3x179                   3x1277           2x2x2x2x3x7x13                   2x2207
+@Char Totals    46    537    3831    4368    4414                     2x23                    3x179                   3x1277           2x2x2x2x3x7x13                   2x2207
+
+wordCount == 12   2x2x3      formCount == 12   2x2x3
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
++T               1     31     409     440     441                        1                       31                      409               2x2x2x5x11                  3x3x7x7
+GDDN             1     25      61      86      87                        1                      5x5                       61                     2x43                     3x29
+KVN@             1     47     146     193     194                        1                       47                     2x73                      193                     2x97
+LV               1     18      36      54      55                        1                    2x3x3                  2x2x3x3                  2x3x3x3                     5x11
+NY++Y            1     52      88     140     141                        1                   2x2x13                 2x2x2x11                  2x2x5x7                     3x47
+QLYSHL           1     79     475     554     555                        1                       79                   5x5x19                    2x277                   3x5x37
+RS               1     41     500     541     542                        1                       41                2x2x5x5x5                      541                    2x271
+TA               1     23     401     424     425                        1                       23                      401                 2x2x2x53                   5x5x17
+TTYMANV          1     88     907     995     996                        1                 2x2x2x11                      907                    5x199                 2x2x3x83
+YM+              1     32      59      91      92                        1                2x2x2x2x2                       59                     7x13                   2x2x23
+YSQSK            1     82     730     812     813                        1                     2x41                   2x5x73                 2x2x7x29                    3x271
+ZVDB             1     19      19      38      39                        1                       19                       19                     2x19                     3x13
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Word Totals     12    537    3831    4368    4380                    2x2x3                    3x179                   3x1277           2x2x2x2x3x7x13               2x2x3x5x73
+@Word Totals    12    537    3831    4368    4380                    2x2x3                    3x179                   3x1277           2x2x2x2x3x7x13               2x2x3x5x73
+Char Totals     46    537    3831    4368    4414                     2x23                    3x179                   3x1277           2x2x2x2x3x7x13                   2x2207
+@Char Totals    46    537    3831    4368    4414                     2x23                    3x179                   3x1277           2x2x2x2x3x7x13                   2x2207
+Form Totals     12    537    3831    4368    4380                    2x2x3                    3x179                   3x1277           2x2x2x2x3x7x13               2x2x3x5x73
+@Form Totals    12    537    3831    4368    4380                    2x2x3                    3x179                   3x1277           2x2x2x2x3x7x13               2x2x3x5x73
+vWord Totls      2    114     789     903     905                        2                   2x3x19                    3x263                   3x7x43                    5x181
+@vWord Totls     2    114     789     903     905                        2                   2x3x19                    3x263                   3x7x43                    5x181
+cWord Totls     10    423    3042    3465    3475                      2x5                   3x3x47              2x3x3x13x13               3x3x5x7x11                  5x5x139
+@cWord Totls    10    423    3042    3465    3475                      2x5                   3x3x47              2x3x3x13x13               3x3x5x7x11                  5x5x139
+Wordv Totls      4    181    1432    1613    1617                      2x2                      181                2x2x2x179                     1613                 3x7x7x11
+@Wordv Totls     4    181    1432    1613    1617                      2x2                      181                2x2x2x179                     1613                 3x7x7x11
+Wordc Totls      8    356    2399    2755    2763                    2x2x2                   2x2x89                     2399                  5x19x29                  3x3x307
+@Wordc Totls     8    356    2399    2755    2763                    2x2x2                   2x2x89                     2399                  5x19x29                  3x3x307
+oWord Totls      4    254    1784    2038    2042                      2x2                    2x127                2x2x2x223                   2x1019                   2x1021
+@oWord Totls     4    254    1784    2038    2042                      2x2                    2x127                2x2x2x223                   2x1019                   2x1021
+eWord Totls      8    283    2047    2330    2338                    2x2x2                      283                    23x89                  2x5x233                  2x7x167
+@eWord Totls     8    283    2047    2330    2338                    2x2x2                      283                    23x89                  2x5x233                  2x7x167
+vForm Totls      2    114     789     903     905                        2                   2x3x19                    3x263                   3x7x43                    5x181
+@vForm Totls     2    114     789     903     905                        2                   2x3x19                    3x263                   3x7x43                    5x181
+cForm Totls     10    423    3042    3465    3475                      2x5                   3x3x47              2x3x3x13x13               3x3x5x7x11                  5x5x139
+@cForm Totls    10    423    3042    3465    3475                      2x5                   3x3x47              2x3x3x13x13               3x3x5x7x11                  5x5x139
+Formv Totls      4    181    1432    1613    1617                      2x2                      181                2x2x2x179                     1613                 3x7x7x11
+@Formv Totls     4    181    1432    1613    1617                      2x2                      181                2x2x2x179                     1613                 3x7x7x11
+Formc Totls      8    356    2399    2755    2763                    2x2x2                   2x2x89                     2399                  5x19x29                  3x3x307
+@Formc Totls     8    356    2399    2755    2763                    2x2x2                   2x2x89                     2399                  5x19x29                  3x3x307
+oForm Totls      4    254    1784    2038    2042                      2x2                    2x127                2x2x2x223                   2x1019                   2x1021
+@oForm Totls     4    254    1784    2038    2042                      2x2                    2x127                2x2x2x223                   2x1019                   2x1021
+eForm Totls      8    283    2047    2330    2338                    2x2x2                      283                    23x89                  2x5x233                  2x7x167
+@eForm Totls     8    283    2047    2330    2338                    2x2x2                      283                    23x89                  2x5x233                  2x7x167
+
+______________________________________________________________________________________________________________________________________________________________________________
+
+005 VMYALHK TNPPR DVR LARY Y+HH$G VYMRA BKA RCTMDN A$YSZ @L +LSN VG@ LBMSP XTMA HBYG VYHMY 
+
+vowelCount == 24   2x2x2x3
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+Aleph            6      6       6      12      18                      2x3                      2x3                      2x3                    2x2x3                    2x3x3
+@Aleph           6      6       6      12      18                      2x3                      2x3                      2x3                    2x2x3                    2x3x3
+He               5     25      25      50      55                        5                      5x5                      5x5                    2x5x5                     5x11
+@He              5     25      25      50      55                        5                      5x5                      5x5                    2x5x5                     5x11
+Vav              5     30      30      60      65                        5                    2x3x5                    2x3x5                  2x2x3x5                     5x13
+@Vav             5     30      30      60      65                        5                    2x3x5                    2x3x5                  2x2x3x5                     5x13
+Yod              8     80      80     160     168                    2x2x2                2x2x2x2x5                2x2x2x2x5              2x2x2x2x2x5                2x2x2x3x7
+@Yod             8     80      80     160     168                    2x2x2                2x2x2x2x5                2x2x2x2x5              2x2x2x2x2x5                2x2x2x3x7
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Vowel Totals    24    141     141     282     306                  2x2x2x3                     3x47                     3x47                   2x3x47                 2x3x3x17
+@Vowel Totals   24    141     141     282     306                  2x2x2x3                     3x47                     3x47                   2x3x47                 2x3x3x17
+
+consonantCount == 47   47
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
+Beth             3      6       6      12      15                        3                      2x3                      2x3                    2x2x3                      3x5
+@Beth            3      6       6      12      15                        3                      2x3                      2x3                    2x2x3                      3x5
+Gimel            3      9       9      18      21                        3                      3x3                      3x3                    2x3x3                      3x7
+@Gimel           3      9       9      18      21                        3                      3x3                      3x3                    2x3x3                      3x7
+Daleth           2      8       8      16      18                        2                    2x2x2                    2x2x2                  2x2x2x2                    2x3x3
+@Daleth          2      8       8      16      18                        2                    2x2x2                    2x2x2                  2x2x2x2                    2x3x3
+Zayin            1      7       7      14      15                        1                        7                        7                      2x7                      3x5
+@Zayin           1      7       7      14      15                        1                        7                        7                      2x7                      3x5
+Heth             1      8       8      16      17                        1                    2x2x2                    2x2x2                  2x2x2x2                       17
+@Heth            1      8       8      16      17                        1                    2x2x2                    2x2x2                  2x2x2x2                       17
+Teth             2     18      18      36      38                        2                    2x3x3                    2x3x3                  2x2x3x3                     2x19
+@Teth            2     18      18      36      38                        2                    2x3x3                    2x3x3                  2x2x3x3                     2x19
+Kaph             2     22      40      62      64                        2                     2x11                  2x2x2x5                     2x31              2x2x2x2x2x2
+@Kaph            2     22      40      62      64                        2                     2x11                  2x2x2x5                     2x31              2x2x2x2x2x2
+Lamed            5     60     150     210     215                        5                  2x2x3x5                  2x3x5x5                  2x3x5x7                     5x43
+@Lamed           5     60     150     210     215                        5                  2x2x3x5                  2x3x5x5                  2x3x5x7                     5x43
+Mem              6     78     240     318     324                      2x3                   2x3x13              2x2x2x2x3x5                   2x3x53              2x2x3x3x3x3
+@Mem             6     78     240     318     324                      2x3                   2x3x13              2x2x2x2x3x5                   2x3x53              2x2x3x3x3x3
+Nun              3     42     150     192     195                        3                    2x3x7                  2x3x5x5            2x2x2x2x2x2x3                   3x5x13
+@Nun             3     42     150     192     195                        3                    2x3x7                  2x3x5x5            2x2x2x2x2x2x3                   3x5x13
+Samek            2     30     120     150     152                        2                    2x3x5                2x2x2x3x5                  2x3x5x5                 2x2x2x19
+@Samek           2     30     120     150     152                        2                    2x3x5                2x2x2x3x5                  2x3x5x5                 2x2x2x19
+Ayin             2     32     140     172     174                        2                2x2x2x2x2                  2x2x5x7                   2x2x43                   2x3x29
+@Ayin            2     32     140     172     174                        2                2x2x2x2x2                  2x2x5x7                   2x2x43                   2x3x29
+Pe               3     51     240     291     294                        3                     3x17              2x2x2x2x3x5                     3x97                  2x3x7x7
+@Pe              3     51     240     291     294                        3                     3x17              2x2x2x2x3x5                     3x97                  2x3x7x7
+Tsade            1     18      90     108     109                        1                    2x3x3                  2x3x3x5                2x2x3x3x3                      109
+@Tsade           1     18      90     108     109                        1                    2x3x3                  2x3x3x5                2x2x3x3x3                      109
+Qoph             0      0       0       0       0                        0                        0                        0                        0                        0
+@Qoph            0      0       0       0       0                        0                        0                        0                        0                        0
+Resh             5    100    1000    1100    1105                        5                  2x2x5x5              2x2x2x5x5x5               2x2x5x5x11                  5x13x17
+@Resh            5    100    1000    1100    1105                        5                  2x2x5x5              2x2x2x5x5x5               2x2x5x5x11                  5x13x17
+Sin/Shin         3     63     900     963     966                        3                    3x3x7              2x2x3x3x5x5                  3x3x107                 2x3x7x23
+@Sin/Shin        3     63     900     963     966                        3                    3x3x7              2x2x3x3x5x5                  3x3x107                 2x3x7x23
+Taw              3     66    1200    1266    1269                        3                   2x3x11            2x2x2x2x3x5x5                  2x3x211                 3x3x3x47
+@Taw             3     66    1200    1266    1269                        3                   2x3x11            2x2x2x2x3x5x5                  2x3x211                 3x3x3x47
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Con Totals      47    618    4326    4944    4991                       47                  2x3x103                2x3x7x103            2x2x2x2x3x103                  7x23x31
+@Con Totals     47    618    4326    4944    4991                       47                  2x3x103                2x3x7x103            2x2x2x2x3x103                  7x23x31
+Char Totals     71    759    4467    5226    5297                       71                  3x11x23                   3x1489                2x3x13x67                     5297
+@Char Totals    71    759    4467    5226    5297                       71                  3x11x23                   3x1489                2x3x13x67                     5297
+
+wordCount == 16   2x2x2x2      formCount == 16   2x2x2x2
+             Count  Place Numeric Pla+Num   C+P+N                    Count                    Place                  Numeric                  Pla+Num              Cnt+Pla+Num
++LSN             1     56     389     445     446                        1                  2x2x2x7                      389                     5x89                    2x223
+@L               1     28     100     128     129                        1                    2x2x7                  2x2x5x5            2x2x2x2x2x2x2                     3x43
+A$YSZ            1     54     378     432     433                        1                  2x3x3x3                2x3x3x3x7            2x2x2x2x3x3x3                      433
+BKA              1     14      23      37      38                        1                      2x7                       23                       37                     2x19
+DVR              1     30     210     240     241                        1                    2x3x5                  2x3x5x7              2x2x2x2x3x5                      241
+HBYG             1     20      20      40      41                        1                    2x2x5                    2x2x5                  2x2x2x5                       41
+LARY             1     43     241     284     285                        1                       43                      241                   2x2x71                   3x5x19
+LBMSP            1     65     452     517     518                        1                     5x13                  2x2x113                    11x47                   2x7x37
+RCTMDN           1     91     784     875     876                        1                     7x13              2x2x2x2x7x7                  5x5x5x7                 2x2x3x73
+TNPPR            1     90     810     900     901                        1                  2x3x3x5              2x3x3x3x3x5              2x2x3x3x5x5                    17x53
+VG@              1     25      79     104     105                        1                      5x5                       79                 2x2x2x13                    3x5x7
+VMYALHK          1     58     112     170     171                        1                     2x29                2x2x2x2x7                   2x5x17                   3x3x19
+VYHMY            1     44      71     115     116                        1                   2x2x11                       71                     5x23                   2x2x29
+VYMRA            1     50     257     307     308                        1                    2x5x5                      257                      307                 2x2x7x11
+XTMA             1     44     449     493     494                        1                   2x2x11                      449                    17x29                  2x13x19
+Y+HH$G           1     47      92     139     140                        1                       47                   2x2x23                      139                  2x2x5x7
+               --- ------ ------- ------- -------  -----------------------  -----------------------  -----------------------  -----------------------  -----------------------
+Word Totals     16    759    4467    5226    5242                  2x2x2x2                  3x11x23                   3x1489                2x3x13x67                   2x2621
+@Word Totals    16    759    4467    5226    5242                  2x2x2x2                  3x11x23                   3x1489                2x3x13x67                   2x2621
+Char Totals     71    759    4467    5226    5297                       71                  3x11x23                   3x1489                2x3x13x67                     5297
+@Char Totals    71    759    4467    5226    5297                       71                  3x11x23                   3x1489                2x3x13x67                     5297
+Form Totals     16    759    4467    5226    5242                  2x2x2x2                  3x11x23                   3x1489                2x3x13x67                   2x2621
+@Form Totals    16    759    4467    5226    5242                  2x2x2x2                  3x11x23                   3x1489                2x3x13x67                   2x2621
+vWord Totls      7    298    1009    1307    1314                        7                    2x149                     1009                     1307                 2x3x3x73
+@vWord Totls     7    298    1009    1307    1314                        7                    2x149                     1009                     1307                 2x3x3x73
+cWord Totls      9    461    3458    3919    3928                      3x3                      461                2x7x13x19                     3919                2x2x2x491
+@cWord Totls     9    461    3458    3919    3928                      3x3                      461                2x7x13x19                     3919                2x2x2x491
+Wordv Totls      5    195    1041    1236    1241                        5                   3x5x13                    3x347                2x2x3x103                    17x73
+@Wordv Totls     5    195    1041    1236    1241                        5                   3x5x13                    3x347                2x2x3x103                    17x73
+Wordc Totls     11    564    3426    3990    4001                       11                 2x2x3x47                  2x3x571               2x3x5x7x19                     4001
+@Wordc Totls    11    564    3426    3990    4001                       11                 2x2x3x47                  2x3x571               2x3x5x7x19                     4001
+oWord Totls      9    430    2392    2822    2831                      3x3                   2x5x43              2x2x2x13x23                  2x17x83                   19x149
+@oWord Totls     9    430    2392    2822    2831                      3x3                   2x5x43              2x2x2x13x23                  2x17x83                   19x149
+eWord Totls      7    329    2075    2404    2411                        7                     7x47                   5x5x83                  2x2x601                     2411
+@eWord Totls     7    329    2075    2404    2411                        7                     7x47                   5x5x83                  2x2x601                     2411
+vForm Totls      7    298    1009    1307    1314                        7                    2x149                     1009                     1307                 2x3x3x73
+@vForm Totls     7    298    1009    1307    1314                        7                    2x149                     1009                     1307                 2x3x3x73
+cForm Totls      9    461    3458    3919    3928                      3x3                      461                2x7x13x19                     3919                2x2x2x491
+@cForm Totls     9    461    3458    3919    3928                      3x3                      461                2x7x13x19                     3919                2x2x2x491
+Formv Totls      5    195    1041    1236    1241                        5                   3x5x13                    3x347                2x2x3x103                    17x73
+@Formv Totls     5    195    1041    1236    1241                        5                   3x5x13                    3x347                2x2x3x103                    17x73
+Formc Totls     11    564    3426    3990    4001                       11                 2x2x3x47                  2x3x571               2x3x5x7x19                     4001
+@Formc Totls    11    564    3426    3990    4001                       11                 2x2x3x47                  2x3x571               2x3x5x7x19                     4001
+oForm Totls      9    430    2392    2822    2831                      3x3                   2x5x43              2x2x2x13x23                  2x17x83                   19x149
+@oForm Totls     9    430    2392    2822    2831                      3x3                   2x5x43              2x2x2x13x23                  2x17x83                   19x149
+eForm Totls      7    329    2075    2404    2411                        7                     7x47                   5x5x83                  2x2x601                     2411
+@eForm Totls     7    329    2075    2404    2411                        7                     7x47                   5x5x83                  2x2x601                     2411
+******************************************************************************************************************************************************************************
+SecVowTotals    68    431     431     862     930                   2x2x17                      431                      431                    2x431                 2x3x5x31
+@SecVowTotals   68    431     431     862     930                   2x2x17                      431                      431                    2x431                 2x3x5x31
+SecConTotals   147   1952   15830   17782   17929                    3x7x7             2x2x2x2x2x61                 2x5x1583                 2x17x523                    17929
+@SecConTotals  147   1952   15830   17782   17929                    3x7x7             2x2x2x2x2x61                 2x5x1583                 2x17x523                    17929
+SecChrTotals   215   2383   16261   18644   18859                     5x43                     2383                 7x23x101                2x2x59x79                    18859
+@SecChrTotals  215   2383   16261   18644   18859                     5x43                     2383                 7x23x101                2x2x59x79                    18859
+SecWrdTotals    48   2383   16261   18644   18692                2x2x2x2x3                     2383                 7x23x101                2x2x59x79                 2x2x4673
+@SecWrdTotals   48   2383   16261   18644   18692                2x2x2x2x3                     2383                 7x23x101                2x2x59x79                 2x2x4673
+SecFrmTotals    75   3744   25659   29403   29478                    3x5x5         2x2x2x2x2x3x3x13                 3x3x2851          3x3x3x3x3x11x11             2x3x17x17x17
+@SecFrmTotals   75   3744   25659   29403   29478                    3x5x5         2x2x2x2x2x3x3x13                 3x3x2851          3x3x3x3x3x11x11             2x3x17x17x17
+vWord Totals    15    737    3770    4507    4522                      3x5                    11x67                2x5x13x29                     4507                2x7x17x19
+@vWord Totals   15    737    3770    4507    4522                      3x5                    11x67                2x5x13x29                     4507                2x7x17x19
+cWord Totals    33   1646   12491   14137   14170                     3x11                    2x823                    12491                   67x211               2x5x13x109
+@cWord Totals   33   1646   12491   14137   14170                     3x11                    2x823                    12491                   67x211               2x5x13x109
+Wordv Totals    18    783    4761    5544    5562                    2x3x3                 3x3x3x29                3x3x23x23           2x2x2x3x3x7x11              2x3x3x3x103
+@Wordv Totals   18    783    4761    5544    5562                    2x3x3                 3x3x3x29                3x3x23x23           2x2x2x3x3x7x11              2x3x3x3x103
+Wordc Totals    30   1600   11500   13100   13130                    2x3x5          2x2x2x2x2x2x5x5             2x2x5x5x5x23              2x2x5x5x131               2x5x13x101
+@Wordc Totals   30   1600   11500   13100   13130                    2x3x5          2x2x2x2x2x2x5x5             2x2x5x5x5x23              2x2x5x5x131               2x5x13x101
+oWord Totals    23   1332    9450   10782   10805                       23               2x2x3x3x37            2x3x3x3x5x5x7                2x3x3x599                   5x2161
+@oWord Totals   23   1332    9450   10782   10805                       23               2x2x3x3x37            2x3x3x3x5x5x7                2x3x3x599                   5x2161
+eWord Totals    25   1051    6811    7862    7887                      5x5                     1051                  7x7x139                   2x3931                 3x11x239
+@eWord Totals   25   1051    6811    7862    7887                      5x5                     1051                  7x7x139                   2x3931                 3x11x239
+vForm Totals    33   1602    9864   11466   11499                     3x11                 2x3x3x89            2x2x2x3x3x137             2x3x3x7x7x13                   3x3833
+@vForm Totals   33   1602    9864   11466   11499                     3x11                 2x3x3x89            2x2x2x3x3x137             2x3x3x7x7x13                   3x3833
+cForm Totals    42   2142   15795   17937   17979                    2x3x7               2x3x3x7x17           3x3x3x3x3x5x13                 3x3x1993                 3x13x461
+@cForm Totals   42   2142   15795   17937   17979                    2x3x7               2x3x3x7x17           3x3x3x3x3x5x13                 3x3x1993                 3x13x461
+Formv Totals    27   1170    6804    7974    8001                    3x3x3               2x3x3x5x13          2x2x3x3x3x3x3x7                2x3x3x443                3x3x7x127
+@Formv Totals   27   1170    6804    7974    8001                    3x3x3               2x3x3x5x13          2x2x3x3x3x3x3x7                2x3x3x443                3x3x7x127
+Formc Totals    48   2574   18855   21429   21477                2x2x2x2x3              2x3x3x11x13                3x3x5x419                 3x3x2381                   3x7159
+@Formc Totals   48   2574   18855   21429   21477                2x2x2x2x3              2x3x3x11x13                3x3x5x419                 3x3x2381                   3x7159
+oForm Totals    38   2077   14515   16592   16630                     2x19                    31x67                   5x2903            2x2x2x2x17x61                 2x5x1663
+@oForm Totals   38   2077   14515   16592   16630                     2x19                    31x67                   5x2903            2x2x2x2x17x61                 2x5x1663
+eForm Totals    37   1667   11144   12811   12848                       37                     1667              2x2x2x7x199                   23x557            2x2x2x2x11x73
+@eForm Totals   37   1667   11144   12811   12848                       37                     1667              2x2x2x7x199                   23x557            2x2x2x2x11x73
+ 
+01Tanach: The score for this section is 10; totalScore = 70; Dominant factor(s): 7
+66Tanach: The score for this section is 16; totalScore = 112; Dominant factor(s): 7
+The selected section is in 66Tanach.

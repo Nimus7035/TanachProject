@@ -1,0 +1,10 @@
+set parms=Gen 036 015 Gen 036 043 Chiefs & Leaders in Edom
+MakeScoresDirectories20130624a.exe %parms%
+call MakeScoresDirectories.bat
+CompareSections20130619a.exe %parms%
+NewSections20130622a.exe %parms%
+ScoresBySection20130715a.exe %parms%
+ScoresSummary20130722a.exe %parms%
+SearchForPhrases20130624a.exe %parms%
+call CopySearchParms.bat
+del tempWords*

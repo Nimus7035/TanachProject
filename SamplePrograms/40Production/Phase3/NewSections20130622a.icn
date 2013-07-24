@@ -1,0 +1,134 @@
+# This program accepts command line arguments which delineate a section of scripture to 
+# be extracted from the Tanach for processing. The arguments are Book (three letters), 
+# Chapter (a number), and Verse (a number). The arguments occur twice indicating the 
+# starting and ending verses to be extracted.
+
+procedure main(args)
+  if /args | (*args < 6) then 
+    stop("Usage: NewSection.exe Book Chapter Verse Book Chapter Verse")
+  startingBook    := args[1]
+  startingChapter := args[2]
+  startingVerse   := args[3]
+  endingBook      := args[4]
+  endingChapter   := args[5]
+  endingVerse     := args[6]
+
+  bookNumbers := table(0)
+  bookNumbers["Gen"] := 1
+  bookNumbers["Exo"] := 2
+  bookNumbers["Lev"] := 3
+  bookNumbers["Num"] := 4
+  bookNumbers["Deu"] := 5
+  bookNumbers["Jos"] := 6
+  bookNumbers["Jud"] := 7
+  bookNumbers["1Sa"] := 8
+  bookNumbers["2Sa"] := 9
+  bookNumbers["1Ki"] := 10
+  bookNumbers["2Ki"] := 11
+  bookNumbers["Isa"] := 12
+  bookNumbers["Jer"] := 13
+  bookNumbers["Eze"] := 14
+  bookNumbers["Hos"] := 15
+  bookNumbers["Joe"] := 16
+  bookNumbers["Amo"] := 17
+  bookNumbers["Oba"] := 18
+  bookNumbers["Jon"] := 19
+  bookNumbers["Mic"] := 20
+  bookNumbers["Nah"] := 21
+  bookNumbers["Hab"] := 22
+  bookNumbers["Zep"] := 23
+  bookNumbers["Hag"] := 24
+  bookNumbers["Zec"] := 25
+  bookNumbers["Mal"] := 26
+  bookNumbers["Psa"] := 27
+  bookNumbers["Pro"] := 28
+  bookNumbers["Job"] := 29
+  bookNumbers["Son"] := 30
+  bookNumbers["Rut"] := 31
+  bookNumbers["Lam"] := 32
+  bookNumbers["Ecc"] := 33
+  bookNumbers["Est"] := 34
+  bookNumbers["Dan"] := 35
+  bookNumbers["Ezr"] := 36
+  bookNumbers["Neh"] := 37
+  bookNumbers["1Ch"] := 38
+  bookNumbers["2Ch"] := 39
+
+  endingBookNumber := bookNumbers[endingBook]
+  write("NewSections: endingBookNumber = ",endingBookNumber)
+
+  startLoc := startingBook || " " || ("00" || startingChapter)[-3:0] || ":" || 
+                                     ("00" || startingVerse)[-3:0]
+  endLoc   := endingBook   || " " || ("00" || endingChapter)[-3:0] || ":" || 
+                                     ("00" || endingVerse)[-3:0]
+  write("NewSections: The Starting Location is ",startLoc,". The Ending Location is ",endLoc)
+  outputFileOpen := 0
+
+  file03 := open("ProblemLog.txt","a")  | stop("Can't open ProblemLog.txt.")
+  file04 := open("RunLog.txt","a")      | stop("Can't open RunLog.txt.")
+  file00 := open("TanachNamesTemp.txt","r") | stop("Can't open TanachNamesTemp.txt.")
+  while fileIn := read(file00) do {
+    file01 := open(fileIn,"r") | stop("Can't open ",fileIn,".")
+    shortFileName := fileIn[-18:0]
+    write("NewSections: Processing:\n",fileIn,".")
+
+    startingLine := "00000"
+    while lineIn := read(file01) do {
+      #write("lineIn == ",lineIn)
+      if lineIn[13:24] == startLoc then {
+        write("Starting Location ",startLoc," found. Section creation is starting.")
+        startingLine := lineIn[1:6]
+        break
+      }
+    }
+
+    if outputFileOpen = 0 then {
+      outFileName := ".\\SectionsInput\\SectionsInput" || startingBook || startingChapter || "_" || 
+        startingVerse || "-" || endingBook || endingChapter || "_" || endingVerse ||
+        ".txt"
+      file02 := open(outFileName,"w") | stop("Can't open ",outfileName,".")
+      outputFileOpen := 1
+    }
+
+    write(file02,"!File: ",shortFileName)
+    write(file02,"!Section: ",startLoc," thru ",endLoc)
+    write(file02,"$",lineIn[13:0])
+    write(file02,">>>",lineIn[25:0])
+
+    while lineIn := read(file01) do {
+      currentBookName := lineIn[13:16]
+      currentBookNumber := bookNumbers[currentBookName]
+      if currentBookNumber > endingBookNumber then {
+        write("  >>>>>> Ending Book ",endLoc," exceeded! This Tanach is finished.")
+        write(file03,&date," ",&clock," NewSections: Ending Book ",endLoc," exceeded! This Tanach is finished.")
+        write(file04,&date," ",&clock," NewSections: Ending Book ",endLoc," exceeded! This Tanach is finished.")
+        break
+      }
+#     if currentBookName == endingBook but current chap or verse too large then break
+      if currentBookName == endingBook then {
+        currentChapter := lineIn[17:20]
+        if numeric(currentChapter) > numeric(endingChapter) then {
+          write(file03,&date," ",&clock," NewSections: Ending Chapter ",endLoc," exceeded! This Tanach is finished.")
+          write(file04,&date," ",&clock," NewSections: Ending Chapter ",endLoc," exceeded! This Tanach is finished.")
+          break
+        }
+        if numeric(currentChapter) = numeric(endingChapter) then {
+          currentVerse := lineIn[21:24]
+          if numeric(currentVerse) > numeric(endingVerse) then {
+            write(file03,&date," ",&clock," NewSections: Ending Verse ",endLoc," exceeded! This Tanach is finished.")
+            write(file04,&date," ",&clock," NewSections: Ending Verse ",endLoc," exceeded! This Tanach is finished.")
+            break
+          }
+        }
+      }
+#     Input line is in range. Write output.
+      write(file02,"$",lineIn[13:0])
+      write(file02,">>>",lineIn[25:0])
+      if lineIn[13:24] == endLoc then {
+        write("  Ending Location ",endLoc," found. This Tanach is finished.")
+        break
+      }
+    }
+    close(file01)
+  }
+end

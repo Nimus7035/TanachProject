@@ -1,0 +1,1083 @@
+# This program reads a section of scripture and computes scores for the section.
+# The input arguments are: 
+# 1) Starting Book (three characters) eg. "Gen".
+# 2) Starting Chapter (up to three digits).
+# 3) Starting Verse (up to three digits).
+# 4) Ending Book (three characters) eg. "Gen".
+# 5) Ending Chapter (up to three digits).
+# 6) Ending Verse (up to three digits).
+
+
+link factors # Used to compute factors.
+
+global file02, file03, cVowels, cConsonants, nVal, pVal, numberOfSections, 
+       sectionScores, sectionNames, prevSectionName, verseNumber, forms, 
+       diagsFileName, vowelTotals, consonantTotals, wordTotals, allTotals,
+       writeDetailDiagSwitch
+
+procedure main(args)
+
+# Begin initializations.
+  if /args[1] | (*args < 6) then 
+    stop("Usage: ScoresBySection.exe StartBook StartChap",
+         "StartVerse EndBook EndChap EndVerse")
+
+  bookNumbers := table(0)
+  bookNumbers["Gen"] := 1
+  bookNumbers["Exo"] := 2
+  bookNumbers["Lev"] := 3
+  bookNumbers["Num"] := 4
+  bookNumbers["Deu"] := 5
+  bookNumbers["Jos"] := 6
+  bookNumbers["Jud"] := 7
+  bookNumbers["1Sa"] := 8
+  bookNumbers["2Sa"] := 9
+  bookNumbers["1Ki"] := 10
+  bookNumbers["2Ki"] := 11
+  bookNumbers["Isa"] := 12
+  bookNumbers["Jer"] := 13
+  bookNumbers["Eze"] := 14
+  bookNumbers["Hos"] := 15
+  bookNumbers["Joe"] := 16
+  bookNumbers["Amo"] := 17
+  bookNumbers["Oba"] := 18
+  bookNumbers["Jon"] := 19
+  bookNumbers["Mic"] := 20
+  bookNumbers["Nah"] := 21
+  bookNumbers["Hab"] := 22
+  bookNumbers["Zep"] := 23
+  bookNumbers["Hag"] := 24
+  bookNumbers["Zec"] := 25
+  bookNumbers["Mal"] := 26
+  bookNumbers["Psa"] := 27
+  bookNumbers["Pro"] := 28
+  bookNumbers["Job"] := 29
+  bookNumbers["Son"] := 30
+  bookNumbers["Rut"] := 31
+  bookNumbers["Lam"] := 32
+  bookNumbers["Ecc"] := 33
+  bookNumbers["Est"] := 34
+  bookNumbers["Dan"] := 35
+  bookNumbers["Ezr"] := 36
+  bookNumbers["Neh"] := 37
+  bookNumbers["1Ch"] := 38
+  bookNumbers["2Ch"] := 39
+
+  bookNumber := bookNumbers[args[1]]
+  bookNumber := ("0" || bookNumber)[-2:0]
+
+  cVowels := 'AHVY'; cConsonants := 'BGDZX+KLMN$@PCQRST'
+
+  nVal := table(0) # Numeric Values
+  nVal["A"] := 1   # Aleph
+  nVal["B"] := 2   # Beth
+  nVal["G"] := 3   # Gimel
+  nVal["D"] := 4   # Daleth
+  nVal["H"] := 5   # He
+  nVal["V"] := 6   # Vav
+  nVal["Z"] := 7   # Zayin
+  nVal["X"] := 8   # Heth
+  nVal["+"] := 9   # Teth
+  nVal["Y"] := 10  # Yod
+  nVal["K"] := 20  # Kaph
+  nVal["L"] := 30  # Lamed
+  nVal["M"] := 40  # Mem
+  nVal["N"] := 50  # Nun
+  nVal["$"] := 60  # Samek
+  nVal["@"] := 70  # Ayin
+  nVal["P"] := 80  # Pe
+  nVal["C"] := 90  # Tsade
+  nVal["Q"] := 100 # Qoph
+  nVal["R"] := 200 # Resh
+  nVal["S"] := 300 # Sin/Shin
+  nVal["T"] := 400 # Taw
+
+  pVal := table(0) # Place Values
+  pVal["A"] := 1   # Aleph
+  pVal["B"] := 2   # Beth
+  pVal["G"] := 3   # Gimel
+  pVal["D"] := 4   # Daleth
+  pVal["H"] := 5   # He
+  pVal["V"] := 6   # Vav
+  pVal["Z"] := 7   # Zayin
+  pVal["X"] := 8   # Heth
+  pVal["+"] := 9   # Teth
+  pVal["Y"] := 10  # Yod
+  pVal["K"] := 11  # Kaph
+  pVal["L"] := 12  # Lamed
+  pVal["M"] := 13  # Mem
+  pVal["N"] := 14  # Nun
+  pVal["$"] := 15  # Samek
+  pVal["@"] := 16  # Ayin
+  pVal["P"] := 17  # Pe
+  pVal["C"] := 18  # Tsade
+  pVal["Q"] := 19  # Qoph
+  pVal["R"] := 20  # Resh
+  pVal["S"] := 21  # Sin/Shin
+  pVal["T"] := 22  # Taw
+
+  filePrefix := ".\\Results\\" || bookNumber  || args[1]  || "\\" || 
+                 args[1] || args[2]  || "_" || args[3] || "-" || args[4] || 
+                 args[5] || "_"  || args[6] || "\\Scores\\"
+  fileSuffix := args[1] || args[2] || "_" || args[3] || "-" || args[4] || 
+                args[5] || "_" || args[6]
+
+  inputFileName  := ".\\SectionsInput\\SectionsInput"    || fileSuffix || ".txt" 
+  outputFileName := filePrefix || "SectionScoresOut" || fileSuffix || ".txt"
+  diagsFileName  := filePrefix || "SectionDiagsOut"  || fileSuffix || ".txt"
+  file01 := open(inputFileName,"r") | 
+            stop("Stop: Cannot open ",inputFileName,".")
+  file02 := open(outputFileName,"w") | 
+            stop("Stop: Cannot open ",outputFileName,".")
+  file03 := open(diagsFileName,"w") | 
+            stop("Stop: Cannot open ",diagsFileName,".")
+
+  numberOfSections := 0; topOfReport := 1; sectionName := ""; fileLine := ""
+  sectionScores := []; sectionNames := []; allTotals := []; forms := set()
+  prevSectionName := ""
+  writeDetailDiagSwitch := 1 # This affects only diags written by writeDetailDiag().
+                             # 0 == Diagnostics off. 1 == Diagnostics on.
+
+# Begin main program.
+  while (lineIn := trim(read(file01))) do { # Read SectionsInput
+    lineIn ||:= " "
+    if (lineIn[1:6] == "!File") then { # New Tanach file name
+      fileLine := lineIn
+      prevSectionName := sectionName # Used for diagnostics.
+      sectionName := fileLine[8:16] # The Tanach file name is also the section name.
+      put(sectionNames,sectionName) # Add the new section name to the end of the list.
+    } 
+    if (lineIn[1:9] == "!Section") then { # New Section (contains comments such as 
+                                          # the range of verses)
+      allTotals := initNewSection(topOfReport) # Section totals
+      topOfReport := 0
+      write(fileLine)
+      write(file02,"\n",fileLine)
+      write(lineIn)
+      write(file02,lineIn)
+    } 
+    if (lineIn[1:2] == "$") then { # New Verse with reference and any variants
+      write(file02,"\n",repl("_",174)) 
+      verseNumber := lineIn[10:13] || " "
+    }
+    if (lineIn[1:4] == ">>>") then { # Only the verse
+      verseIn := lineIn[4:0]
+      allTotals := processVerse(verseIn) # This is where the verse is 
+                                                   # processed.
+    } 
+    #else write(file02,lineIn)
+  }
+  prevSectionName := sectionName # Used for diagnostics.
+  printAllTotals() # Print Section Totals
+  selectWinner()
+end # main
+
+procedure processVerse(verseIn)
+  #write("1. In processVerse verseIn == ",verseIn)
+  write(file02,"\n",verseNumber,verseIn)
+  vowelTotals := processVowels(verseIn)
+  allTotals[1][1] +:= vowelTotals[1] # Total Count
+  allTotals[1][2] +:= vowelTotals[2] # Total Place
+  allTotals[1][3] +:= vowelTotals[3] # Total Numeric
+  allTotals[1][4] +:= vowelTotals[4] # Total Place + Numeric
+  allTotals[1][5] +:= vowelTotals[5] # Total Count + Place + Numeric
+  consonantTotals := processConsonants(verseIn)
+  allTotals[2][1] +:= consonantTotals[1] # Total Count
+  allTotals[2][2] +:= consonantTotals[2] # Total Place
+  allTotals[2][3] +:= consonantTotals[3] # Total Numeric
+  allTotals[2][4] +:= consonantTotals[4] # Total Place + Numeric
+  allTotals[2][5] +:= consonantTotals[5] # Total Count + Place + Numeric
+  allTotals[3][1] +:= vowelTotals[1] + consonantTotals[1] # Total Count
+  allTotals[3][2] +:= vowelTotals[2] + consonantTotals[2] # Total Place
+  allTotals[3][3] +:= vowelTotals[3] + consonantTotals[3] # Total Numeric
+  allTotals[3][4] +:= vowelTotals[4] + consonantTotals[4] # Total Place + Numeric
+  allTotals[3][5] +:= vowelTotals[5] + consonantTotals[5] # Total Count + Place + Numeric
+  wordTotals := processWords(verseIn)
+  allTotals[4][1] +:= wordTotals[1]  # Total Word Count
+  allTotals[4][2] +:= wordTotals[2]  # Total Word Place
+  allTotals[4][3] +:= wordTotals[3]  # Total Word Numeric
+  allTotals[4][4] +:= wordTotals[4]  # Total Word Place + Numeric
+  allTotals[4][5] +:= wordTotals[5]  # Total Word Count + Place + Numeric
+  allTotals[5][1] +:= wordTotals[6]  # Total Form Count
+  allTotals[5][2] +:= wordTotals[7]  # Total Form Place
+  allTotals[5][3] +:= wordTotals[8]  # Total Form Numeric
+  allTotals[5][4] +:= wordTotals[9]  # Total Form Place + Numeric
+  allTotals[5][5] +:= wordTotals[10] # Total Form Count + Place + Numeric
+  allTotals[6][1] +:= wordTotals[11] # Total vWord Count
+  allTotals[6][2] +:= wordTotals[12] # Total vWord Place
+  allTotals[6][3] +:= wordTotals[13] # Total vWord Numeric
+  allTotals[6][4] +:= wordTotals[14] # Total vWord Place + Numeric
+  allTotals[6][5] +:= wordTotals[15] # Total vWord Count + Place + Numeric
+  allTotals[7][1] +:= wordTotals[16] # Total cWord Count
+  allTotals[7][2] +:= wordTotals[17] # Total cWord Place
+  allTotals[7][3] +:= wordTotals[18] # Total cWord Numeric
+  allTotals[7][4] +:= wordTotals[19] # Total cWord Place + Numeric
+  allTotals[7][5] +:= wordTotals[20] # Total cWord Count + Place + Numeric
+  allTotals[8][1] +:= wordTotals[21] # Total Wordv Count
+  allTotals[8][2] +:= wordTotals[22] # Total Wordv Place
+  allTotals[8][3] +:= wordTotals[23] # Total Wordv Numeric
+  allTotals[8][4] +:= wordTotals[24] # Total Wordv Place + Numeric
+  allTotals[8][5] +:= wordTotals[25] # Total Wordv Count + Place + Numeric
+  allTotals[9][1] +:= wordTotals[26] # Total Wordc Count
+  allTotals[9][2] +:= wordTotals[27] # Total Wordc Place
+  allTotals[9][3] +:= wordTotals[28] # Total Wordc Numeric
+  allTotals[9][4] +:= wordTotals[29] # Total Wordc Place + Numeric
+  allTotals[9][5] +:= wordTotals[30] # Total Wordc Count + Place + Numeric
+  allTotals[10][1] +:= wordTotals[31] # Total oWord Count
+  allTotals[10][2] +:= wordTotals[32] # Total oWord Place
+  allTotals[10][3] +:= wordTotals[33] # Total oWord Numeric
+  allTotals[10][4] +:= wordTotals[34] # Total oWord Place + Numeric
+  allTotals[10][5] +:= wordTotals[35] # Total oWord Count + Place + Numeric
+  allTotals[11][1] +:= wordTotals[36] # Total eWord Count
+  allTotals[11][2] +:= wordTotals[37] # Total eWord Place
+  allTotals[11][3] +:= wordTotals[38] # Total eWord Numeric
+  allTotals[11][4] +:= wordTotals[39] # Total eWord Place + Numeric
+  allTotals[11][5] +:= wordTotals[40] # Total eWord Count + Place + Numeric
+  allTotals[12][1] +:= wordTotals[41] # Total vForm Count
+  allTotals[12][2] +:= wordTotals[42] # Total vForm Place
+  allTotals[12][3] +:= wordTotals[43] # Total vForm Numeric
+  allTotals[12][4] +:= wordTotals[44] # Total vForm Place + Numeric
+  allTotals[12][5] +:= wordTotals[45] # Total vForm Count + Place + Numeric
+  allTotals[13][1] +:= wordTotals[46] # Total cForm Count
+  allTotals[13][2] +:= wordTotals[47] # Total cForm Place
+  allTotals[13][3] +:= wordTotals[48] # Total cForm Numeric
+  allTotals[13][4] +:= wordTotals[49] # Total cForm Place + Numeric
+  allTotals[13][5] +:= wordTotals[50] # Total cForm Count + Place + Numeric
+  allTotals[14][1] +:= wordTotals[51] # Total Formv Count
+  allTotals[14][2] +:= wordTotals[52] # Total Formv Place
+  allTotals[14][3] +:= wordTotals[53] # Total Formv Numeric
+  allTotals[14][4] +:= wordTotals[54] # Total Formv Place + Numeric
+  allTotals[14][5] +:= wordTotals[55] # Total Formv Count + Place + Numeric
+  allTotals[15][1] +:= wordTotals[56] # Total Formc Count
+  allTotals[15][2] +:= wordTotals[57] # Total Formc Place
+  allTotals[15][3] +:= wordTotals[58] # Total Formc Numeric
+  allTotals[15][4] +:= wordTotals[59] # Total Formc Place + Numeric
+  allTotals[15][5] +:= wordTotals[60] # Total Formc Count + Place + Numeric
+  allTotals[16][1] +:= wordTotals[61] # Total oForm Count
+  allTotals[16][2] +:= wordTotals[62] # Total oForm Place
+  allTotals[16][3] +:= wordTotals[63] # Total oForm Numeric
+  allTotals[16][4] +:= wordTotals[64] # Total oForm Place + Numeric
+  allTotals[16][5] +:= wordTotals[65] # Total oForm Count + Place + Numeric
+  allTotals[17][1] +:= wordTotals[66] # Total eForm Count
+  allTotals[17][2] +:= wordTotals[67] # Total eForm Place
+  allTotals[17][3] +:= wordTotals[68] # Total eForm Numeric
+  allTotals[17][4] +:= wordTotals[69] # Total eForm Place + Numeric
+  allTotals[17][5] +:= wordTotals[70] # Total eForm Count + Place + Numeric
+  return allTotals
+end # processVerse
+
+procedure processVowels(verseIn)
+  totalCount := totalPlace := totalNum := vowelCount := 0 
+  total_PN := total_CPN := 0
+  every (verseIn ? {upto(cVowels) & move(1)}) do vowelCount +:= 1
+  write(file02,"\nvowelCount == ",vowelCount,"   ",formatFactors(vowelCount))
+  writeHeaders() # Write the headers.
+  vOut := valuesOut("Aleph","A",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN   +:= vOut[4]
+  total_CPN  +:= vOut[5]
+  vOut := valuesOut("He","H",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN   +:= vOut[4]
+  total_CPN  +:= vOut[5]
+  vOut := valuesOut("Vav","V",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN   +:= vOut[4]
+  total_CPN  +:= vOut[5]
+  vOut := valuesOut("Yod","Y",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN   +:= vOut[4]
+  total_CPN  +:= vOut[5]
+  writeDashes() # Write a line of dashes.
+  writeDetail("Vowel Totals",totalCount,totalPlace,totalNum)
+  writeDetailDiag("Vowel Totals",totalCount,totalPlace,totalNum,total_PN,total_CPN)
+  if vowelCount ~= totalCount then stop("vowelCount is not equal to totalCount.")
+  return [totalCount,totalPlace,totalNum,totalPlace + totalNum,totalCount + 
+          totalPlace + totalNum]
+end # processVowels
+
+procedure processConsonants(verseIn)
+  totalCount := totalPlace := totalNum := consonantCount := 0
+  total_PN := total_CPN := 0
+  totalChar_PN   := totalChar_CPN  := 0
+  every (verseIn ? {upto(cConsonants) & move(1)}) do consonantCount +:= 1
+  write(file02,"\nconsonantCount == ",consonantCount,"   ",formatFactors(consonantCount))
+  writeHeaders() # Write the headers.
+  vOut := valuesOut("Beth","B",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  vOut := valuesOut("Gimel","G",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  vOut := valuesOut("Daleth","D",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  vOut := valuesOut("Zayin","Z",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  vOut := valuesOut("Heth","X",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  vOut := valuesOut("Teth","+",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  vOut := valuesOut("Kaph","K",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  vOut := valuesOut("Lamed","L",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  vOut := valuesOut("Mem","M",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  vOut := valuesOut("Nun","N",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  vOut := valuesOut("Samek","$",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  vOut := valuesOut("Ayin","@",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  vOut := valuesOut("Pe","P",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  vOut := valuesOut("Tsade","C",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  vOut := valuesOut("Qoph","Q",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  vOut := valuesOut("Resh","R",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  vOut := valuesOut("Sin/Shin","S",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  vOut := valuesOut("Taw","T",verseIn)
+  totalCount +:= vOut[1]; totalPlace +:= vOut[2]; totalNum +:= vOut[3]
+  total_PN +:= vOut[4]; total_CPN +:= vOut[5]
+  totalCharCount := totalCount + vowelTotals[1] # Combine Vowel totals and Consonant totals.
+  totalCharPlace := totalPlace + vowelTotals[2]
+  totalCharNum   := totalNum   + vowelTotals[3]
+  totalChar_PN   := total_PN   + vowelTotals[4]
+  totalChar_CPN  := total_CPN  + vowelTotals[5]
+  writeDashes() # Write a line of dashes.
+  writeDetail("Con Totals",totalCount,totalPlace,totalNum)
+  writeDetailDiag("Con Totals",totalCount,totalPlace,totalNum,total_PN,total_CPN)
+  writeDetail("Char Totals",totalCharCount,totalCharPlace,totalCharNum)
+  writeDetailDiag("Char Totals",totalCharCount,totalCharPlace,totalCharNum,
+                   totalChar_PN,totalChar_CPN)
+  if (consonantCount ~= totalCount) then stop("consonantCount is not equal to totalCount.")
+  return [totalCount,totalPlace,totalNum,totalPlace + totalNum,totalCount + 
+          totalPlace + totalNum]
+end # processConsonants
+
+procedure processWords(verseIn)
+  #write("3. In processWords verseIn == ",verseIn)
+  wordCount := 0; formCount := 0; words := table(0); w := ""; i := 0
+  while (*verseIn > 1) do { # Make a table of all the words.
+    verseIn ? { 
+    w := tab(upto(' '))
+    i +:= 1
+    words[w] +:= 1
+    wordCount +:= 1 
+    insert(forms,w) # Record the unique forms. This set is global, 
+#                    and represents the entire section not just one verse.
+    tab(many(' '))
+    verseIn := verseIn[&pos:0]
+    } 
+  }
+  formCount := *words # Number of unique words
+  # Print the word and form counts.
+  write(file02,"\nwordCount == ",wordCount,"   ",formatFactors(wordCount),
+               "      formCount == ",formCount,"   ",formatFactors(formCount))
+  sWords := sort(words,1) # Sorted word table
+  wordTotals := wordValuesOut(sWords) 
+  return wordTotals
+end # processWords
+
+procedure wordValuesOut(sWords)
+# This procedure calculates values for words. It also prints those values.
+
+  writeHeaders() # Write the headers.
+
+  # Begin Initializations.
+  wordCount := wordPlace := wordNum := 0  # Initializations
+  formCount := formPlace := formNum := 0  #Initializations
+  word_PN := word_CPN := form_PN := form_CPN := 0  # Initializations
+  totalWordCount := totalWordPlace := totalWordNum := 0
+  totalFormCount := totalFormPlace := totalFormNum := 0
+  totalWord_PN := totalWord_CPN := totalForm_PN := totalForm_CPN := 0 # Initializations
+  totalChar_PN := totalChar_CPN := 0 # Initializations
+  totalFormPlace := totalFormNum := 0 # Initializations
+  totalForm_PN := totalForm_CPN := 0  # Initializations
+  totalCharCount := totalCharPlace := totalCharNum := 
+                    totalChar_PN := totalChar_CPN := 0  # Initializations
+  vWordCount := vWordPlace := vWordNum := 
+                totalVWordCount := totalVWordPlace := totalVWordNum := 
+                totalVWord_PN := totalVWord_CPN := 0
+  cWordCount := cWordPlace := cWordNum := 
+                totalCWordCount := totalCWordPlace := totalCWordNum := 
+                totalCWord_PN := totalCWord_CPN := 0
+  vFormCount := vFormPlace := vFormNum := 
+                totalVFormCount := totalVFormPlace := totalVFormNum := 
+                totalVForm_PN := totalVForm_CPN := 0
+  cFormCount := cFormPlace := cFormNum := 
+                totalCFormCount := totalCFormPlace := totalCFormNum := 
+                totalCForm_PN := totalCForm_CPN := 0
+  wordVCount := wordVPlace := wordVNum := 
+                totalWordVCount := totalWordVPlace := totalWordVNum := 
+                totalWordV_PN := totalWordV_CPN := 0
+  wordCCount := wordCPlace := wordCNum := 
+                totalWordCCount := totalWordCPlace := totalWordCNum := 
+                totalWordC_PN := totalWordC_CPN := 0
+  formVCount := formVPlace := formVNum := 
+                totalFormVCount := totalFormVPlace := totalFormVNum := 
+                totalFormV_PN := totalFormV_CPN := 0
+  formCCount := formCPlace := formCNum := 
+                totalFormCCount := totalFormCPlace := totalFormCNum := 
+                totalForm_CPN := totalformC_CPN := 0
+  oWordCount := oWordPlace := oWordNum := 
+                totalOWordCount := totalOWordPlace := totalOWordNum := 
+                totalOWord_PN := totalOWord_CPN := 0
+  eWordCount := eWordPlace := eWordNum := 
+                totalEWordCount := totalEWordPlace := totalEWordNum := 
+                totalEWord_PN := totalEWord_CPN := 0
+  oFormCount := oFormPlace := oFormNum := 
+                totalOFormCount := totalOFormPlace := totalOFormNum := 
+                totalOForm_PN := totalOForm_CPN := 0
+  eFormCount := eFormPlace := eFormNum := 
+                totalEFormCount := totalEFormPlace := totalEFormNum := 
+                totalEForm_PN := totalEForm_CPN := 0
+  # End Initializations.
+
+  # Start computing totals for words and forms.
+  every i := 1 to *sWords do { # Process each word/form.
+    word := sWords[i][1]
+    wordCount := sWords[i][2]
+    totalWordCount +:= sWords[i][2]
+    totalFormCount +:= 1
+    wordPlace := wordNum := formPlace := formNum := charCount := 0
+    word ? {while (letter := move(1)) do { # Process every letter in the word/form.
+      charCount +:= wordCount
+      wordPlace +:= pVal[letter] * wordCount
+      formPlace +:= pVal[letter]
+      totalWordPlace +:= pVal[letter] * wordCount
+      totalFormPlace +:= pVal[letter]
+      wordNum +:= nVal[letter] * wordCount
+      formNum +:= nVal[letter]
+      totalWordNum   +:= nVal[letter] * wordCount
+      totalFormNum   +:= nVal[letter]
+      totalCharCount +:= wordCount
+      totalCharPlace +:= pVal[letter] * wordCount
+      totalCharNum   +:= nVal[letter] * wordCount
+      }
+    } # Finished processing all the letters in a word/form.
+    char_PN  := wordPlace + wordNum #The Char and Word totals are redundant.
+    char_CPN := charCount + wordPlace + wordNum 
+    word_PN  := wordPlace + wordNum             
+    word_CPN := wordCount + wordPlace + wordNum 
+    form_PN  := formPlace + formNum
+    form_CPN := 1 + formPlace + formNum
+    totalChar_PN  +:= char_PN  #The Char and Word totals are redundant. 
+    totalChar_CPN +:= char_CPN 
+    totalWord_PN  +:= word_PN  #The Char and Word totals are redundant.
+    totalWord_CPN +:= word_CPN #The Char and Word totals are redundant.
+    totalForm_PN  +:= form_PN
+    totalForm_CPN +:= form_CPN
+
+    if member(cVowels,word[1:2]) then { # Words starting with vowels
+      totalVWordCount +:= wordCount
+      totalVFormCount +:= 1
+      totalVWordPlace +:= wordPlace
+      totalVFormPlace +:= formPlace
+      totalVWordNum +:= wordNum
+      totalVFormNum +:= formNum
+    }
+    totalVWord_PN  := totalVWordPlace + totalVWordNum
+    totalVWord_CPN := totalVWordCount + totalVWordPlace + totalVWordNum
+    totalVForm_PN  := totalVFormPlace + totalVFormNum
+    totalVForm_CPN := totalVFormCount + totalVFormPlace + totalVFormNum
+
+    if member(cConsonants,word[1:2]) then { # Words starting with consonants
+      totalCWordCount +:= wordCount
+      totalCFormCount +:= 1
+      totalCWordPlace +:= wordPlace
+      totalCFormPlace +:= formPlace
+      totalCWordNum +:= wordNum
+      totalCFormNum +:= formNum
+    }
+    totalCWord_PN  := totalCWordPlace + totalCWordNum
+    totalCWord_CPN := totalCWordCount + totalCWordPlace + totalCWordNum
+    totalCForm_PN  := totalCFormPlace + totalCFormNum
+    totalCForm_CPN := totalCFormCount + totalCFormPlace + totalCFormNum
+
+    if member(cVowels,word[-1:0]) then { # Words ending in vowels
+      totalWordVCount +:= wordCount
+      totalFormVCount +:= 1
+      totalWordVPlace +:= wordPlace
+      totalFormVPlace +:= formPlace
+      totalWordVNum +:= wordNum
+      totalFormVNum +:= formNum
+    }
+    totalWordV_PN  := totalWordVPlace + totalWordVNum
+    totalWordV_CPN := totalWordVCount + totalWordVPlace + totalWordVNum
+    totalFormV_PN  := totalFormVPlace + totalFormVNum
+    totalFormV_CPN := totalFormVCount + totalFormVPlace + totalFormVNum
+
+    if member(cConsonants,word[-1:0]) then { # Words ending in consonants
+      totalWordCCount +:= wordCount
+      totalFormCCount +:= 1
+      totalWordCPlace +:= wordPlace
+      totalFormCPlace +:= formPlace
+      totalWordCNum +:= wordNum
+      totalFormCNum +:= formNum
+    }
+    totalWordC_PN  := totalWordCPlace + totalWordCNum
+    totalWordC_CPN := totalWordCCount + totalWordCPlace + totalWordCNum
+    totalFormC_PN  := totalFormCPlace + totalFormCNum
+    totalFormC_CPN := totalFormCCount + totalFormCPlace + totalFormCNum
+
+    if (*word % 2) = 1 then { # Odd words/forms
+      totalOWordCount +:= wordCount
+      totalOFormCount +:= 1
+      totalOWordPlace +:= wordPlace
+      totalOFormPlace +:= formPlace
+      totalOWordNum +:= wordNum
+      totalOFormNum +:= formNum
+    }
+    totalOWord_PN  := totalOWordPlace + totalOWordNum
+    totalOWord_CPN := totalOWordCount + totalOWordPlace + totalOWordNum
+    totalOForm_PN  := totalOFormPlace + totalOFormNum
+    totalOForm_CPN := totalOFormCount + totalOFormPlace + totalOFormNum
+
+    if (*word % 2) = 0 then { # Even words/forms
+      totalEWordCount +:= wordCount
+      totalEFormCount +:= 1
+      totalEWordPlace +:= wordPlace
+      totalEFormPlace +:= formPlace
+      totalEWordNum +:= wordNum
+      totalEFormNum +:= formNum
+    }
+    totalEWord_PN  := totalEWordPlace + totalEWordNum
+    totalEWord_CPN := totalEWordCount + totalEWordPlace + totalEWordNum
+    totalEForm_PN  := totalEFormPlace + totalEFormNum
+    totalEForm_CPN := totalEFormCount + totalEFormPlace + totalEFormNum
+
+    # Print totals for an individual word.
+    write(file02,left(word,14),right(wordCount,4),right(wordPlace,7),
+          right(wordNum,8),right(word_PN,8),right(word_CPN,8),
+          right(formatFactors(wordCount),25),
+          right(formatFactors(wordPlace),25),
+          right(formatFactors(wordNum),25),
+          right(formatFactors(word_PN),25),
+          right(formatFactors(word_CPN),25))
+  } # Finished Processing Each Word/Form.
+
+# Begin printing the category totals for this verse.
+    writeDashes() # Write a line of dashes.
+    writeDetail("Word Totals",totalWordCount,totalWordPlace,totalWordNum)
+    writeDetailDiag("Word Totals",totalWordCount,totalWordPlace,
+                    totalWordNum,totalWord_PN,totalWord_CPN)
+    writeDetail("Char Totals",totalCharCount,totalCharPlace,totalCharNum)
+    writeDetailDiag("Char Totals",totalCharCount,totalCharPlace,
+                    totalCharNum,totalChar_PN,totalChar_CPN)
+    writeDetail("Form Totals",totalFormCount,totalFormPlace,totalFormNum)
+    writeDetailDiag("Form Totals",totalFormCount,totalFormPlace,
+                    totalFormNum,totalForm_PN,totalForm_CPN)
+    writeDetail("vWord Totls",totalVWordCount,totalVWordPlace,totalVWordNum)
+    writeDetailDiag("vWord Totls",totalVWordCount,totalVWordPlace,
+                    totalVWordNum,totalVWord_PN,totalVWord_CPN)
+    writeDetail("cWord Totls",totalCWordCount,totalCWordPlace,totalCWordNum)
+    writeDetailDiag("cWord Totls",totalCWordCount,totalCWordPlace,
+                    totalCWordNum,totalCWord_PN,totalCWord_CPN)
+    writeDetail("Wordv Totls",totalWordVCount,totalWordVPlace,totalWordVNum)
+    writeDetailDiag("Wordv Totls",totalWordVCount,totalWordVPlace,
+                    totalWordVNum,totalWordV_PN,totalWordV_CPN)
+    writeDetail("Wordc Totls",totalWordCCount,totalWordCPlace,totalWordCNum)
+    writeDetailDiag("Wordc Totls",totalWordCCount,totalWordCPlace,
+                    totalWordCNum,totalWordC_PN,totalWordC_CPN)
+    writeDetail("oWord Totls",totalOWordCount,totalOWordPlace,totalOWordNum)
+    writeDetailDiag("oWord Totls",totalOWordCount,totalOWordPlace,
+                    totalOWordNum,totalOWord_PN,totalOWord_CPN)
+    writeDetail("eWord Totls",totalEWordCount,totalEWordPlace,totalEWordNum)
+    writeDetailDiag("eWord Totls",totalEWordCount,totalEWordPlace,
+                    totalEWordNum,totalEWord_PN,totalEWord_CPN)
+    writeDetail("vForm Totls",totalVFormCount,totalVFormPlace,totalVFormNum)
+    writeDetailDiag("vForm Totls",totalVFormCount,totalVFormPlace,
+                    totalVFormNum,totalVForm_PN,totalVForm_CPN)
+    writeDetail("cForm Totls",totalCFormCount,totalCFormPlace,totalCFormNum)
+    writeDetailDiag("cForm Totls",totalCFormCount,totalCFormPlace,
+                    totalCFormNum,totalCForm_PN,totalCForm_CPN)
+    writeDetail("Formv Totls",totalFormVCount,totalFormVPlace,totalFormVNum)
+    writeDetailDiag("Formv Totls",totalFormVCount,totalFormVPlace,
+                    totalFormVNum,totalFormV_PN,totalFormV_CPN)
+    writeDetail("Formc Totls",totalFormCCount,totalFormCPlace,totalFormCNum)
+    writeDetailDiag("Formc Totls",totalFormCCount,totalFormCPlace,
+                    totalFormCNum,totalFormC_PN,totalFormC_CPN)
+    writeDetail("oForm Totls",totalOFormCount,totalOFormPlace,totalOFormNum)
+    writeDetailDiag("oForm Totls",totalOFormCount,totalOFormPlace,
+                    totalOFormNum,totalOForm_PN,totalOForm_CPN)
+    writeDetail("eForm Totls",totalEFormCount,totalEFormPlace,totalEFormNum)
+    writeDetailDiag("eForm Totls",totalEFormCount,totalEFormPlace,
+                    totalEFormNum,totalEForm_PN,totalEForm_CPN)
+# End printing the totals for this verse.
+
+# Return all the totals. 
+    return [totalWordCount,totalWordPlace,totalWordNum,totalWordPlace+totalWordNum,
+            totalWordCount+totalWordPlace+totalWordNum,   
+            totalFormCount,totalFormPlace,totalFormNum,totalFormPlace+totalFormNum,
+            totalFormCount+totalFormPlace+totalFormNum,
+            totalVWordCount,totalVWordPlace,totalVWordNum,totalVWordPlace+totalVWordNum,
+            totalVWordCount+totalVWordPlace+totalVWordNum,
+            totalCWordCount,totalCWordPlace,totalCWordNum,totalCWordPlace+totalCWordNum,
+            totalCWordCount+totalCWordPlace+totalCWordNum,
+            totalWordVCount,totalWordVPlace,totalWordVNum,totalWordVPlace+totalWordVNum,
+            totalWordVCount+totalWordVPlace+totalWordVNum,
+            totalWordCCount,totalWordCPlace,totalWordCNum,totalWordCPlace+totalWordCNum,
+            totalWordCCount+totalWordCPlace+totalWordCNum,
+            totalOWordCount,totalOWordPlace,totalOWordNum,totalOWordPlace+totalOWordNum,
+            totalOWordCount+totalOWordPlace+totalOWordNum,
+            totalEWordCount,totalEWordPlace,totalEWordNum,totalEWordPlace+totalEWordNum,
+            totalEWordCount+totalEWordPlace+totalEWordNum,
+            totalVFormCount,totalVFormPlace,totalVFormNum,totalVFormPlace+totalVFormNum,
+            totalVFormCount+totalVFormPlace+totalVFormNum,
+            totalCFormCount,totalCFormPlace,totalCFormNum,totalCFormPlace+totalCFormNum,
+            totalCFormCount+totalCFormPlace+totalCFormNum,
+            totalFormVCount,totalFormVPlace,totalFormVNum,totalFormVPlace+totalFormVNum,
+            totalFormVCount+totalFormVPlace+totalFormVNum,
+            totalFormCCount,totalFormCPlace,totalFormCNum,totalFormCPlace+totalFormCNum,
+            totalFormCCount+totalFormCPlace+totalFormCNum,
+            totalOFormCount,totalOFormPlace,totalOFormNum,totalOFormPlace+totalOFormNum,
+            totalOFormCount+totalOFormPlace+totalOFormNum,
+            totalEFormCount,totalEFormPlace,totalEFormNum,totalEFormPlace+totalEFormNum,        
+            totalEFormCount+totalEFormPlace+totalEFormNum]        
+end # wordValuesOut
+
+procedure valuesOut(charName,char,verseIn)
+  charCount := 0
+  every (verseIn ? {upto(char) & move(1)}) do charCount +:= 1
+  charPlace := charCount * pVal[char]
+  charNum   := charCount * nVal[char]
+  charCountFacsOut := formatFactors(charCount)
+  charPlaceFacsOut := formatFactors(charPlace)
+  charNumFacsOut   := formatFactors(charNum)
+
+  pN := charPlace + charNum
+  cPN := charCount + charPlace + charNum
+  writeDetail(charName,charCount,charPlace,charNum)
+  writeDetailDiag(charName,charCount,charPlace,charNum,pN,cPN)
+  return [charCount,charPlace,charNum,pN,cPN]
+end # valuesOut
+
+procedure formatFactors(count)
+  facs := factors(count)
+  facsOut := ""
+  every i := 1 to *facs do {
+    if i > 1 then spx := "x" else spx := ""
+    facsOut ||:= spx || facs[i]
+  }
+  if *facsOut < 1 then facsOut := count
+return facsOut
+end # formatFactors
+
+procedure initNewSection(topOfReport)
+  if (topOfReport = 0) then {
+    printAllTotals()
+    write(file02,"\n",repl("-",174),"\n",repl("-",174))
+  }
+  vowelTotals     := [0,0,0,0,0] # Total number of vowels.
+  consonantTotals := [0,0,0,0,0] # Total number of consonants.
+  charTotals      := [0,0,0,0,0] # Total number of letters.
+  wordTotals      := [0,0,0,0,0] # Total number of words.
+  formTotals      := [0,0,0,0,0] # Total number of forms (unique words).
+  vWordTotals     := [0,0,0,0,0] # Words starting with a vowel.
+  cWordTotals     := [0,0,0,0,0] # Words starting with a consonant.
+  wordVTotals     := [0,0,0,0,0] # Words ending with a vowel.
+  wordCTotals     := [0,0,0,0,0] # Words ending with a consonant.
+  oWordTotals     := [0,0,0,0,0] # Words with an odd number of characters.
+  eWordTotals     := [0,0,0,0,0] # Words with an even number of characters.
+  vFormTotals     := [0,0,0,0,0] # Forms starting with a vowel.
+  cFormTotals     := [0,0,0,0,0] # Forms starting with a consonant.
+  formVTotals     := [0,0,0,0,0] # Forms ending with a vowel.
+  formCTotals     := [0,0,0,0,0] # Forms ending with a consonant.
+  oFormTotals     := [0,0,0,0,0] # Forms with an odd number of characters.
+  eFormTotals     := [0,0,0,0,0] # Forms with an even number of characters.
+  allTotals := [vowelTotals,consonantTotals,charTotals,wordTotals,formTotals,
+                vWordTotals,cWordTotals,wordVTotals,wordCTotals,oWordTotals,
+                eWordTotals,vFormTotals,cFormTotals,formVTotals,formCTotals,
+                oFormTotals,eFormTotals]
+  return allTotals
+end # initNewSection
+
+procedure fixFormTotals() 
+# This procedure fixes all the Form Totals. As it turns out, the form totals printed by 
+# printAllTotals() should reflect the unique forms for the entire section NOT 
+# the total of the unique forms for each verse. There IS a difference.
+
+  totalFormPlace  := totalFormNum    := 0 # Initializations
+
+  totalVFormCount := totalCFormCount := 0 # Initializations
+  totalFormVCount := totalFormCCount := 0 # Initializations
+  totalOFormCount := totalEFormCount := 0 # Initializations
+
+  totalVFormPlace := totalCFormPlace := 0 # Initializations
+  totalFormVPlace := totalFormCPlace := 0 # Initializations
+  totalOFormPlace := totalEFormPlace := 0 # Initializations
+
+  totalVFormNum   := totalCFormNum   := 0 # Initializations
+  totalFormVNum   := totalFormCNum   := 0 # Initializations
+  totalOFormNum   := totalEFormNum   := 0 # Initializations
+
+  formList  := sort(forms) # Convert the set of unique forms to a list for processing.
+  totalFormCount := *formList # Count of unique forms.
+  write(file03,"Section Name: ",prevSectionName,
+               "  <<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>")
+  every i := 1 to totalFormCount do {
+    write(file03,"formList[",i,"] == ",formList[i]) # Diagnostic
+  }
+
+  every i := 1 to totalFormCount do { # Process each form
+    form := formList[i]
+    formPlace := 0; formNum := 0
+    form ? { while (letter := move(1)) do {
+      formPlace      +:= pVal[letter] 
+      totalFormPlace +:= pVal[letter]
+      formNum        +:= nVal[letter]
+      totalFormNum   +:= nVal[letter]
+      }
+    }
+    if member(cVowels,form[1:2]) then { # Forms starting with vowels
+      totalVFormCount +:= 1
+      totalVFormPlace +:= formPlace
+      totalVFormNum   +:= formNum
+    }
+    if member(cConsonants,form[1:2]) then { # Forms starting with consonants
+      totalCFormCount +:= 1
+      totalCFormPlace +:= formPlace
+      totalCFormNum   +:= formNum
+    }
+    if member(cVowels,form[-1:0]) then { # Forms ending in vowels
+      totalFormVCount +:= 1
+      totalFormVPlace +:= formPlace
+      totalFormVNum   +:= formNum
+    }
+    if member(cConsonants,form[-1:0]) then { # Forms ending in consonants
+      totalFormCCount +:= 1
+      totalFormCPlace +:= formPlace
+      totalFormCNum   +:= formNum
+    }
+    if (*form % 2) = 1 then { # Odd forms
+      totalOFormCount +:= 1
+      totalOFormPlace +:= formPlace
+      totalOFormNum +:= formNum
+    }
+    if (*form % 2) = 0 then { # Even forms
+      totalEFormCount +:= 1
+      totalEFormPlace +:= formPlace
+      totalEFormNum +:= formNum
+    }
+  } # End Process Each Form
+
+  allTotals[5][1]  := totalFormCount  # Total Form Count
+  allTotals[5][2]  := totalFormPlace  # Total Form Place
+  allTotals[5][3]  := totalFormNum    # Total Form Numeric
+  allTotals[5][4]  := totalFormPlace + totalFormNum    # Total Form Place + Numeric
+  allTotals[5][5]  := totalFormCount + allTotals[5][4] # TotalForm Count + Place + Num
+
+  allTotals[12][1] := totalVFormCount # Total vForm Count
+  allTotals[12][2] := totalVFormPlace # Total vForm Place
+  allTotals[12][3] := totalVFormNum   # Total vForm Numeric
+  allTotals[12][4] := totalVFormPlace + totalVFormNum    # TotalVForm Place + Numeric
+  allTotals[12][5] := totalVFormCount + allTotals[12][4] # TotalVForm Count+Place+Num
+
+  allTotals[13][1] := totalCFormCount # Total cForm Count
+  allTotals[13][2] := totalCFormPlace # Total cForm Place
+  allTotals[13][3] := totalCFormNum   # Total cForm Numeric
+  allTotals[13][4] := totalCFormPlace + totalCFormNum    # TotalCForm Place + Numeric
+  allTotals[13][5] := totalCFormCount + allTotals[13][4] # TotalCForm Count+Place+Num
+
+  allTotals[14][1] := totalFormVCount # Total Formv Count
+  allTotals[14][2] := totalFormVPlace # Total Formv Place
+  allTotals[14][3] := totalFormVNum   # Total Formv Numeric
+  allTotals[14][4] := totalFormVPlace + totalFormVNum    # TotalFormV Place + Numeric
+  allTotals[14][5] := totalFormVCount + allTotals[14][4] # TotalFormV Count+Place+Num
+
+  allTotals[15][1] := totalFormCCount # Total Formc Count
+  allTotals[15][2] := totalFormCPlace # Total Formc Place
+  allTotals[15][3] := totalFormCNum   # Total Formc Numeric
+  allTotals[15][4] := totalFormCPlace + totalFormCNum    # TotalFormC Place + Numeric
+  allTotals[15][5] := totalFormCCount + allTotals[15][4] # TotalFormC Count+Place+Num
+
+  allTotals[16][1] := totalOFormCount # Total oForm Count
+  allTotals[16][2] := totalOFormPlace # Total oForm Place
+  allTotals[16][3] := totalOFormNum   # Total oForm Numeric
+  allTotals[16][4] := totalOFormPlace + totalOFormNum    # TotalOForm Place + Numeric
+  allTotals[16][5] := totalOFormCount + allTotals[16][4] # TotalOForm Count+Place+Num
+
+  allTotals[17][1] := totalEFormCount # Total eForm Count
+  allTotals[17][2] := totalEFormPlace # Total eForm Place
+  allTotals[17][3] := totalEFormNum   # Total eForm Numeric
+  allTotals[17][4] := totalEFormPlace + totalEFormNum    # TotalEForm Place + Numeric
+  allTotals[17][5] := totalEFormCount + allTotals[17][4] # TotalEForm Count+Place+Num
+  return allTotals
+end # fixFormTotals
+
+procedure printAllTotals() # Print Section Totals  
+  allTotals := fixFormTotals() # Ensure all forms are counted only once for the section.
+  write(file02,repl("*",174))
+  writeDetail("SecVowTotals",allTotals[1][1],allTotals[1][2],allTotals[1][3])
+  writeDetailDiag("SecVowTotals",allTotals[1][1],allTotals[1][2],allTotals[1][3],
+                  allTotals[1][4],allTotals[1][5])
+  writeDetail("SecConTotals",allTotals[2][1],allTotals[2][2],allTotals[2][3])
+  writeDetailDiag("SecConTotals",allTotals[2][1],allTotals[2][2],allTotals[2][3],
+                  allTotals[2][4],allTotals[2][5])
+  writeDetail("SecChrTotals",allTotals[3][1],allTotals[3][2],allTotals[3][3])
+  writeDetailDiag("SecChrTotals",allTotals[3][1],allTotals[3][2],allTotals[3][3],
+                  allTotals[3][4],allTotals[3][5])
+  writeDetail("SecWrdTotals",allTotals[4][1],allTotals[4][2],allTotals[4][3])
+  writeDetailDiag("SecWrdTotals",allTotals[4][1],allTotals[4][2],allTotals[4][3],
+                  allTotals[4][4],allTotals[4][5])
+  writeDetail("SecFrmTotals",allTotals[5][1],allTotals[5][2],allTotals[5][3])
+  writeDetailDiag("SecFrmTotals",allTotals[5][1],allTotals[5][2],allTotals[5][3],
+                  allTotals[5][4],allTotals[5][5])
+  writeDetail("vWord Totals",allTotals[6][1],allTotals[6][2],allTotals[6][3])
+  writeDetailDiag("vWord Totals",allTotals[6][1],allTotals[6][2],allTotals[6][3],
+                  allTotals[6][4],allTotals[6][5])
+  writeDetail("cWord Totals",allTotals[7][1],allTotals[7][2],allTotals[7][3])
+  writeDetailDiag("cWord Totals",allTotals[7][1],allTotals[7][2],allTotals[7][3],
+                  allTotals[7][4],allTotals[7][5])
+  writeDetail("Wordv Totals",allTotals[8][1],allTotals[8][2],allTotals[8][3])
+  writeDetailDiag("Wordv Totals",allTotals[8][1],allTotals[8][2],allTotals[8][3],
+                  allTotals[8][4],allTotals[8][5])
+  writeDetail("Wordc Totals",allTotals[9][1],allTotals[9][2],allTotals[9][3])
+  writeDetailDiag("Wordc Totals",allTotals[9][1],allTotals[9][2],allTotals[9][3],
+                  allTotals[9][4],allTotals[9][5])
+  writeDetail("oWord Totals",allTotals[10][1],allTotals[10][2],allTotals[10][3])
+  writeDetailDiag("oWord Totals",allTotals[10][1],allTotals[10][2],allTotals[10][3],
+                  allTotals[10][4],allTotals[10][5])
+  writeDetail("eWord Totals",allTotals[11][1],allTotals[11][2],allTotals[11][3])
+  writeDetailDiag("eWord Totals",allTotals[11][1],allTotals[11][2],allTotals[11][3],
+                  allTotals[11][4],allTotals[11][5])
+  writeDetail("vForm Totals",allTotals[12][1],allTotals[12][2],allTotals[12][3])
+  writeDetailDiag("vForm Totals",allTotals[12][1],allTotals[12][2],allTotals[12][3],
+              allTotals[12][4],allTotals[12][5])
+  writeDetail("cForm Totals",allTotals[13][1],allTotals[13][2],allTotals[13][3])
+  writeDetailDiag("cForm Totals",allTotals[13][1],allTotals[13][2],allTotals[13][3],allTotals[13][4],allTotals[13][5])
+  writeDetail("Formv Totals",allTotals[14][1],allTotals[14][2],allTotals[14][3])
+  writeDetailDiag("Formv Totals",allTotals[14][1],allTotals[14][2],allTotals[14][3],
+                  allTotals[14][4],allTotals[14][5])
+  writeDetail("Formc Totals",allTotals[15][1],allTotals[15][2],allTotals[15][3])
+  writeDetailDiag("Formc Totals",allTotals[15][1],allTotals[15][2],allTotals[15][3],
+                  allTotals[15][4],allTotals[15][5])
+  writeDetail("oForm Totals",allTotals[16][1],allTotals[16][2],allTotals[16][3])
+  writeDetailDiag("oForm Totals",allTotals[16][1],allTotals[16][2],allTotals[16][3],
+                  allTotals[16][4],allTotals[16][5])
+  writeDetail("eForm Totals",allTotals[17][1],allTotals[17][2],allTotals[17][3])
+  writeDetailDiag("eForm Totals",allTotals[17][1],allTotals[17][2],allTotals[17][3],
+                  allTotals[17][4],allTotals[17][5])
+  numberOfSections +:= 1
+  score := commonFactorsScoring(allTotals) # score is a three element list.
+                                           # It contains: 
+                                           # [score, dominantFactorsList, totalScore]
+  #write("About to write the score.")
+  #write("score: ",score[1][1])
+  sectionScores |||:= score # Contains the scores for each section.
+  #write("printAllTotals *sectionScores = ",*sectionScores," sectionScores = "); 
+  #every i := 1 to *sectionScores do {
+  #write("i=",i," sectionScores[i][1] ",(sectionScores[i][1]) | " "," [i][2][1] ",
+  #(sectionScores[i][2][1] | " ")," [i][2][2] ",(sectionScores[i][2][2] | " "))}
+  #write(" ")
+end # printAllTotals
+
+procedure commonFactorsScoring() 
+  sectionFactors := table(0) # Contains scores. The key is the factor.
+# Count Vowel, Consonant, and Letter factors.
+  i := 1
+  while (i <= 3) do { # i is an index on Vowels, Consonants, and Letters.
+    j := 1
+    while (j <=3) do { # j is an index on Count, Place, and Numeric values.
+      #write(file02,"commonFactorsScoring allTotals[",i,"][",j,"] = ",allTotals[i][j])
+      facs := factors(allTotals[i][j]) # For vow, con, and chr: factor count, place, 
+                                       #                        and numeric values.
+      #writes(file02,"commonFactorsScoring facs = ") 
+      #every k := 1 to *facs do {writes(file02,facs[k]," ")}
+      #write(file02," ")
+      every k := 1 to *facs do { 
+        if (facs[k] > 6) then { 
+          sectionFactors[facs[k]] +:= 1 
+          #write("1) sectionFactors[",facs[k],"] = ",sectionFactors[facs[k]])
+        }
+      }
+      #if ((i = 1) & (j = 2)) then j +:= 1 # Force Vowel Numeric factors to be ignored.
+                                           # They are redundant.
+      # Redundant factors are no longer being excluded!
+      j +:= 1
+    }
+    i +:= 1
+  }
+# Count Word factors.
+# Redundant word factors are no longer being excluded!
+#  #write(file02,"commonFactorsScoring allTotals[",4,"][",1,"] = ",allTotals[4][1])
+#      facs := factors(allTotals[4][1]) # For Words: factor only count value!
+#      every k := 1 to *facs do { 
+#        if (facs[k] > 6) then { 
+#          sectionFactors[facs[k]] +:= 1 
+#          #write("2) sectionFactors[",facs[k],"] = ",sectionFactors[facs[k]])
+#        }
+#      }
+# Count Additional Word and Form factors. 
+# (i.e. odd/even words/forms, words/forms starting/ending with vowel/consonant.)
+  i := 4 # Start with the Word totals.
+  while (i <= *allTotals) do { # i is an index on Form Totals through eForm Totals.
+    j := 1
+    while (j <= *allTotals[1]) do { # j is an index on Count, Place, and Num values.
+      #write(file02,"commonFactorsScoring allTotals[",i,"][",j,"] = ",allTotals[i][j])
+      facs := factors(allTotals[i][j]) 
+      #writes(file02,"commonFactorsScoring facs = ")
+      #every k := 1 to *facs do {
+      #writes(file02,facs[k]," ")}; write(file02," ")
+      every k := 1 to *facs do { 
+        if (facs[k] > 6) then { 
+          sectionFactors[facs[k]] +:= 1 
+          #write("3) sectionFactors[",facs[k],"] = ",sectionFactors[facs[k]])
+        }
+      }
+      j +:= 1
+    }
+    i +:= 1
+  }
+
+# At this point all the factors have been counted. Now they need to be evaluated.
+  score := 0 ; dominantFactor := 0
+  #write(file02,"Calculating the score: ")
+  every k := key(sectionFactors) do { 
+    #if k ~= 7 then next # Only count factors of 7. # Method Rejected!
+    #k is a factor, and sectionFactors[k] contains the score for that factor.
+    #write(file02,"sectionFactors[",k,"] = ",sectionFactors[k]," score = ",score)
+    if (sectionFactors[k] > score) then {
+      score := sectionFactors[k] 
+      dominantFactor := k
+      #write(file02,"New score = ",score)
+    }
+  }
+
+  dominantFactorsList := [] # Contains all the section factors with the winning score.
+  every k := key(sectionFactors) do {
+    if sectionFactors[k] = score then {
+      put(dominantFactorsList,k) # Add factor to the list of winning factors for this
+                                 # section.
+    }
+  }
+#  score := score * *dominantFactorsList # If there are two factors with the same
+#                                        # score, double the total score. If three, 
+#                                        # then tripple. And so on.
+  totalScore := 0
+  every i := 1 to *dominantFactorsList do { # The totalScore is the total of all the
+                                            # factors times the score
+    totalScore +:= score * dominantFactorsList[i] # Needs further evaluation! <<<<<<
+  }
+  write("commonFactorsScoring score = ",score," dominantFactors = ",
+        dominantFactorsList[1]," ",(dominantFactorsList[2] | " "))
+  return [[score, dominantFactorsList, totalScore]]
+end # commonFactorsScoring
+
+procedure selectWinner()
+  score := 0
+  section := 0
+  write(file02," ")
+  every k := 1 to *sectionScores do { 
+    kOut := ("0" || k)[-2:0]
+    # sectionScores[k][1] contains the score; [k][2] contains the factor(s);
+    # [k][3] contains the totalScore.
+    write(sectionNames[k]," sectionScores[",kOut,"][1] = ",sectionScores[k][1],
+          "; totalScore = ",sectionScores[k][3],
+          "; sectionScores[",kOut,"][2] = ",listFactors(sectionScores[k][2]))
+    if sectionScores[k][1] > 1 then {
+      write(file02,sectionNames[k],": The score for this section is ",
+                   sectionScores[k][1],
+                   "; totalScore = ",sectionScores[k][3],
+                   "; Dominant factor(s): ",listFactors(sectionScores[k][2]))
+    }
+    else {
+      write(file02,sectionNames[k],": The score for this section is ",
+            sectionScores[k][1],
+            "; totalScore = ",sectionScores[k][3],
+            ". There was no dominant factor.")
+    }
+    if (sectionScores[k][3] > score) then {
+      score := sectionScores[k][3]
+      section := k 
+    }
+  }
+  if score > 1 then {
+    numberOfWinners := 0
+    every k := 1 to *sectionScores do { # Look for ties.
+      if (sectionScores[k][3] = score) then numberOfWinners +:= 1 
+    }
+    if (numberOfWinners < 2) then { 
+      write(file02,"The selected section is in ",sectionNames[section],".") 
+    }
+    else {
+      write(file02,"There was a tie. ","The tied sections are: ")
+      every k := 1 to *sectionScores do { 
+        if (sectionScores[k][3] = score) then write(file02,sectionNames[k]) 
+      }
+    }
+  }
+  else {
+    write(file02,"There was no winner!")
+  }
+end # selectWiner
+
+procedure listFactors(factorsList)
+  factorsString := ""
+  factorsList := sort(factorsList)
+  every i := 1 to *factorsList do {
+    if i = 1 then factorsString := factorsList[i]
+             else factorsString ||:= ", " || factorsList[i]
+  }
+return factorsString
+end # listFactors
+
+procedure writeDetail(title,count,place,num) # Write a line of detail.
+  pN := place + num
+  cPN := count + place + num
+  write(file02,left(title,14),right(count,4),right(place,7),
+        right(num,8),right(pN,8),right(cPN,8),
+        right(formatFactors(count),25),
+        right(formatFactors(place),25),
+        right(formatFactors(num),25),
+        right(formatFactors(pN),25),
+        right(formatFactors(cPN),25))
+end # writeDetail
+
+
+procedure writeDetailDiag(title,count,place,num,pN,cPN) # Write Diagnostic
+# If this procedure produces a different result from writeDetail(), then something
+# is wrong with the computation of pn or cPN.
+  if writeDetailDiagSwitch == 0 then return # Because diagnostics are turned off.
+  title := "@" || title
+  write(file02,left(title,14),right(count,4),right(place,7),
+        right(num,8),right(pN,8),right(cPN,8),
+        right(formatFactors(count),25),
+        right(formatFactors(place),25),
+        right(formatFactors(num),25),
+        right(formatFactors(pN),25),
+        right(formatFactors(cPN),25))
+end # writeDetailDiag
+
+procedure writeDashes()
+  write(file02,left(" ",14),right("---",4),right("------",7),
+        right("-------",8),right("-------",8),right("-------",8),
+        right("-----------------------",25),right("-----------------------",25),
+        right("-----------------------",25),right("-----------------------",25),
+        right("-----------------------",25))
+end # writeDashes
+
+procedure writeHeaders()
+  write(file02,repl(" ",13),"Count","  Place"," Numeric"," Pla+Num","   C+P+N",
+               repl(" ",20),"Count",repl(" ",20),"Place",repl(" ",18),"Numeric",
+               right("Pla+Num",25),right("Cnt+Pla+Num",25))
+end # writeHeaders
